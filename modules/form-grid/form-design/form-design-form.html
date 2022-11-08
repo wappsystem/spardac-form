@@ -1,0 +1,52 @@
+<div id=D__ID>
+	<!--third html start -->
+	<div class="container mt-95">
+		<!-- form container start -->
+		<div class="formbox">
+			<!-- form start -->
+			<form id="F__ID">
+				<span id=title__ID></span>
+				<!-- form-design name and study id -->
+				<div class="formgroup">
+					<fieldset class="">
+						<div class="grid-container-2">
+							<div><label style="width:100%"><span class="question">Form ID</span>
+									<input type=text id="record__ID" class=formcontrol readonly />
+								</label>
+							</div>
+							<div><label style="width:100%"><span class="question">Form Name</span>
+									<input type=text name="Name" class=formcontrol />
+								</label>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+				<div class="formgroup right">
+					<button type="submit" id="submit__ID" class="btn">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+		function F__ID() {
+			//-------------------------------------
+			VmInclude: '__HOST__/assets/js/form.01.js'
+			//-------------------------------------
+			var load = m.load;
+			m.load = function () {
+				load();
+				console.log(JSON.stringify(m.input.record.UID))
+			}
+			//-------------------------------------
+			m.before_submit = function (data, index) {
+			}
+			//-------------------------------------
+		}
+	</script>
+	<style>
+		#D__ID {
+		}
+
+		/*VmInclude:__HOST__/assets/css/wapp-form.css*/
+	</style>
+</div>

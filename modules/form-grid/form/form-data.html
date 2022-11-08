@@ -1,0 +1,46 @@
+<div id=D__ID>
+    <div>
+        VmInclude:__COMPONENT__/g/grid.01.html
+    </div>
+    <script>
+        function F__ID(){
+            //-------------------------------------
+            /*VmInclude:__COMPONENT__/g/grid.01.js*/
+            //-------------------------------------
+            $('#title__ID').text('Forms');            
+            //-------------------------------------
+            var fields="_Record_ID,Form Name|form_name,_Edit_Form,_View_Form";
+            m.fields="_Form,"+fields+",Submit_date,Submitted_by,_Delete";
+            //-------------------------------------
+            m.load=function(){
+                console.log(JSON.stringify(m))
+                //m.query={"Data.first_name": {"$ne" : ""}}
+                
+            }
+            m.cell_render=function(records,I,field,td,set_value,source){
+                switch(field){
+                    case '_Record_ID':
+                        td.html(records[I].UID);
+                        break;
+                    case '_Edit_Form':
+                        td.html("<u style='cursor:pointer'>Edit Form</u>");
+                        td.find('u').on('click',function(){
+                            console.log(JSON.stringify(records[I]))
+    						$vm.load_module(m.quest_entry,'',{record:records[I],Form_uid:records[I].UID});
+                        });
+                        break;
+                    case '_View_Form':
+                        td.html("<u style='cursor:pointer'>View Form</u>");
+                        td.find('u').on('click',function(){
+    						$vm.load_module(m.questionnaire_setup,'',{record:records[I]});
+                        });
+                        break;
+                }
+            }
+            //-------------------------------------
+        }
+    </script>
+    <style>
+        /*VmInclude:__COMPONENT__/g/grid.01.css*/
+    </style>
+</div>
