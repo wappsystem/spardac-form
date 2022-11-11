@@ -151,7 +151,7 @@ padding:10px
   }
   #D__ID .grid-container-3-special {
     display: grid;
-    grid-template-columns: 120px 500px 120px;
+    grid-template-columns: 50px 600px 50px;
   }
   #D__ID .grid-container-2 {
     display: grid;
@@ -285,6 +285,12 @@ padding:10px
     margin-top: 20px;
   }
   
+  #D__ID .mt-800l {
+    max-width: 800px;
+    margin-right: auto;
+    margin-top: 20px;
+  }
+
   #D__ID .mt-800r {
     max-width: 800px;
     margin-left: auto;
