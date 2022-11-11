@@ -1,6 +1,6 @@
 <div id=D__ID>
     <!--third html start -->
-    <div class="container mt-95">
+    <div class="container mt-400l">
         <!-- form container start -->
         <div class="formbox">
             <!-- form start -->
@@ -9,13 +9,11 @@
                 <!-- participant name and study id -->
                 <div id="participant_div__ID">
                     <div class="formgroup">
-                        <fieldset class="grid-container-2">
+                        <fieldset class="grid-container-1">
                             <div>
                                 <label><span class="question">Form Name</span>
-                                    <input type=text name="Name" class=formcontrol readonly/>
+                                    <input type=text name="Name" class=formcontrol readonly />
                                 </label>
-                            </div>
-                            <div>
                                 <label><span class="question">Form ID</span>
                                     <input type=text name="Form_uid" class=formcontrol readonly />
                                 </label>
@@ -24,107 +22,123 @@
                     </div>
                 </div>
                 <div class="formgroup">
-                    <div class="questiongroup ">
-                        <span class="question"></span>
+                    <div class="questiongroup">
                         <fieldset class="grid-container-1">
-                            <div class="">
-                                <label><span class="question">Time Point</span><br>
-                                    <input id="Time_Point_1__ID" name="Time_Point" type="radio"
-                                        value="Pre-randomisation">
-                                    <label class="rd_btn" for="Time_Point_1__ID">Pre-randomisation</label>
-                                    <input id="Time_Point_2__ID" name="Time_Point" type="radio"
-                                        value="Post-randomisation">
-                                    <label class="rd_btn" for="Time_Point_2__ID">Post-randomisation</label>
+                            <div>
+                                <label><span class="question">Entry type</span>
+                                    <select name="Entry_type" class=formcontrol>
+                                        <option></option>
+                                        <option value="group_start">Start of group</option>
+                                        <option value="group_end">End of group</option>
+                                        <option value="input">Input (for text, number, date and time</option>
+                                        <option value="textarea">Text area for multiple lines</option>
+                                        <option value="radiobutton">Radio button</option>
+                                        <option value="checkbox">Check box</option>
+                                        <option value="hidden_start">Start hidden</option>
+                                        <option value="hidden_end">End hidden</option>
+                                    </select>
                                 </label>
                             </div>
                         </fieldset>
                     </div>
                 </div>
-
                 <div class="formgroup">
                     <div class="questiongroup ">
                         <fieldset class="">
-                            <label class="fullwidth"><span class="question">Adverse Event</span>
-                                <input type=text name="Adverse_Event" class="formcontrol fullwidth" />
+                            <label class=""><span class="question">Order number.<br><span style="font-weight:lighter">
+                                        Entries will be sorted by this value. Leave gap between entry numbers so new
+                                        entries can be added without changing other entries numbers.</span></span>
+                                <input type=number name="order_number" class="formcontrol" />
                             </label>
                         </fieldset>
                     </div>
                 </div>
-                <div class="formgroup">
-                    <div class="questiongroup">
-                        <fieldset class="grid-container-2">
-                            <div>
-                                <label><span class="question">Onset Date</span>
-                                    <input class="formcontrol" type="date" name="Onset_Date">
+                <div id="group_header__ID">
+                    <div class="formgroup">
+                        <div class="questiongroup ">
+                            <fieldset class="">
+                                <label class="fullwidth"><span class="question">Group Header</span>
+                                    <input type=text name="group_header" class="formcontrol fullwidth" />
                                 </label>
-                            </div>
-                            <div>
-                                <label><span class="question">Resolution Date</span>
-                                    <input class="formcontrol" type="date" name="Resolution_Date">
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div id="label_name__ID">
+                    <div class="formgroup">
+                        <div class="questiongroup ">
+                            <fieldset class="">
+                                <label class="fullwidth"><span class="question">Label</span>
+                                    <input type=text name="label_name" class="formcontrol fullwidth" />
                                 </label>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div id="label_name__ID">
+                    <div class="formgroup">
+                        <div class="questiongroup ">
+                            <fieldset class="">
+                                <label class=""><span class="question">Name of entry in database</span>
+                                    <input type=text name="db_name" class="formcontrol" />
+                                </label>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div id="entry_value__ID">
+                    <div class="formgroup">
+                        <div class="questiongroup ">
+                            <fieldset class="">
+                                <label class=""><span class="question">Value assigned to this entry if selected</span>
+                                    <input type=text name="entry_value" class="formcontrol" />
+                                </label>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div id="min_max__ID">
+                    <div class="formgroup">
+                        <fieldset class="">
+                            <div class="questiongroup ">
+                                <div class="grid-container-2">
+                                    <div>
+                                        <label class=""><span class="question">Minimum value for number entry</span>
+                                            <input type=number name="min_value" class="formcontrol" />
+                                        </label>
+                                    </div>
+                                    <div> <label class=""><span class="question">Maximum value for number entry</span>
+                                            <input type=number name="max_value" class="formcontrol" />
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </fieldset>
                     </div>
                 </div>
-                <div class="formgroup">
-                    <div class="questiongroup">
-                        <fieldset class="grid-container-2">
-                            <div>
-                                <label><span class="question">Was AE Serious?</span>
-                                    <select name="Serious_AE" class=formcontrol>
-                                        <option></option>
-                                        <option>Yes</option>
-                                        <option>No</option>
-                                    </select>
-                                </label>
-                            </div>
-                            <div>
-                                <label><span class="question">Frequency</span>
-                                    <select name="Frequency" class=formcontrol>
-                                        <option></option>
-                                        <option>Single episode</option>
-                                        <option>Intermittent</option>
-                                        <option>Continuous</option>
-                                    </select>
-                                </label>
-                            </div>
-                        </fieldset>
-                    </div>
+                <div class="formgroup right">
+                    <button type="submit" id="submit__ID" class="btn">Submit</button>
                 </div>
-                <div class="formgroup">
-                    <div class="questiongroup">
-                        <fieldset class="grid-container-3">
+            </form>
+        </div>
+    </div>
+    <div class="container mt-800r">
+        <!-- form container start -->
+        <div class="formbox">
+            <!-- form start -->
+            <form id="F__ID">
+                <span id=title__ID></span>
+                <!-- participant name and study id -->
+                <div id="participant_div__ID">
+                    <div class="formgroup">
+                        <fieldset class="grid-container-1">
                             <div>
-                                <label><span class="question">Intensity</span>
-                                    <select name="Intensity" class=formcontrol>
-                                        <option></option>
-                                        <option>Mild</option>
-                                        <option>Moderate</option>
-                                        <option>Severe</option>
-                                    </select>
+                                <label><span class="question">Form Name</span>
+                                    <input type=text name="Name" class=formcontrol readonly />
                                 </label>
-                            </div>
-                            <div>
-                                <label><span class="question">Relationship to study</span>
-                                    <select name="Relationship" class=formcontrol>
-                                        <option></option>
-                                        <option>Not Related</option>
-                                        <option>Possibly Related</option>
-                                        <option>Related</option>
-                                    </select>
-                                </label>
-                            </div>
-                            <div>
-                                <label><span class="question">Study Agent Action</span>
-                                    <select name="Study_Agent_Action" class=formcontrol>
-                                        <option></option>
-                                        <option>None</option>
-                                        <option>Dosage decrease</option>
-                                        <option>Interrupted</option>
-                                        <option>Patient withdrawn</option>
-                                        <option>Drug discontinued</option>
-                                        <option>Not applicable</option>
-                                    </select>
+                            <br>
+                                <label><span class="question">Form ID</span>
+                                    <input type=text name="Form_uid" class=formcontrol readonly />
                                 </label>
                             </div>
                         </fieldset>
@@ -134,42 +148,100 @@
                     <div class="questiongroup">
                         <fieldset class="grid-container-1">
                             <div>
-                                <label><span class="question">Treatment Required</span>
-                                    <select name="Treatment_Required" class=formcontrol>
+                                <label><span class="question">Entry type</span>
+                                    <select name="Entry_type" class=formcontrol>
                                         <option></option>
-                                        <option>None</option>
-                                        <option>Concomitant Medication</option>
-                                        <option>Non-drug Tx</option>
-                                        <option>Hospitalization</option>
-                                        <option>Other (specify)</option>
+                                        <option value="group_start">Start of group</option>
+                                        <option value="group_end">End of group</option>
+                                        <option value="input">Input (for text, number, date and time</option>
+                                        <option value="textarea">Text area for multiple lines</option>
+                                        <option value="radiobutton">Radio button</option>
+                                        <option value="checkbox">Check box</option>
+                                        <option value="hidden_start">Start hidden</option>
+                                        <option value="hidden_end">End hidden</option>
                                     </select>
-                                </label>
-                                <label><span class="question">Other</span>
-                                    <input type=text name="Other_Treatment" class="formcontrol fullwidth" />
                                 </label>
                             </div>
                         </fieldset>
                     </div>
                 </div>
                 <div class="formgroup">
-                    <div class="questiongroup">
-                        <fieldset class="grid-container-1">
-                            <label><span class="question">Outcome</span>
-                                <select name="Outcome" class=formcontrol>
-                                    <option></option>
-                                    <option>Resolved with no Sequelae</option>
-                                    <option>Resolved with Sequelae</option>
-                                    <option>Continuing</option>
-                                    <option>Fatal</option>
-                                    <option>Unknown</option>
-                                </select>
+                    <div class="questiongroup ">
+                        <fieldset class="">
+                            <label class=""><span class="question">Order number.<br><span style="font-weight:lighter">
+                                        Entries will be sorted by this value. Leave gap between entry numbers so new
+                                        entries can be added without changing other entries numbers.</span></span>
+                                <input type=number name="order_number" class="formcontrol" />
                             </label>
                         </fieldset>
                     </div>
                 </div>
-				<div class="formgroup right">
-					<button type="submit" id="submit__ID" class="btn">Submit</button>
-				</div>
+                <div id="group_header__ID">
+                    <div class="formgroup">
+                        <div class="questiongroup ">
+                            <fieldset class="">
+                                <label class="fullwidth"><span class="question">Group Header</span>
+                                    <input type=text name="group_header" class="formcontrol fullwidth" />
+                                </label>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div id="label_name__ID">
+                    <div class="formgroup">
+                        <div class="questiongroup ">
+                            <fieldset class="">
+                                <label class="fullwidth"><span class="question">Label</span>
+                                    <input type=text name="label_name" class="formcontrol fullwidth" />
+                                </label>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div id="label_name__ID">
+                    <div class="formgroup">
+                        <div class="questiongroup ">
+                            <fieldset class="">
+                                <label class=""><span class="question">Name of entry in database</span>
+                                    <input type=text name="db_name" class="formcontrol" />
+                                </label>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div id="entry_value__ID">
+                    <div class="formgroup">
+                        <div class="questiongroup ">
+                            <fieldset class="">
+                                <label class=""><span class="question">Value assigned to this entry if selected</span>
+                                    <input type=text name="entry_value" class="formcontrol" />
+                                </label>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div id="min_max__ID">
+                    <div class="formgroup">
+                        <fieldset class="">
+                            <div class="questiongroup ">
+                                <div class="grid-container-2">
+                                    <div>
+                                        <label class=""><span class="question">Minimum value for number entry</span>
+                                            <input type=number name="min_value" class="formcontrol" />
+                                        </label>
+                                    </div>
+                                    <div> <label class=""><span class="question">Maximum value for number entry</span>
+                                            <input type=number name="max_value" class="formcontrol" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="formgroup right">
+                    <button type="submit" id="submit__ID" class="btn">Submit</button>
+                </div>
             </form>
         </div>
     </div>
@@ -181,6 +253,7 @@
             var load2 = m.load;
             m.load = function () {
                 load2();
+                $("#D__ID").css('display','flex');
                 if ($('[type="date"]').prop('type') != 'date') {
                     $('[type="date"]').datepicker();
                 }
