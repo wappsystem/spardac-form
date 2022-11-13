@@ -1,15 +1,15 @@
 <div id=D__ID>
     <!--third html start -->
-    <div class="container mt-800l">
+    <div class="container mt-95">
         <!-- form container start -->
         <div class="formbox">
             <!-- form start -->
             <form id="F__ID">
                 <span id=title__ID></span>
                 <!-- participant name and study id -->
-                <div id="participant_div__ID">
+                <div id="form_div__ID">
                     <div class="formgroup">
-                        <fieldset class="grid-container-1">
+                        <fieldset class="grid-container-2">
                             <div>
                                 <label><span class="question">Form Name</span>
                                     <input type=text name="Name" class=formcontrol readonly />
@@ -21,18 +21,59 @@
                         </fieldset>
                     </div>
                 </div>
+                <span class="formgroup question">Question layout</span>
+                <div id="question_layout__ID" class="">
+
+                </div>
+                <span class="formgroup question">Input section</span>
+                <div id="question_input__ID">
+                    <div id=input_1__ID class="formgroup"><fieldset class=""><div class="grid-container-1"><div><label><span id="label_input_1__ID" class="question"></span></label><input type=text name="input_1" class="formcontrol fullwidth" /></div></div></fieldset></div>
+                    <div id=input_2__ID class="formgroup"><fieldset class=""><div class="grid-container-1"><div><label><span id="label_input_2__ID" class="question"></span></label><textarea name="input_2" class="formcontrol fullwidth" ></textarea></div></div></fieldset></div>
+                    <div id=input_3__ID class="formgroup"><fieldset class=""><div class="grid-container-1"><div><div class="grid-container-3">
+                        <div>
+                            <label><span id="label_input_3__ID" class="question"></span></label><input type=text name="input_3" class="formcontrol" />
+                        </div>
+                        <div id=input_4__ID>
+                            <label><span id="label_input_4__ID" class="question"></span></label><input type=text name="input_4" class="formcontrol" />
+                        </div>                        
+                        <div id=input_5__ID>
+                            <label><span id="label_input_5__ID" class="question"></span></label><input type=text name="input_5" class="formcontrol" />
+                        </div>
+                    </div></div></div></fieldset></div>
+                    <div id=input_6__ID class="formgroup"><fieldset class=""><div class="grid-container-1"><div><div class="grid-container-3">
+                        <div>
+                            <label><span id="label_input_6__ID" class="question"></span></label><input type=text name="input_6" class="formcontrol" />
+                        </div>
+                        <div id=input_7__ID>
+                            <label><span id="label_input_7__ID" class="question"></span></label><input type=text name="input_7" class="formcontrol" />
+                        </div>                        
+                        <div id=input_8__ID>
+                            <label><span id="label_input_8__ID" class="question"></span></label><input type=text name="input_8" class="formcontrol" />
+                        </div>
+                    </div></div></div></fieldset></div>
+                </div>
+                <div class="formgroup right">
+                    <button type="submit" id="submit__ID" class="btn">Submit</button>
+                </div> 
                 <div class="">
-                    <h3 style="margin-left:100px">Please select one question style</h3>
-                    <input id="layout_1__ID" name="layout" type="radio" value="0">
+                    <h3 style="margin-left:30px">Please select a question style</h3>
+                    <input id="layout_01__ID" name="layout" type="radio" value="main_header">
+                    <label class="rd_btn fullwidth" for="layout_01__ID">
+                        <div class="formgroup">
+                            <h3 style="margin-left:30px">Main Header</h3>
+                        </div>
+                    </label>
+
+                    <input id="layout_1__ID" name="layout" type="radio" value="yes_no_radio_button">
                     <label class="rd_btn fullwidth" for="layout_1__ID">
                         <div class="formgroup">
                             <span class="question"></span>
                             <fieldset class="grid-container-1">
                                 <div class="">
-                                    <label><span class="question">I am 18 years of age or older.</span></label><br>
-                                    <input id="test_1__ID" name="test" type="radio" value="1" required>
+                                    <label><span class="question">Simple Yes/No entry</span></label><br>
+                                    <input id="test_1__ID" name="_test" type="radio" value="1" >
                                     <label class="rd_btn" for="test_1__ID">Yes</label>
-                                    <input id="test_2__ID" name="test" type="radio" value="0">
+                                    <input id="test_2__ID" name="_test" type="radio" value="0">
                                     <label class="rd_btn" for="test_2__ID">No</label>
                                 </div>
                             </fieldset>
@@ -40,7 +81,7 @@
 
                     </label>
 
-                    <input id="layout_2__ID" name="layout" type="radio" value="1">
+                    <input id="layout_2__ID" name="layout" type="radio" value="instructions">
                     <label class="rd_btn fullwidth" for="layout_2__ID">
                         <div class="formgroup">
                             <fieldset class="">
@@ -53,47 +94,63 @@
                             </fieldset>
                         </div>
                     </label>
-                    <input id="layout_3__ID" name="layout" type="radio" value="2">
+                    <input id="layout_3__ID" name="layout" type="radio" value="textarea">
                     <label class="rd_btn fullwidth" for="layout_3__ID">
                         <div class="formgroup">
                             <div class="questiongroup ">
                                 <fieldset class="">
                                     <span class="question">
-                                        <p>Text Area Input</p>
+                                        <p>Text Area Entry</p>
                                     </span>
                                     <label class="fullwidth"><span class="question">Text 1</span>
-                                        <textarea class="formcontrol" name="tai" placeholder=""></textarea>
+                                        <textarea class="formcontrol" name="_tai" placeholder=""></textarea>
                                     </label>
                                 </fieldset>
                             </div>
                         </div>
 
                     </label>
-                    <input id="layout_4__ID" name="layout" type="radio" value="3">
-                    <label class="rd_btn fullwidth" for="layout_4__ID">
+                    <input id="layout_14__ID" name="layout" type="radio" value="single_input">
+                    <label class="rd_btn fullwidth" for="layout_14__ID">
                         <div class="formgroup">
                             <fieldset class="">
                                 <span class="question">
-                                    <p>Multiple horizontal input</p>
+                                    <p>Single entry</p>
                                 </span>
-                                <div class="grid-container-3">
+                                <div class="grid-container-1">
                                     <div><label style="width:100%"><span class="question">Input 1</span>
-                                            <input type=text name="mhi_1" class=formcontrol />
-                                        </label>
-                                    </div>
-                                    <div><label style="width:100%"><span class="question">Input 2</span>
-                                            <input type=text name="mhi_2" class=formcontrol />
-                                        </label>
-                                    </div>
-                                    <div><label style="width:100%"><span class="question">Input 3</span>
-                                            <input type=text name="mhi_3" class=formcontrol />
+                                            <input type=text name="_si" class=formcontrol />
                                         </label>
                                     </div>
                                 </div>
                             </fieldset>
                         </div>
-                                    </label>
-                    <input id="layout_5__ID" name="layout" type="radio" value="4">
+                    </label>
+                    <input id="layout_4__ID" name="layout" type="radio" value="multiple_horizontal_inputs">
+                    <label class="rd_btn fullwidth" for="layout_4__ID">
+                        <div class="formgroup">
+                            <fieldset class="">
+                                <span class="question">
+                                    <p>Multiple horizontal entries</p>
+                                </span>
+                                <div class="grid-container-3">
+                                    <div><label style="width:100%"><span class="question">Input 1</span>
+                                            <input type=text name="_mhi_1" class=formcontrol />
+                                        </label>
+                                    </div>
+                                    <div><label style="width:100%"><span class="question">Input 2</span>
+                                            <input type=text name="_mhi_2" class=formcontrol />
+                                        </label>
+                                    </div>
+                                    <div><label style="width:100%"><span class="question">Input 3</span>
+                                            <input type=text name="_mhi_3" class=formcontrol />
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </label>
+                    <input id="layout_5__ID" name="layout" type="radio" value="visual_analogue_scale">
                     <label class="rd_btn fullwidth" for="layout_5__ID">
                         <div class="formgroup">
                             <fieldset class="">
@@ -102,10 +159,10 @@
                                 </div>
                                 <div class="grid-container-slider">
                                     <div class="textleft">
-                                        <span class="question">Left Side</span><input type="text" id="vas_req__ID" required>
+                                        <span class="question">Left Side</span><input type="text" id="vas_req__ID" >
                                     </div>
                                     <div class="slidecontainer" id=vas_con__ID>
-                                        <input type="range" min="0" max="100" class="slider" name="vas" id="vas__ID">
+                                        <input type="range" min="0" max="100" class="slider" name="_vas" id="vas__ID">
                                     </div>
                                     <div class="textright">
                                         <span class="question">Right Side</span>
@@ -114,7 +171,7 @@
                             </fieldset>
                         </div>
                                     </label>
-                    <input id="layout_6__ID" name="layout" type="radio" value="5">
+                    <input id="layout_6__ID" name="layout" type="radio" value="digital_scale">
                     <label class="rd_btn fullwidth" for="layout_6__ID">
                         <div class="formgroup">
                             <div class="questiongroup ">
@@ -123,27 +180,27 @@
                                     <div class="grid-container-3-special">
                                         <div class="textleft"><span class="question">Left Side</span></div>
                                         <div>
-                                            <input id="ds_0__ID" name="ds" type="radio" value="0" required>
+                                            <input id="ds_0__ID" name="_ds" type="radio" value="0" >
                                             <label class="rd_btn" for="ds_0__ID">0</label><br>
-                                            <input id="ds_1__ID" name="ds" type="radio" value="0">
+                                            <input id="ds_1__ID" name="_ds" type="radio" value="0">
                                             <label class="rd_btn" for="ds_1__ID">1</label><br>
-                                            <input id="ds_2__ID" name="ds" type="radio" value="0">
+                                            <input id="ds_2__ID" name="_ds" type="radio" value="0">
                                             <label class="rd_btn" for="ds_2__ID">2</label><br>
-                                            <input id="ds_3__ID" name="ds" type="radio" value="0">
+                                            <input id="ds_3__ID" name="_ds" type="radio" value="0">
                                             <label class="rd_btn" for="ds_3__ID">3</label><br>
-                                            <input id="ds_4__ID" name="ds" type="radio" value="0">
+                                            <input id="ds_4__ID" name="_ds" type="radio" value="0">
                                             <label class="rd_btn" for="ds_4__ID">4</label><br>
-                                            <input id="ds_5__ID" name="ds" type="radio" value="0">
+                                            <input id="ds_5__ID" name="_ds" type="radio" value="0">
                                             <label class="rd_btn" for="ds_5__ID">5</label><br>
-                                            <input id="ds_6__ID" name="ds" type="radio" value="0">
+                                            <input id="ds_6__ID" name="_ds" type="radio" value="0">
                                             <label class="rd_btn" for="ds_6__ID">6</label><br>
-                                            <input id="ds_7__ID" name="ds" type="radio" value="0">
+                                            <input id="ds_7__ID" name="_ds" type="radio" value="0">
                                             <label class="rd_btn" for="ds_7__ID">7</label><br>
-                                            <input id="ds_8__ID" name="ds" type="radio" value="0">
+                                            <input id="ds_8__ID" name="_ds" type="radio" value="0">
                                             <label class="rd_btn" for="ds_8__ID">8</label><br>
-                                            <input id="ds_9__ID" name="ds" type="radio" value="0">
+                                            <input id="ds_9__ID" name="_ds" type="radio" value="0">
                                             <label class="rd_btn" for="ds_9__ID">9</label><br>
-                                            <input id="ds_10__ID" name="ds" type="radio" value="0">
+                                            <input id="ds_10__ID" name="_ds" type="radio" value="0">
                                             <label class="rd_btn" for="ds_10__ID">10</label><br>
                                         </div>
                                         <div class="textright"><span class="question">Right Side</span></div>
@@ -152,7 +209,7 @@
                             </div>
                         </div>
                                     </label>
-                    <input id="layout_7__ID" name="layout" type="radio" value="6">
+                    <input id="layout_7__ID" name="layout" type="radio" value="horizontal_radiobutton">
                     <label class="rd_btn fullwidth" for="layout_7__ID">
                         <div class="formgroup">
                             <div class="questiongroup ">
@@ -160,18 +217,18 @@
                                     <span class="question">Horizontal Radio Buttons</span>
                                     <div class="grid-container-4">
                                         <div>
-                                            <input id="hrb_1__ID" name="hrb" type="radio" value="0" required>
+                                            <input id="hrb_1__ID" name="_hrb" type="radio" value="0" >
                                             <label class="rd_btn width_88" for="hrb_1__ID">0 - Button Text Option 1 <b>NEVER</b></label>
                                         </div>
-                                        <div><input id="hrb_2__ID" name="hrb" type="radio" value="1">
+                                        <div><input id="hrb_2__ID" name="_hrb" type="radio" value="1">
                                             <label class="rd_btn width_88" for="hrb_2__ID">1 - Button Text Option 2
                                                 <b>SLIGHT</b></label>
                                         </div>
-                                        <div><input id="hrb_3__ID" name="hrb" type="radio" value="2">
+                                        <div><input id="hrb_3__ID" name="_hrb" type="radio" value="2">
                                             <label class="rd_btn width_88" for="hrb_3__ID">2 - Button Text Option 3
                                                 <b>MODERATE</b></label>
                                         </div>
-                                        <div><input id="hrb_4__ID" name="hrb" type="radio" value="3">
+                                        <div><input id="hrb_4__ID" name="_hrb" type="radio" value="3">
                                             <label class="rd_btn width_88" for="hrb_4__ID">3 - Button Text Option 4 <b>HIGH</b></label>
                                         </div>
                                     </div>
@@ -179,7 +236,7 @@
                             </div>
                         </div>
                                     </label>
-                    <input id="layout_8__ID" name="layout" type="radio" value="7">
+                    <input id="layout_8__ID" name="layout" type="radio" value="vertical_radiobutton">
                     <label class="rd_btn fullwidth" for="layout_8__ID">
                         <div class="formgroup">
                             <div class="questiongroup">
@@ -187,22 +244,22 @@
                                     <span class="question">
                                         <p>Vertical Radio Buttons</p>
                                     </span>
-                                    <input id="vrb_1__ID" name="vrb" type="radio" value="0" required>
+                                    <input id="vrb_1__ID" name="_vrb" type="radio" value="0" >
                                     <label class="rd_btn width_btn_250" for="vrb_1__ID">0 - Button Text Option 1
                                         <b>NEVER</b></label><br>
-                                    <input id="vrb_2__ID" name="vrb" type="radio" value="1">
+                                    <input id="vrb_2__ID" name="_vrb" type="radio" value="1">
                                     <label class="rd_btn width_btn_250" for="vrb_2__ID">1 - Button Text Option 2
                                         <b>SLIGHT</b></label><br>
-                                    <input id="vrb_3__ID" name="vrb" type="radio" value="2">
+                                    <input id="vrb_3__ID" name="_vrb" type="radio" value="2">
                                     <label class="rd_btn width_btn_250" for="vrb_3__ID">2 - Button Text Option 3
                                         <b>MODERATE</b></label><br>
-                                    <input id="vrb_4__ID" name="vrb" type="radio" value="3">
+                                    <input id="vrb_4__ID" name="_vrb" type="radio" value="3">
                                     <label class="rd_btn width_btn_250" for="vrb_4__ID">3 - Button Text Option 4 <b>HIGH</b></label><br>
                                 </fieldset>
                             </div>
                         </div>
                     </label>
-                    <input id="layout_9__ID" name="layout" type="radio" value="8">
+                    <input id="layout_9__ID" name="layout" type="radio" value="vertical_checkboxes">
                     <label class="rd_btn fullwidth" for="layout_9__ID">
                         <div class="formgroup">
                             <div class="">
@@ -210,154 +267,31 @@
                                     <span class="question">
                                         <p>Vertical Check Boxes</p>
                                     </span>
-                                    <input type="checkbox" id="vcb_1__ID" name="vcb_1">
+                                    <input type="checkbox" id="vcb_1__ID" name="_vcb_1">
                                     <label class="rd_btn width_btn_130" for="vcb_1__ID"><span
                                             class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>Option
                                         1</label><br>
-                                    <input type="checkbox" id="vcb_2__ID" name="vcb_2">
+                                    <input type="checkbox" id="vcb_2__ID" name="_vcb_2">
                                     <label class="rd_btn width_btn_130" for="vcb_2__ID"><span
                                             class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>Option
                                         2</label><br>
-                                    <input type="checkbox" id="vcb_3__ID" name="vcb_3">
+                                    <input type="checkbox" id="vcb_3__ID" name="_vcb_3">
                                     <label class="rd_btn width_btn_130" for="vcb_3__ID"><span
                                             class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>Option
                                         3</label><br>
-                                    <input type="checkbox" id="vcb_4__ID" name="vcb_4">
+                                    <input type="checkbox" id="vcb_4__ID" name="_vcb_4">
                                     <label class="rd_btn width_btn_130" for="vcb_4__ID"><span
                                             class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>Option
                                         4</label><br>
-                                    <input type="checkbox" id="vcb_5__ID" name="vcb_5">
+                                    <input type="checkbox" id="vcb_5__ID" name="_vcb_5">
                                     <label class="rd_btn width_btn_130" for="vcb_5__ID"><span
                                             class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>Option
                                         5</label><br>
                                 </fieldset>
                             </div>
                         </div>
-                                    </label>
+                    </label>
                 </div>
-        </form>
-    </div>
-</div>
-<div class="container mt-800r">
-    <!-- form container start -->
-    <div class="formbox">
-        <!-- form start -->
-        <form id="F__ID">
-            <span id=title__ID></span>
-            <!-- participant name and study id -->
-            <div id="participant_div__ID">
-                <div class="formgroup">
-                    <fieldset class="grid-container-1">
-                        <div>
-                            <label><span class="question">Form Name</span>
-                                <input type=text name="Name" class=formcontrol readonly />
-                            </label>
-                            <br>
-                            <label><span class="question">Form ID</span>
-                                <input type=text name="Form_uid" class=formcontrol readonly />
-                            </label>
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-            <div class="formgroup">
-                <div class="questiongroup">
-                    <fieldset class="grid-container-1">
-                        <div>
-                            <label><span class="question">Entry type</span>
-                                <select name="Entry_type" class=formcontrol>
-                                    <option></option>
-                                    <option value="group_start">Start of group</option>
-                                    <option value="group_end">End of group</option>
-                                    <option value="input">Input (for text, number, date and time</option>
-                                    <option value="textarea">Text area for multiple lines</option>
-                                    <option value="radiobutton">Radio button</option>
-                                    <option value="checkbox">Check box</option>
-                                    <option value="hidden_start">Start hidden</option>
-                                    <option value="hidden_end">End hidden</option>
-                                </select>
-                            </label>
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-            <div class="formgroup">
-                <div class="questiongroup ">
-                    <fieldset class="">
-                        <label class=""><span class="question">Order number.<br><span style="font-weight:lighter">
-                                    Entries will be sorted by this value. Leave gap between entry numbers so new
-                                    entries can be added without changing other entries numbers.</span></span>
-                            <input type=number name="order_number" class="formcontrol" />
-                        </label>
-                    </fieldset>
-                </div>
-            </div>
-            <div id="group_header__ID">
-                <div class="formgroup">
-                    <div class="questiongroup ">
-                        <fieldset class="">
-                            <label class="fullwidth"><span class="question">Group Header</span>
-                                <input type=text name="group_header" class="formcontrol fullwidth" />
-                            </label>
-                        </fieldset>
-                    </div>
-                </div>
-            </div>
-            <div id="label_name__ID">
-                <div class="formgroup">
-                    <div class="questiongroup ">
-                        <fieldset class="">
-                            <label class="fullwidth"><span class="question">Label</span>
-                                <input type=text name="label_name" class="formcontrol fullwidth" />
-                            </label>
-                        </fieldset>
-                    </div>
-                </div>
-            </div>
-            <div id="label_name__ID">
-                <div class="formgroup">
-                    <div class="questiongroup ">
-                        <fieldset class="">
-                            <label class=""><span class="question">Name of entry in database</span>
-                                <input type=text name="db_name" class="formcontrol" />
-                            </label>
-                        </fieldset>
-                    </div>
-                </div>
-            </div>
-            <div id="entry_value__ID">
-                <div class="formgroup">
-                    <div class="questiongroup ">
-                        <fieldset class="">
-                            <label class=""><span class="question">Value assigned to this entry if selected</span>
-                                <input type=text name="entry_value" class="formcontrol" />
-                            </label>
-                        </fieldset>
-                    </div>
-                </div>
-            </div>
-            <div id="min_max__ID">
-                <div class="formgroup">
-                    <fieldset class="">
-                        <div class="questiongroup ">
-                            <div class="grid-container-2">
-                                <div>
-                                    <label class=""><span class="question">Minimum value for number entry</span>
-                                        <input type=number name="min_value" class="formcontrol" />
-                                    </label>
-                                </div>
-                                <div> <label class=""><span class="question">Maximum value for number entry</span>
-                                        <input type=number name="max_value" class="formcontrol" />
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-            <div class="formgroup right">
-                <button type="submit" id="submit__ID" class="btn">Submit</button>
-            </div>
         </form>
     </div>
 </div>
@@ -366,6 +300,13 @@
         //-------------------------------------
         VmInclude: '__HOST__/assets/js/form.01.js'
         //-------------------------------------
+        var input_1="";
+        var input_2="";
+        var input_3="";
+        var input_4="";
+        var input_5="";
+        var input_6="";
+        var input_7="";
         var load2 = m.load;
         m.load = function () {
             load2();
@@ -374,7 +315,44 @@
                 $('[type="date"]').datepicker();
             }
             $('<style>#vas_con__ID input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0px; height: 0px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');
-
+            $('#input_1__ID').hide();
+            $('#input_2__ID').hide();
+            $('#input_3__ID').hide();
+            $('#input_4__ID').hide();
+            $('#input_5__ID').hide();
+            $('#input_6__ID').hide();
+            $('#input_7__ID').hide();
+            $('#input_8__ID').hide();
+            var txt_layout="";
+            var input_layout="";
+            var layout= $("#F__ID input[name=layout]:checked").val()
+            check_selection();
+            /*input_1=$('#F__ID input[name=input_1]').val()
+            input_2=$('#F__ID textarea[name=input_2]').val()
+            switch(layout){
+                    case 'main_header':
+                    txt_layout="<h3 style='margin-left:30px'>"+input_1+"</h3>"
+                        $('#question_layout__ID').html(txt_layout)
+                        $('#input_1__ID').show()
+                        $('#label_input_1__ID').html('Header Text')
+                    break;
+                    case 'instructions':
+                        txt_layout='<div class="formgroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span><span>'+input_2+'</span></fieldset></div>';
+                        $('#question_layout__ID').html(txt_layout)
+                        $('#input_1__ID').show()
+                        $('#input_2__ID').show()
+                        $('#label_input_1__ID').html('Label Text')
+                        $('#label_input_2__ID').html('Instruction Text')
+                    break;
+                    case 'yes_no_radio_button':
+                        txt_layout='<div class="formgroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span><span>'+input_2+'</span></fieldset></div>';
+                        $('#question_layout__ID').html(txt_layout)
+                        $('#input_1__ID').show()
+                        $('#input_2__ID').show()
+                        $('#label_input_1__ID').html('Label Text')
+                        $('#label_input_2__ID').html('Instruction Text')
+                    break;
+            }*/
         }
         //-------------------------------------
         $('#vas__ID').on('click', function () {
@@ -382,7 +360,122 @@
             $('#vas_req__ID').val("OK")
         })
         //-------------------------------------
+        $("#F__ID input[name=layout]").on('change',function(){
+            check_selection();
+            //console.log( $("#F__ID input[name=layout]:checked").val())
+            /*var txt_layout="";
+            var input_layout="";
+            var layout= $("#F__ID input[name=layout]:checked").val()
+            switch(layout){
+                    case 'main_header':
+                        txt_layout="<h3 style='margin-left:30px'>"+input_1+"</h3>"
+                        $('#question_layout__ID').html(txt_layout)
+                        $('#input_1__ID').show()
+                        $('#label_input_1__ID').html('Header Text')
+                    break;
+                    case 'instructions':
+                        txt_layout='<div class="formgroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span><span>'+input_2+'</span></fieldset></div>';
+                        $('#question_layout__ID').html(txt_layout)
+                        $('#input_1__ID').show()
+                        $('#input_2__ID').show()
+                        $('#label_input_1__ID').html('Label Text')
+                        $('#label_input_2__ID').html('Instruction Text')
+                    break;
+                    case 'yes_no_radio_button':
+                        txt_layout='<div class="formgroup"><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">'+input_1+'</span></label><br><input id="'+input_3+'1__ID" name="'+input_3+'" type="radio" value="'+input_4+'" ><label class="rd_btn" for="'+input_3+'_1__ID">'+input_5+'</label><input id="'+input_3+'_2__ID" name="'+input_3+'" type="radio" value="'+input_6+'"><label class="rd_btn" for="'+input_3+'__ID">'+input_7+'</label></div></fieldset></div>';
+                        $('#question_layout__ID').html(txt_layout)
+                        $('#input_1__ID').show()
+                        $('#input_3__ID').show()
+                        $('#input_4__ID').show()
+                        $('#input_5__ID').show()
+                        $('#input_6__ID').show()
+                        $('#input_7__ID').show()
+                        $('#label_input_1__ID').html('Label Text')
+                        $('#label_input_3__ID').html('Database Name')
+                        $('#label_input_4__ID').html('Value for option 1')
+                        $('#label_input_5__ID').html('Text for option 1')
+                        $('#label_input_6__ID').html('Value for option 2')
+                        $('#label_input_7__ID').html('Text for option 2')
+                    break;
+            }*/
+        })
+        //-------------------------------------
+        $("#F__ID input[name=input_1]").on('keyup',function(){
+            check_selection();
+        })
+        //-------------------------------------
+        $("#F__ID textarea[name=input_2]").on('keyup',function(){
+            check_selection();
+        })
+        //-------------------------------------
+        $("#F__ID input[name=input_3]").on('keyup',function(){
+            check_selection();
+        })
+        //-------------------------------------
+        $("#F__ID input[name=input_4]").on('keyup',function(){
+            check_selection();
+        })
+        //-------------------------------------
+        $("#F__ID input[name=input_5]").on('keyup',function(){
+            check_selection();
+        })
+        //-------------------------------------
+        $("#F__ID input[name=input_6]").on('keyup',function(){
+            check_selection();
+        })
+        //-------------------------------------
+        $("#F__ID input[name=input_7]").on('keyup',function(){
+            check_selection();
+        })
+        //-------------------------------------
+        $("#F__ID input[name=input_8]").on('keyup',function(){
+            check_selection();
+        })
+        //-------------------------------------
+        var check_selection=function(){
+            input_1=$('#F__ID input[name=input_1]').val();
+            input_2=$('#F__ID textarea[name=input_2]').val()
+            input_3=$('#F__ID input[name=input_3]').val();
+            input_4=$('#F__ID input[name=input_4]').val();
+            input_5=$('#F__ID input[name=input_5]').val();
+            input_6=$('#F__ID input[name=input_6]').val();
+            input_7=$('#F__ID input[name=input_7]').val();
+            input_8=$('#F__ID input[name=input_8]').val();
+            var layout= $("#F__ID input[name=layout]:checked").val()
+            switch(layout){
+                    case 'main_header':
+                        txt_layout="<h3 style='margin-left:30px'>"+input_1+"</h3>"
+                        $('#question_layout__ID').html(txt_layout)
+                        $('#input_1__ID').show()
+                        $('#label_input_1__ID').html('Header Text')
+                    break;
+                    case 'instructions':
+                        txt_layout='<div class="formgroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span><span>'+input_2+'</span></fieldset></div>';
+                        $('#question_layout__ID').html(txt_layout)
+                        $('#input_1__ID').show()
+                        $('#input_2__ID').show()
+                        $('#label_input_1__ID').html('Label Text')
+                        $('#label_input_2__ID').html('Instruction Text')
+                    break;
+                    case 'yes_no_radio_button':
+                        txt_layout='<div class="formgroup"><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">'+input_1+'</span></label><br><input id="'+input_3+'_1__ID" name="'+input_3+'" type="radio" value="'+input_4+'" ><label class="rd_btn" for="'+input_3+'_1__ID">'+input_5+'</label><input id="'+input_3+'_2__ID" name="'+input_3+'" type="radio" value="'+input_6+'"><label class="rd_btn" for="'+input_3+'_2__ID">'+input_7+'</label></div></fieldset></div>';
+                        $('#question_layout__ID').html(txt_layout)
+                        $('#input_1__ID').show()
+                        $('#input_3__ID').show()
+                        $('#input_4__ID').show()
+                        $('#input_5__ID').show()
+                        $('#input_6__ID').show()
+                        $('#input_7__ID').show()
+                        $('#label_input_1__ID').html('Label Text')
+                        $('#label_input_3__ID').html('Database Name')
+                        $('#label_input_4__ID').html('Value for option 1')
+                        $('#label_input_5__ID').html('Text for option 1')
+                        $('#label_input_6__ID').html('Value for option 2')
+                        $('#label_input_7__ID').html('Text for option 2')
+                    break;
+                }
 
+        }
     }
 </script>
 <style>

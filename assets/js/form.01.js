@@ -10,11 +10,13 @@ m.load=function(){
     $('#submit__ID').show();
     $('#delete__ID').hide(); if(m.input!=undefined && m.input.record!=undefined && m.input.record._id!==undefined) $('#delete__ID').show();
     $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name); 
-    console.log(JSON.stringify(m.input.form_info.Data))
-    $("#F__ID input[name=Name]").val(m.input.form_info.Data.Name);
-    $("#F__ID input[name=Form_uid]").val(m.input.form_info.UID);
 
-    if(m.input.record!=undefined) $vm.deserialize(m.input.record,'#F__ID');
+    if(m.input.record!=undefined) {$vm.deserialize(m.input.record,'#F__ID');}
+    else {
+        //console.log(JSON.stringify(m.input.form_info.Data))
+        $("#F__ID input[name=Name]").val(m.input.form_info.Data.Name);
+        $("#F__ID input[name=Form_uid]").val(m.input.form_info.UID);
+    }
 }
 //-------------------------------
 m.set_file_link=function(tag){
