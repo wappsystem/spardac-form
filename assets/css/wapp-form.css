@@ -7,7 +7,11 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-#question_layout__ID{
+.border-darkgreen{
+  border: 3px solid #1a930b!important
+
+}
+.border-green{
   border: 3px solid #0fb165!important
 
 }
