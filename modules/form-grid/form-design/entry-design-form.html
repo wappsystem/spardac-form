@@ -44,7 +44,7 @@
                             </div>
                     </div>
                     <div id=input_6_8__ID class="formgroup">
-                            <div class="formgroup grid-container-2">
+                            <div class="formgroup grid-container-3">
                                 <div id=input_6__ID class="">
                                     <label><span id="label_input_6__ID" class="question"></span></label><input type=text name="input_6" class="formcontrol" />
                                 </div>
@@ -195,7 +195,7 @@
                             </fieldset>
                         </div>
                     </label>
-                    <input id="layout_6__ID" name="layout" type="radio" value="digital_scale">
+                    <input id="layout_6__ID" name="layout" type="radio" value="Digital Scale">
                     <label class="rd_btn fullwidth" for="layout_6__ID">
                         <div class="formgroup">
                             <div class="questiongroup ">
@@ -203,28 +203,28 @@
                                     <div class="textcenter"><span class="question">Digital Scale</span></div>
                                     <div class="grid-container-3-special">
                                         <div class="textleft"><span class="question">Left Side</span></div>
-                                        <div>
+                                        <div class="textcenter">
                                             <input id="ds_0__ID" name="_ds" type="radio" value="0" >
                                             <label class="rd_btn" for="ds_0__ID">0</label><br>
-                                            <input id="ds_1__ID" name="_ds" type="radio" value="0">
+                                            <input id="ds_1__ID" name="_ds" type="radio" value="1">
                                             <label class="rd_btn" for="ds_1__ID">1</label><br>
-                                            <input id="ds_2__ID" name="_ds" type="radio" value="0">
+                                            <input id="ds_2__ID" name="_ds" type="radio" value="2">
                                             <label class="rd_btn" for="ds_2__ID">2</label><br>
-                                            <input id="ds_3__ID" name="_ds" type="radio" value="0">
+                                            <input id="ds_3__ID" name="_ds" type="radio" value="3">
                                             <label class="rd_btn" for="ds_3__ID">3</label><br>
-                                            <input id="ds_4__ID" name="_ds" type="radio" value="0">
+                                            <input id="ds_4__ID" name="_ds" type="radio" value="4">
                                             <label class="rd_btn" for="ds_4__ID">4</label><br>
-                                            <input id="ds_5__ID" name="_ds" type="radio" value="0">
+                                            <input id="ds_5__ID" name="_ds" type="radio" value="5">
                                             <label class="rd_btn" for="ds_5__ID">5</label><br>
-                                            <input id="ds_6__ID" name="_ds" type="radio" value="0">
+                                            <input id="ds_6__ID" name="_ds" type="radio" value="6">
                                             <label class="rd_btn" for="ds_6__ID">6</label><br>
-                                            <input id="ds_7__ID" name="_ds" type="radio" value="0">
+                                            <input id="ds_7__ID" name="_ds" type="radio" value="7">
                                             <label class="rd_btn" for="ds_7__ID">7</label><br>
-                                            <input id="ds_8__ID" name="_ds" type="radio" value="0">
+                                            <input id="ds_8__ID" name="_ds" type="radio" value="8">
                                             <label class="rd_btn" for="ds_8__ID">8</label><br>
-                                            <input id="ds_9__ID" name="_ds" type="radio" value="0">
+                                            <input id="ds_9__ID" name="_ds" type="radio" value="9">
                                             <label class="rd_btn" for="ds_9__ID">9</label><br>
-                                            <input id="ds_10__ID" name="_ds" type="radio" value="0">
+                                            <input id="ds_10__ID" name="_ds" type="radio" value="10">
                                             <label class="rd_btn" for="ds_10__ID">10</label><br>
                                         </div>
                                         <div class="textright"><span class="question">Right Side</span></div>
@@ -232,7 +232,7 @@
                                 </fieldset>
                             </div>
                         </div>
-                                    </label>
+                    </label>
                     <input id="layout_7__ID" name="layout" type="radio" value="horizontal_radiobutton">
                     <label class="rd_btn fullwidth" for="layout_7__ID">
                         <div class="formgroup">
@@ -419,21 +419,22 @@
             input_5=$('#F__ID input[name=input_5]').val();
             input_6=$('#F__ID input[name=input_6]').val();
             input_7=$('#F__ID input[name=input_7]').val();
+            input_8=$('#F__ID input[name=input_8]').val();
             var layout= $("#F__ID input[name=layout]:checked").val()
             switch(layout){
                 case 'Main Header':
                     txt_layout="<h3 style='margin-left:30px'>"+input_1+"</h3>"
                     $('#question_layout__ID').html(txt_layout)
                     $('#input_1__ID').show()
-                    $('#label_input_1__ID').html('Header Text')
+                    $('#label_input_1__ID').html('Header text')
                 break;
                 case 'Instructions':
                     txt_layout='<div class="formgroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span><span>'+input_2+'</span></fieldset></div>';
                     $('#question_layout__ID').html(txt_layout)
                     $('#input_1__ID').show()
                     $('#input_2__ID').show()
-                    $('#label_input_1__ID').html('Label Text')
-                    $('#label_input_2__ID').html('Instruction Text')
+                    $('#label_input_1__ID').html('Label text')
+                    $('#label_input_2__ID').html('Instruction text')
                 break;
                 case 'Dual radio button':
                     txt_layout='<div class="formgroup"><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">'+input_1+'</span></label><br><input id="'+input_3+'_1__ID" name="'+input_3+'" type="radio" value="'+input_4+'" ><label class="rd_btn" for="'+input_3+'_1__ID">'+input_5+'</label><input id="'+input_3+'_2__ID" name="'+input_3+'" type="radio" value="'+input_6+'"><label class="rd_btn" for="'+input_3+'_2__ID">'+input_7+'</label></div></fieldset></div>';
@@ -446,8 +447,8 @@
                     $('#input_6_8__ID').show()
                     $('#input_6__ID').show()
                     $('#input_7__ID').show()
-                    $('#label_input_1__ID').html('Label Text')
-                    $('#label_input_3__ID').html('Database Name')
+                    $('#label_input_1__ID').html('Label text')
+                    $('#label_input_3__ID').html('Database name')
                     $('#label_input_4__ID').html('Value for option 1')
                     $('#label_input_5__ID').html('Text for option 1')
                     $('#label_input_6__ID').html('Value for option 2')
@@ -491,7 +492,7 @@
                     $('#label_input_1__ID').html('Main label text')
                     $('#label_input_3__ID').html('Database Name')
                     $('#label_input_4__ID').html('Text inside input box')
-                    $('#label_input_5__ID').html('Label Text')
+                    $('#label_input_5__ID').html('Label text')
                     $('#label_input_6__ID').html('Minimum value')
                     $('#label_input_7__ID').html('Maximum value')
                     $('#label_input_9__ID').html('Box length')
@@ -511,14 +512,43 @@
                     $('#input_5__ID').show();
                     $('#input_9_10__ID').show()
                     $('#input_9__ID').show()
-                    $('#label_input_1__ID').html('Central Label Text');
-                    $('#label_input_3__ID').html('Database Name');
-                    $('#label_input_4__ID').html('Left side Text');
-                    $('#label_input_5__ID').html('Right Side Text');
+                    $('#label_input_1__ID').html('Text at the top centre');
+                    $('#label_input_3__ID').html('Database name');
+                    $('#label_input_4__ID').html('Left side text');
+                    $('#label_input_5__ID').html('Right side text');
                     $('#input_9_1_label__ID').text('0 - 100')
                     $('#input_9_2_label__ID').text('0 - 10.0')
                     $('#label_input_9__ID').html('Scale')
-
+                break;
+                case 'Digital Scale':
+                    var start=parseInt(input_6);
+                    var end=parseInt(input_7);
+                    var step=parseInt(input_8);;
+                    txt_layout='<div class="formgroup"><div class="questiongroup "><fieldset class="dynbreaks"><div class="textcenter"><span class="question">'+input_1+'</span></div><div class="grid-container-3-special"><div class="textleft"><span class="question">'+input_4+'</span></div><div class="textcenter">';
+                    if(start!=undefined && end!=undefined){
+                        for(var i=start;i<end+1;i=i+step){
+                            txt_layout+='<input id="'+input_3+'_'+i.toString()+'__ID" name="'+input_3+'" type="radio" value="'+i.toString()+'" >'
+                            txt_layout+='<label class="rd_btn" for="'+input_3+'_'+i+'__ID">'+i.toString()+'</label><br>'
+                        }
+                    }
+                    txt_layout+='</div><div class="textright"><span class="question">'+input_5+'</span></div></div></fieldset></div></div>';
+                    $('#question_layout__ID').html(txt_layout);
+                    $('#input_1__ID').show();
+                    $('#input_3_5__ID').show();
+                    $('#input_3__ID').show();
+                    $('#input_4__ID').show();
+                    $('#input_5__ID').show();
+                    $('#input_6_8__ID').show();
+                    $('#input_6__ID').show();
+                    $('#input_7__ID').show();
+                    $('#input_8__ID').show();
+                    $('#label_input_1__ID').html('Text at the top centre');
+                    $('#label_input_3__ID').html('Database name');
+                    $('#label_input_4__ID').html('Left side text');
+                    $('#label_input_5__ID').html('Right side text');
+                    $('#label_input_6__ID').html('Start value');
+                    $('#label_input_7__ID').html('End value');
+                    $('#label_input_8__ID').html('Step');
                 break;
             }
         }
