@@ -138,9 +138,19 @@ padding:10px
     grid-template-columns: auto auto auto auto auto auto;
   }
 
+  #D__ID .grid-container-input-6 {
+    display: grid;
+    grid-template-columns: 113px 113px 113px 113px 113px 113px;
+  }
+
   #D__ID .grid-container-5 {
     display: grid;
     grid-template-columns: auto auto auto auto auto;
+  }
+
+  #D__ID .grid-container-input-5 {
+    display: grid;
+    grid-template-columns: 136px 136px 136px 136px 136px;
   }
 
   #D__ID .grid-container-4 {
@@ -148,7 +158,13 @@ padding:10px
     grid-template-columns: auto auto auto auto;
   }
 
-  #D__ID .grid-container-3 {
+  #D__ID .grid-container-input-4 {
+    display: grid;
+    grid-template-columns: 170px 170px 170px 170px;
+  }
+
+  #D__ID .grid-container-3,
+  #D__ID .grid-container-input-3 {
     display: grid;
     grid-template-columns: auto auto auto;
   }
@@ -161,7 +177,8 @@ padding:10px
     display: grid;
     grid-template-columns: 50px 600px 50px;
   }
-  #D__ID .grid-container-2 {
+  #D__ID .grid-container-2,
+  #D__ID .grid-container-input-2 {
     display: grid;
     grid-template-columns: auto auto;
   }
@@ -205,6 +222,15 @@ padding:10px
   }
   #D__ID .width_btn_full {
     width: 80%;
+  }
+  #D__ID .width_input_4 {
+    width: 140px;
+  }
+  #D__ID .width_input_5 {
+    width: 105px;
+  }
+  #D__ID .width_input_6 {
+    width: 80px;
   }
 
   #D__ID input[type="radio"]:hover+label,
@@ -311,30 +337,23 @@ padding:10px
   }
 
   @media (max-width: 768px) {
-    #D__ID .grid-container-7 {
-      grid-template-columns: auto;
-    }
-
-    #D__ID .grid-container-5 {
-      grid-template-columns: auto;
-    }
-
-    #D__ID .grid-container-4 {
-      grid-template-columns: auto;
-    }
-
-    #D__ID .grid-container-3 {
-      grid-template-columns: auto;
-      text-align: center;
-    }
-    #D__ID .grid-container-3-fixed {
+    #D__ID .grid-container-7, 
+    #D__ID .grid-container-6,
+    #D__ID .grid-container-input-6,
+    #D__ID .grid-container-5,
+    #D__ID .grid-container-input-5,
+    #D__ID .grid-container-4,
+    #D__ID .grid-container-input-4,
+    #D__ID .grid-container-3,
+    #D__ID .grid-container-input-3,
+    #D__ID .grid-container-5,
+    #D__ID .grid-container-input-5,
+    #D__ID .grid-container-3-fixed,
+    #D__ID .grid-container-3-special {
       grid-template-columns: auto;
       text-align: center;
     }
-    #D__ID .grid-container-3-special{
-      grid-template-columns: auto;
-      text-align: center;
-    }
+
     #D__ID .textleft{
       text-align: center;
     }
