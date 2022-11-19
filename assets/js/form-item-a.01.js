@@ -18,7 +18,9 @@ m.item_a_create_header=function(){
 //-------------------------------------
 m.item_a_render=function(I){
     var start=0;
-    var max=m.item_a_records.length;
+    var max="1";
+    console.log(JSON.stringify(m.item_a_records))
+    if(m.item_a_records!=undefined) max=m.item_a_records.length;
     if(I!==undefined){
         start=I;
         max=I+1;
@@ -48,22 +50,24 @@ m.item_a_render=function(I){
         else                                    txt+="<th "+print+" data-header="+header_id+">"+header_name+"</th>";
     }
     txt+"</tr>";
-    for(var i=0;i<m.item_a_records.length;i++){
-        txt+="<tr><td>"+(i+1).toString()+"</td>";
-        for(var j=0;j<m.item_a_field_header.length;j++){
-            var b=m.item_a_field_id[j];
-            var value="";
-            if(m.item_a_records[i][b]!==undefined) value=m.item_a_records[i][b];
-            value=value.toString();
-            value=$('<div/>').text(value).html();
-            value=value.replace(/\n/g,'<br>');
-            var print='';
-            if(m.item_a_field_header[j][0]=='_') print='class=c_print';
-            //if($vm.edge==0) txt+="<td data-id="+b+" "+print+" contenteditable>"+value+"</td>";
-            //else if($vm.edge==1) 
-            txt+="<td data-id="+b+" "+print+" ><div contenteditable>"+value+"</div></td>";
+    if (m.item_a_records!=undefined){
+        for(var i=0;i<m.item_a_records.length;i++){
+            txt+="<tr><td>"+(i+1).toString()+"</td>";
+            for(var j=0;j<m.item_a_field_header.length;j++){
+                var b=m.item_a_field_id[j];
+                var value="";
+                if(m.item_a_records[i][b]!==undefined) value=m.item_a_records[i][b];
+                value=value.toString();
+                value=$('<div/>').text(value).html();
+                value=value.replace(/\n/g,'<br>');
+                var print='';
+                if(m.item_a_field_header[j][0]=='_') print='class=c_print';
+                //if($vm.edge==0) txt+="<td data-id="+b+" "+print+" contenteditable>"+value+"</td>";
+                //else if($vm.edge==1) 
+                txt+="<td data-id="+b+" "+print+" ><div contenteditable>"+value+"</div></td>";
+            }
+            txt+"</tr>";
         }
-        txt+"</tr>";
     }
     $('#grid_item_a__ID').html(txt);
     //------------------------------------
