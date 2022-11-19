@@ -19,7 +19,6 @@ m.item_a_create_header=function(){
 m.item_a_render=function(I){
     var start=0;
     var max="1";
-    console.log(JSON.stringify(m.item_a_records))
     if(m.item_a_records!=undefined) max=m.item_a_records.length;
     if(I!==undefined){
         start=I;

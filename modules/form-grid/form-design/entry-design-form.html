@@ -356,7 +356,6 @@
         VmInclude: '__HOST__/assets/js/form.01.js'
         VmInclude: '__HOST__/assets/js/form-item-a.01.js'
         VmInclude: '__HOST__/assets/js/form-item-b.01.js'
-
         //-------------------------------------
         var input_1="";
         var input_2="";
@@ -396,7 +395,7 @@
         m.before_submit=function(data,index){
                 data.items_a=m.item_a_get_data();
                 return true;
-            }
+        }
         //-------------------------------------
         $("#F__ID input[name=layout]").on('change',function(){
             check_selection();
@@ -675,6 +674,11 @@
                     $('#label_input_10__ID').html('Number of Boxes')
                     m.item_a_fields="Database name|input_3_a,Label text|input_5_a,Text inside input box|input_4_a,Type of entry|input_10_a,_Remove";
                     m.item_a_after_change();
+                break;
+                default:
+                    console.log("DEFAULT")
+                    $('#question_layout__ID').html("<div></div>")
+                    $('#question__ID').text("");
                 break;
             }
         }
