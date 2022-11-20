@@ -22,6 +22,11 @@
     z-index:2
     }
 
+#D__ID .gap {
+  background-color: rgb(143 188 143);
+  padding: 8px;
+}
+  
 #D__ID .header {
   max-width:800px;
   background-color: rgba(173, 173, 173, 0.8);
