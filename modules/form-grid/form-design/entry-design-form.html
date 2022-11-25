@@ -121,7 +121,7 @@
                         <span class="question"></span>
                         <fieldset class="grid-container-1">
                             <div class="">
-                                <label><span class="question">Dual radiobutton</span></label><br>
+                                <label><span class="question">Dual radiobuttons</span></label><br>
                                 <input id="test_1__ID" name="_test" type="radio" value="1">
                                 <label class="rd_btn" for="test_1__ID">Yes</label>
                                 <input id="test_2__ID" name="_test" type="radio" value="0">
@@ -360,8 +360,8 @@
                             <input id="layout_01__ID" name="layout" type="radio" value="Main Header">
                             <label class="rd_btn fullwidth" for="layout_01__ID">Main Header
                             </label>
-                            <input id="layout_1__ID" name="layout" type="radio" value="Dual radiobutton">
-                            <label class="rd_btn fullwidth" for="layout_1__ID">Dual radiobutton
+                            <input id="layout_1__ID" name="layout" type="radio" value="Dual radiobuttons">
+                            <label class="rd_btn fullwidth" for="layout_1__ID">Dual radiobuttons
                             </label>
                             <input id="layout_2__ID" name="layout" type="radio" value="Instructions">
                             <label class="rd_btn fullwidth" for="layout_2__ID">Instructions
@@ -477,7 +477,7 @@
                     case "Main Header":
                         $('#main_header__ID').show()
                     break;
-                    case "Dual radiobutton":
+                    case "Dual radiobuttons":
                         $('#dual_radio_button__ID').show()
                     break;
                     case "Instructions":
@@ -606,7 +606,7 @@
                         $('#label_input_1__ID').html('Label text')
                         $('#label_input_2__ID').html('Instruction text')
                         break;
-                    case 'Dual radiobutton':
+                    case 'Dual radiobuttons':
                         txt_layout = '<div class="formgroup"><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">' + input_1 + '</span></label><br><input id="' + input_3 + '_1__ID" name="' + input_3 + '" type="radio" value="' + input_4 + '" ><label class="rd_btn" for="' + input_3 + '_1__ID">' + input_5 + '</label><input id="' + input_3 + '_2__ID" name="' + input_3 + '" type="radio" value="' + input_6 + '"><label class="rd_btn" for="' + input_3 + '_2__ID">' + input_7 + '</label></div></fieldset></div>';
                         $('#question_layout__ID').html(txt_layout)
                         $('#input_1__ID').show()
@@ -788,6 +788,39 @@
                         m.item_a_fields = "Database name|input_3_a,Label text|input_5_a,Text inside input box|input_4_a,Type of entry|input_10_a,_Remove";
                         m.item_a_after_change();
                         break;
+                    case 'Horizontal Radiobuttons':
+                        var width = ""
+                        if ($('#F__ID input[name=input_10]:checked').val() == '0') {input_10 = "3"; width = "width_input_3";}
+                        else if ($('#F__ID input[name=input_10]:checked').val() == '1') {input_10 = "4"; width = "width_input_4";}
+                        else if ($('#F__ID input[name=input_10]:checked').val() == '2') { input_10 = "5"; width = "width_input_5"; }
+                        else if ($('#F__ID input[name=input_10]:checked').val() == '3') { input_10 = "6"; width = "width_input_6"; }
+                        else if ($('#F__ID input[name=input_10]:checked').val() == '4') { input_10 = "7"; width = "width_input_7"; }
+                        var box_num = parseInt(input_10)
+                        if (box_num != undefined) {
+                            txt_layout = '<div class="formgroup"><div class="questiongroup "><fieldset class=""><span class="question">' + input_1 + '</span><div class="grid-container-' + input_10 + '">';
+                            for (var i = 0; i < box_num; i++) {
+                                txt_layout += '<div ><input id="'+input_3+'_'+i+'__ID" name="'+input_3+'" type="radio" ><label id="button_text_'+i+'__ID" class="rd_btn '+width+'" for="'+input_3+'_'+i+'__ID"></label></div>';
+                            }
+                            txt_layout += '</div></fieldset></div></div>';
+                        }
+                        $('#question_layout__ID').html(txt_layout)
+                        $('#input_1__ID').show();
+                        $('#input_3_5__ID').show();
+                        $('#input_3__ID').show();
+                        $('#input_9_10__ID').show()
+                        $('#input_10__ID').show()
+                        $('#input_11__ID').show()
+                        $('#input_10_1_label__ID').text('3')
+                        $('#input_10_2_label__ID').text('4')
+                        $('#input_10_3_label__ID').text('5')
+                        $('#input_10_4_label__ID').text('6')
+                        $('#input_10_5_label__ID').text('7')
+                        $('#label_input_1__ID').html('Main label text')
+                        $('#label_input_3__ID').html('Database name')
+                        $('#label_input_10__ID').html('Number of Buttons')
+                        m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
+                        m.item_a_after_change();
+                        break;
                     default:
                         console.log("DEFAULT")
                         $('#question_layout__ID').html("<div></div>")
@@ -803,7 +836,7 @@
             //----------------------------------
             $('#item_a_add__ID').on('click', function () {
                 if (m.item_a_records != undefined) {
-                    if (m.item_a_records.length < parseInt(input_10)) m.item_a_add();
+                    if (m.item_a_records.length < parseInt(input_10)){m.item_a_add();}
                 }
                 else m.item_a_add();
             })
@@ -815,7 +848,7 @@
                         td.find('select').val(records[I][field]);
                         td.find('select').on('change', function () {
                             var value = $(this).val();
-                            console.log(value)
+                            console.log("input_10: "+value)
                             if (value === "" && records[I][field] === undefined) return;
                             records[I][field] = value;
                             m.item_a_after_change(records, I, field, td, set_value, source)
@@ -827,23 +860,29 @@
             m.item_a_after_change = function (records, I, field, td, set_value, source) {
                 var layout = $("#F__ID input[name=layout]:checked").val()
                 console.log("LAYOUT: " + layout)
-                console.log(JSON.stringify(m.item_a_records))
+                console.log("item_a_records: "+JSON.stringify(m.item_a_records))
                 // console.log(JSON.stringify(m.item_a_records[0]));
                 if (m.item_a_records != undefined) {
                     for (var i = 0; i < m.item_a_records.length; i++) {
                         $('#input_label_' + i + '__ID').text(m.item_a_records[i].input_5_a)
                         var input_id = document.getElementById('input_id_' + i + '__ID');
-                        if (m.item_a_records[i].input_4_a != undefined) input_id.setAttribute('placeholder', m.item_a_records[i].input_4_a)
+                        var rb_input_id = document.getElementById(input_3+'_' + i + '__ID');
                         if (layout == "Multiple horizontal number inputs") {
+                            if (m.item_a_records[i].input_4_a != undefined) input_id.setAttribute('placeholder', m.item_a_records[i].input_4_a)
                             if (m.item_a_records[i].input_6_a != undefined) input_id.setAttribute('min', m.item_a_records[i].input_6_a)
                             if (m.item_a_records[i].input_7_a != undefined) input_id.setAttribute('max', m.item_a_records[i].input_7_a)
                             if (m.item_a_records[i].input_8_a != undefined) input_id.setAttribute('step', m.item_a_records[i].input_8_a)
+                            input_id.setAttribute('name', m.item_a_records[i].input_3_a)
                         }
                         if (layout == "Multiple horizontal inputs") {
-                            console.log("AAAA: " + m.item_a_records[i].input_10_a)
+                            if (m.item_a_records[i].input_4_a != undefined) input_id.setAttribute('placeholder', m.item_a_records[i].input_4_a)
                             if (m.item_a_records[i].input_10_a != undefined) input_id.setAttribute('type', m.item_a_records[i].input_10_a)
+                            input_id.setAttribute('name', m.item_a_records[i].input_3_a)
                         }
-                        input_id.setAttribute('name', m.item_a_records[i].input_3_a)
+                        if (layout == "Horizontal Radiobuttons") {
+                            $('#button_text_' + i + '__ID').html(m.item_a_records[i].input_5_a)
+                            if (m.item_a_records[i].input_4_a != undefined) rb_input_id.value=m.item_a_records[i].input_4_a;
+                        }
                     }
                 }
             }

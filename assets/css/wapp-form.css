@@ -137,10 +137,16 @@ padding:10px
     display: grid;
     grid-template-columns: auto auto auto auto auto auto auto;
   }
+  #D__ID .grid-container-7 div {
+    padding:5px;
+  }
 
   #D__ID .grid-container-6 {
     display: grid;
     grid-template-columns: auto auto auto auto auto auto;
+  }
+  #D__ID .grid-container-6 div {
+    padding:5px;
   }
 
   #D__ID .grid-container-input-6 {
@@ -152,6 +158,9 @@ padding:10px
     display: grid;
     grid-template-columns: auto auto auto auto auto;
   }
+  #D__ID .grid-container-5 div {
+    padding:5px;
+  }
 
   #D__ID .grid-container-input-5 {
     display: grid;
@@ -162,7 +171,7 @@ padding:10px
     display: grid;
     grid-template-columns: auto auto auto auto;
   }
-
+  
   #D__ID .grid-container-input-4 {
     display: grid;
     grid-template-columns: 170px 170px 170px 170px;

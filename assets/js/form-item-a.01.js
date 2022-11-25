@@ -21,6 +21,7 @@ m.item_a_render=function(I){
     var max="1";
     if(m.item_a_records!=undefined) max=m.item_a_records.length;
     if(I!==undefined){
+        console.log("I: "+I)
         start=I;
         max=I+1;
     }
@@ -31,6 +32,7 @@ m.item_a_render=function(I){
         if(m.item_a_records[i].vm_readonly===undefined) m.item_a_records[i].vm_readonly={};
     }
     */
+   console.log("Max: "+max)
     var txt="";
     txt+="<tr><th></th>"
     //-------------------------
@@ -156,8 +158,8 @@ m.item_a_add=function(){
             new_row[b]="";
         }
     }
-    m.item_a_records.splice(m.item_a_field_id.length, 0, new_row);
-    m.item_a_render(m.item_a_field_id.length);
+    m.item_a_records.splice(m.item_a_records.length, 0, new_row);
+    m.item_a_render(m.item_a_records.length);
 };
 //-----------------------------------------------
 m.item_a_get_data=function(){
