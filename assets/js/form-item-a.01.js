@@ -21,7 +21,6 @@ m.item_a_render=function(I){
     var max="1";
     if(m.item_a_records!=undefined) max=m.item_a_records.length;
     if(I!==undefined){
-        console.log("I: "+I)
         start=I;
         max=I+1;
     }
@@ -32,7 +31,6 @@ m.item_a_render=function(I){
         if(m.item_a_records[i].vm_readonly===undefined) m.item_a_records[i].vm_readonly={};
     }
     */
-   console.log("Max: "+max)
     var txt="";
     txt+="<tr><th></th>"
     //-------------------------

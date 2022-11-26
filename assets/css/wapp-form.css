@@ -100,7 +100,7 @@ padding:10px
   #D__ID .formgroup {
     padding: 3px 15px;
     display: block;
-    border-bottom: 1px solid #E5EEF0;
+    /*border-bottom: 1px solid #E5EEF0;*/
     background-color: white;
     border-radius: 3px;
     margin-bottom: 4px;
