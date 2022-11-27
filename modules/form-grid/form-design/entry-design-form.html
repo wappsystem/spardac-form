@@ -369,41 +369,41 @@
                         <fieldset class="">
                             <h3 style="margin-left:30px">Please select a question style</h3>
                             <input id="layout_01__ID" name="layout" type="radio" value="Main Header">
-                            <label class="rd_btn fullwidth" for="layout_01__ID">Main Header
-                            </label>
+                            <label class="rd_btn width_btn_full" for="layout_01__ID">Main Header
+                            </label><br>
                             <input id="layout_1__ID" name="layout" type="radio" value="Dual radiobuttons">
-                            <label class="rd_btn fullwidth" for="layout_1__ID">Dual radiobuttons
-                            </label>
+                            <label class="rd_btn width_btn_full" for="layout_1__ID">Dual radiobuttons
+                            </label><br>
                             <input id="layout_2__ID" name="layout" type="radio" value="Instructions">
-                            <label class="rd_btn fullwidth" for="layout_2__ID">Instructions
-                            </label>
+                            <label class="rd_btn width_btn_full" for="layout_2__ID">Instructions
+                            </label><br>
                             <input id="layout_3__ID" name="layout" type="radio" value="Textarea">
-                            <label class="rd_btn fullwidth" for="layout_3__ID">Textarea
-                            </label>
+                            <label class="rd_btn width_btn_full" for="layout_3__ID">Textarea
+                            </label><br>
                             <input id="layout_14__ID" name="layout" type="radio" value="Single text input">
-                            <label class="rd_btn fullwidth" for="layout_14__ID">Single text input
-                            </label>
+                            <label class="rd_btn width_btn_full" for="layout_14__ID">Single text input
+                            </label><br>
                             <input id="layout_4__ID" name="layout" type="radio" value="Multiple horizontal number inputs">
-                            <label class="rd_btn fullwidth" for="layout_4__ID">Multiple horizontal number inputs
-                            </label>
+                            <label class="rd_btn width_btn_full" for="layout_4__ID">Multiple horizontal number inputs
+                            </label><br>
                             <input id="layout_5__ID" name="layout" type="radio" value="Multiple horizontal inputs">
-                            <label class="rd_btn fullwidth" for="layout_5__ID">Multiple horizontal inputs
-                            </label>
+                            <label class="rd_btn width_btn_full" for="layout_5__ID">Multiple horizontal inputs
+                            </label><br>
                             <input id="layout_6__ID" name="layout" type="radio" value="Visual Analogue Scale">
-                            <label class="rd_btn fullwidth" for="layout_6__ID">Visual Analogue Scale
-                            </label>
+                            <label class="rd_btn width_btn_full" for="layout_6__ID">Visual Analogue Scale
+                            </label><br>
                             <input id="layout_7__ID" name="layout" type="radio" value="Digital Scale">
-                            <label class="rd_btn fullwidth" for="layout_7__ID">Digital Scale
-                            </label>
+                            <label class="rd_btn width_btn_full" for="layout_7__ID">Digital Scale
+                            </label><br>
                             <input id="layout_8__ID" name="layout" type="radio" value="Horizontal Radiobuttons">
-                            <label class="rd_btn fullwidth" for="layout_8__ID">Horizontal Radiobuttons
-                            </label>
+                            <label class="rd_btn width_btn_full" for="layout_8__ID">Horizontal Radiobuttons
+                            </label><br>
                             <input id="layout_9__ID" name="layout" type="radio" value="Vertical Radiobuttons">
-                            <label class="rd_btn fullwidth" for="layout_9__ID">Vertical Radiobuttons
-                            </label>
+                            <label class="rd_btn width_btn_full" for="layout_9__ID">Vertical Radiobuttons
+                            </label><br>
                             <input id="layout_10__ID" name="layout" type="radio" value="Vertical Checkboxes">
-                            <label class="rd_btn fullwidth" for="layout_10__ID">Vertical Checkboxes
-                            </label>
+                            <label class="rd_btn width_btn_full" for="layout_10__ID">Vertical Checkboxes
+                            </label><br>
                         </fieldset>
                     </div>
                 </div>
@@ -431,6 +431,7 @@
             var load2 = m.load;
             m.load = function () {
                 load2();
+                if(window.innerWidth>799) $('.mt-95').css("width","800px");
                 console.log("LOAD")
                 $('#main_header__ID').hide();
                 $('#dual_radio_button__ID').hide();
@@ -453,6 +454,8 @@
                 if ($('#F__ID input[name=layout]:checked').val() == "Multiple horizontal number inputs") m.item_a_fields = "Database name|input_3_a,Label text|input_5_a,Text inside input box|input_4_a,Min value|input_6_a,Max value|input_7_a,Step value|input_8_a,_Remove";
                 else if ($('#F__ID input[name=layout]:checked').val() == "Multiple horizontal inputs") m.item_a_fields = "Database name|input_3_a,Label text|input_5_a,Text inside input box|input_4_a,Type of entry|input_10_a,_Remove";
                 else if ($('#F__ID input[name=layout]:checked').val() == "Horizontal Radiobuttons")  m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
+                else if ($('#F__ID input[name=layout]:checked').val() == "Vertical Radiobuttons")  m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
+                else if ($('#F__ID input[name=layout]:checked').val() == "Vertical Checkboxes")  m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input3_a,_Remove";
                 else m.item_a_fields = "";
                 m.item_a_records = []; if (m.input.record != undefined) m.item_a_records = m.input.record.Data.items_a;
                 console.log(m.item_a_fields)
@@ -618,12 +621,14 @@
                 console.log("Layout: "+layout + " - REQ: "+req)
                 switch (layout) {
                     case 'Main Header':
+                        $('#main_header__ID').show()
                         txt_layout = "<h3 style='margin-left:30px'>" + input_1 + "</h3>"
                         $('#question_layout__ID').html(txt_layout)
                         $('#input_1__ID').show()
                         $('#label_input_1__ID').html('Header text')
                         break;
                     case 'Instructions':
+                        $('#instructions__ID').show()
                         txt_layout = '<div class="formgroup"><fieldset class=""><span class="question"><p>' + input_1 + '</p></span><span>' + input_2 + '</span></fieldset></div>';
                         $('#question_layout__ID').html(txt_layout)
                         $('#input_1__ID').show()
@@ -632,6 +637,7 @@
                         $('#label_input_2__ID').html('Instruction text')
                         break;
                     case 'Dual radiobuttons':
+                        $('#dual_radio_button__ID').show()
                         txt_layout = '<div class="formgroup"><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">' + input_1 + '</span></label><br><input id="' + input_3 + '_1__ID" name="' + input_3 + '" type="radio" value="' + input_4 + '" '+req+' ><label class="rd_btn" for="' + input_3 + '_1__ID">' + input_5 + '</label><input id="' + input_3 + '_2__ID" name="' + input_3 + '" type="radio" value="' + input_6 + '"><label class="rd_btn" for="' + input_3 + '_2__ID">' + input_7 + '</label></div></fieldset></div>';
                         $('#question_layout__ID').html(txt_layout)
                         $('#input_1__ID').show()
@@ -652,6 +658,7 @@
                         $('#label_input_7__ID').html('Text for option 2')
                         break;
                     case 'Single text input':
+                        $('#single_text_input__ID').show();
                         var max = "";
                         var min = "";
                         var step = ""
@@ -704,6 +711,7 @@
                         $('#label_input_10__ID').html('Entry type')
                         break;
                     case 'Visual Analogue Scale':
+                        $('#visual_analogue_scale__ID').show()
                         var range = "";
                         var step = "";
                         if ($('#F__ID input[name=input_9]:checked').val() == '0') { range = '100'; step = '1'; }
@@ -728,6 +736,7 @@
                         $('#label_input_9__ID').html('Scale')
                         break;
                     case 'Digital Scale':
+                        $('#digital_scale__ID').show()
                         var start = parseInt(input_6);
                         var end = parseInt(input_7);
                         var step = parseInt(input_8);;
@@ -762,6 +771,7 @@
                         $('#label_input_8__ID').html('Step');
                         break;
                     case 'Multiple horizontal number inputs':
+                        $('#multiple_horizontal_number_inputs__ID').show()
                         var max = "";
                         var min = "";
                         var width = ""
@@ -798,6 +808,7 @@
                         m.item_a_after_change();
                         break;
                     case 'Multiple horizontal inputs':
+                        $('#multiple_horizontal_inputs__ID').show()
                         var width = ""
                         if ($('#F__ID input[name=input_10]:checked').val() == '0') input_10 = "2";
                         else if ($('#F__ID input[name=input_10]:checked').val() == '1') input_10 = "3"
@@ -828,6 +839,7 @@
                         m.item_a_after_change();
                         break;
                     case 'Horizontal Radiobuttons':
+                        $('#horizontal_radiobuttons__ID').show()
                         var width = ""
                         if ($('#F__ID input[name=input_10]:checked').val() == '0') {input_10 = "3"; width = "width_input_3";}
                         else if ($('#F__ID input[name=input_10]:checked').val() == '1') {input_10 = "4"; width = "width_input_4";}
@@ -865,6 +877,69 @@
                         m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
                         m.item_a_after_change();
                         break;
+                    case 'Vertical Radiobuttons':
+                        $('#vertical_radiobuttons__ID').show()
+                        var width = ""
+                        if ($('#F__ID input[name=input_10]:checked').val() == '') {width = "";}
+                        else if ($('#F__ID input[name=input_10]:checked').val() == '1') {width = "width_btn_130";}
+                        else if ($('#F__ID input[name=input_10]:checked').val() == '2') {width = "width_btn_250";}
+                        else if ($('#F__ID input[name=input_10]:checked').val() == '3') {width = "width_btn_full"; }
+                            txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span>';
+                            for (var i = 0; i < m.item_a_records.length; i++) {
+                                txt_layout += '<input id="'+input_3+'_'+i+'__ID" name="'+input_3+'" type="radio"';
+                                if(i==0) txt_layout +=' '+req+' >';
+                                else txt_layout +=' >'
+                                txt_layout +='<label id="button_text_'+i+'__ID" class="rd_btn '+width+'" for="'+input_3+'_'+i+'__ID"></label><br>';
+                            }
+                            txt_layout += '</fieldset></div></div>';
+                        $('#question_layout__ID').html(txt_layout);
+                        $('#input_1__ID').show();
+                        $('#input_3_5__ID').show();
+                        $('#input_3__ID').show();
+                        $('#input_9_10__ID').show();
+                        $('#input_10__ID').show();
+                        $('#input_11__ID').show();
+                        $('#req_g__ID').show();
+                        $('#req__ID').show();
+                        $('#input_10_1_label__ID').text('As button Text')
+                        $('#input_10_2_label__ID').text('Short')
+                        $('#input_10_3_label__ID').text('Medium')
+                        $('#input_10_4_label__ID').text('Long')
+                        $('#input_10_5_label__ID').hide();
+                        $('#label_input_1__ID').html('Main label text')
+                        $('#label_input_3__ID').html('Database name')
+                        $('#label_input_10__ID').html('Button Length')
+                        m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
+                        m.item_a_after_change();
+                        break;
+                        case 'Vertical Checkboxes':
+                        $('#vertical_checkboxes__ID').show()
+                        var width = ""
+                        if ($('#F__ID input[name=input_10]:checked').val() == '') {width = "";}
+                        else if ($('#F__ID input[name=input_10]:checked').val() == '1') {width = "width_btn_130";}
+                        else if ($('#F__ID input[name=input_10]:checked').val() == '2') {width = "width_btn_250";}
+                        else if ($('#F__ID input[name=input_10]:checked').val() == '3') {width = "width_btn_full"; }
+                        txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span>';
+                        for (var i = 0; i < m.item_a_records.length; i++) {
+                            txt_layout += '<input id="input_id_' + i + '__ID" type="checkbox" >';
+                            txt_layout +='<label id="button_text_'+i+'__ID" class="rd_btn '+width+'" for="input_id_' + i + '__ID"></label><br>';
+                        }
+                        txt_layout += '</fieldset></div></div>';
+                        $('#question_layout__ID').html(txt_layout);
+                        $('#input_1__ID').show();
+                        $('#input_9_10__ID').show();
+                        $('#input_10__ID').show();
+                        $('#input_11__ID').show();
+                        $('#input_10_1_label__ID').text('As button Text')
+                        $('#input_10_2_label__ID').text('Short')
+                        $('#input_10_3_label__ID').text('Medium')
+                        $('#input_10_4_label__ID').text('Long')
+                        $('#input_10_5_label__ID').hide();
+                        $('#label_input_1__ID').html('Main label text')
+                        $('#label_input_10__ID').html('Button Length')
+                        m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input3_a,_Remove";
+                        m.item_a_after_change();
+                        break;
                     default:
                         console.log("DEFAULT")
                         $('#question_layout__ID').html("<div></div>")
@@ -879,13 +954,19 @@
             m.item_a_fields = ","
             //----------------------------------
             $('#item_a_add__ID').on('click', function () {
-                if (m.item_a_records != undefined) {
-                    if (m.item_a_records.length < parseInt(input_10)){m.item_a_add();}
+                var layout = $("#F__ID input[name=layout]:checked").val();
+                console.log("ADD ITEM: "+layout)
+                if (layout != "Vertical Radiobuttons" && layout != "Vertical Checkboxes") {
+                    console.log("if")
+                    if (m.item_a_records != undefined) {
+                        if (m.item_a_records.length < parseInt(input_10)){m.item_a_add();}
+                    }
                 }
-                else m.item_a_add();
+                else {console.log("else");m.item_a_add();}
             })
             //----------------------------------
             m.item_a_cell_render = function (records, I, field, td, set_value, source) {
+                console.log("Render: ")
                 switch (field) {
                     case "input_10_a":
                         td.html("<select><option></option><option value='text'>Text input</option><option value='date'>Date input</option><option value='time'>Time input</option></select>");
@@ -923,9 +1004,15 @@
                             if (m.item_a_records[i].input_10_a != undefined) input_id.setAttribute('type', m.item_a_records[i].input_10_a)
                             input_id.setAttribute('name', m.item_a_records[i].input_3_a)
                         }
-                        if (layout == "Horizontal Radiobuttons") {
-                            $('#button_text_' + i + '__ID').html(m.item_a_records[i].input_5_a)
+                        if (layout == "Horizontal Radiobuttons" || layout == "Vertical Radiobuttons" ) {
+                            $('#button_text_'+i+'__ID').html('<span class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>'+m.item_a_records[i].input_5_a)
                             if (m.item_a_records[i].input_4_a != undefined) rb_input_id.value=m.item_a_records[i].input_4_a;
+                        }
+                        if (layout == "Vertical Checkboxes" ) {
+                            console.log("Vertical Checkboxes")
+                            $('#button_text_'+i+'__ID').html('<span class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>'+m.item_a_records[i].input_5_a)
+                            if (m.item_a_records[i].input_4_a != undefined) input_id.value=m.item_a_records[i].input_4_a;
+                            input_id.setAttribute('name', m.item_a_records[i].input_3_a)
                         }
                     }
                 }

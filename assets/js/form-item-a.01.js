@@ -135,6 +135,7 @@ m.item_a_cell_process=function(){
         m.item_a_set_value(value,m.item_a_records,row,column_name);
         if(m.item_a_after_change!==''){ m.item_a_after_change(m.item_a_records,row,column_name,$(this),m.item_a_set_value,'grid'); }
     })
+    check_selection();
     //------------------------------------
 }
 //-------------------------------------
@@ -148,6 +149,7 @@ m.item_a_set_value=function(value,records,I,column_name){
 }
 //-----------------------------------------------
 m.item_a_add=function(){
+    console.log("ADD")
     var new_records;
     var new_row={}
     for(var i=0;i<m.item_a_field_id.length;i++){
