@@ -363,6 +363,27 @@
                         </div>
                     </div>
                 </div>
+                <div id="dropdown_list__ID">
+                    <div class="formgroup">
+                        <div class="">
+                            <fieldset>
+                                <span class="question">
+                                    <p>Drop Down List</p>
+                                </span>
+                                <select class="formcontrol" >
+                                    <option value=""></option>
+                                    <option value="1">Option 1</option>
+                                    <option value="2">Option 2</option>
+                                    <option value="3">Option 3</option>
+                                    <option value="4">Option 4</option>
+                                    <option value="5">Option 5</option>
+                                    <option value="6">Option 6</option>
+                                </select>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="gap"></div>
                 <div class="formgroup">
                     <div class="questiongroup">
@@ -403,6 +424,9 @@
                             </label><br>
                             <input id="layout_10__ID" name="layout" type="radio" value="Vertical Checkboxes">
                             <label class="rd_btn width_btn_full" for="layout_10__ID">Vertical Checkboxes
+                            </label><br>
+                            <input id="layout_11__ID" name="layout" type="radio" value="Dropdown List">
+                            <label class="rd_btn width_btn_full" for="layout_11__ID">Dropdown List
                             </label><br>
                         </fieldset>
                     </div>
@@ -445,6 +469,7 @@
                 $('#horizontal_radiobuttons__ID').hide();
                 $('#vertical_radiobuttons__ID').hide();
                 $('#vertical_checkboxes__ID').hide();
+                $('#dropdown_list__ID').hide();
                 $("#D__ID").css('display', 'flex');
                 if ($('[type="date"]').prop('type') != 'date') {
                     $('[type="date"]').datepicker();
@@ -456,6 +481,7 @@
                 else if ($('#F__ID input[name=layout]:checked').val() == "Horizontal Radiobuttons")  m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
                 else if ($('#F__ID input[name=layout]:checked').val() == "Vertical Radiobuttons")  m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
                 else if ($('#F__ID input[name=layout]:checked').val() == "Vertical Checkboxes")  m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input3_a,_Remove";
+                else if ($('#F__ID input[name=layout]:checked').val() == "Dropdown List")  m.item_a_fields = "Dropdown option text|input_5_a,Option value|input_4_a,_Remove";
                 else m.item_a_fields = "";
                 m.item_a_records = []; if (m.input.record != undefined) m.item_a_records = m.input.record.Data.items_a;
                 console.log(m.item_a_fields)
@@ -489,6 +515,7 @@
                 $('#horizontal_radiobuttons__ID').hide();
                 $('#vertical_radiobuttons__ID').hide();
                 $('#vertical_checkboxes__ID').hide();
+                $('#dropdown_list__ID').hide();
 
                 var lay=$("#F__ID input[name=layout]:checked").val()
                 switch(lay){
@@ -527,6 +554,9 @@
                     break;
                     case "Vertical Checkboxes":
                         $('#vertical_checkboxes__ID').show()
+                    break;
+                    case "Dropdown List":
+                        $('#dropdown_list__ID').show();
                     break;
                 }
                 check_selection();
@@ -940,6 +970,26 @@
                         m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input3_a,_Remove";
                         m.item_a_after_change();
                         break;
+                        case 'Dropdown List':
+                        $('#dropdown_list__ID').show();
+                        txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span><select id="' + input_3 + '__ID" name="' + input_3 + '" '+req+' class="formcontrol" >';
+                        for (var i = 0; i < m.item_a_records.length; i++) {
+                            txt_layout += '<option ></option>';
+                        }
+                        txt_layout += '</select></fieldset></div></div>';
+                        $('#question_layout__ID').html(txt_layout);
+                        $('#input_1__ID').show();
+                        $('#input_3_5__ID').show();
+                        $('#input_3__ID').show();
+                        $('#input_9_10__ID').show();
+                        $('#input_11__ID').show();
+                        $('#req_g__ID').show();
+                        $('#req__ID').show();
+                        $('#label_input_1__ID').html('Main label text')
+                        $('#label_input_3__ID').html('Database name')
+                        m.item_a_fields = "Dropdown option text|input_5_a,Option value|input_4_a,_Remove";
+                        m.item_a_after_change();
+                        break;
                     default:
                         console.log("DEFAULT")
                         $('#question_layout__ID').html("<div></div>")
@@ -956,7 +1006,7 @@
             $('#item_a_add__ID').on('click', function () {
                 var layout = $("#F__ID input[name=layout]:checked").val();
                 console.log("ADD ITEM: "+layout)
-                if (layout != "Vertical Radiobuttons" && layout != "Vertical Checkboxes") {
+                if (layout != "Vertical Radiobuttons" && layout != "Vertical Checkboxes" && layout != "Dropdown List" ) {
                     console.log("if")
                     if (m.item_a_records != undefined) {
                         if (m.item_a_records.length < parseInt(input_10)){m.item_a_add();}
@@ -990,8 +1040,10 @@
                 if (m.item_a_records != undefined) {
                     for (var i = 0; i < m.item_a_records.length; i++) {
                         $('#input_label_' + i + '__ID').text(m.item_a_records[i].input_5_a)
+                        console.log(m.item_a_records[i].input_5_a)
                         var input_id = document.getElementById('input_id_' + i + '__ID');
                         var rb_input_id = document.getElementById(input_3+'_' + i + '__ID');
+                        var drop =  document.getElementById(input_3+'__ID');
                         if (layout == "Multiple horizontal number inputs") {
                             if (m.item_a_records[i].input_4_a != undefined) input_id.setAttribute('placeholder', m.item_a_records[i].input_4_a)
                             if (m.item_a_records[i].input_6_a != undefined) input_id.setAttribute('min', m.item_a_records[i].input_6_a)
@@ -1009,10 +1061,13 @@
                             if (m.item_a_records[i].input_4_a != undefined) rb_input_id.value=m.item_a_records[i].input_4_a;
                         }
                         if (layout == "Vertical Checkboxes" ) {
-                            console.log("Vertical Checkboxes")
                             $('#button_text_'+i+'__ID').html('<span class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>'+m.item_a_records[i].input_5_a)
                             if (m.item_a_records[i].input_4_a != undefined) input_id.value=m.item_a_records[i].input_4_a;
                             input_id.setAttribute('name', m.item_a_records[i].input_3_a)
+                        }
+                        if (layout == "Dropdown List" ) {
+                            if (m.item_a_records[i].input_5_a != undefined) drop.options[i].text = m.item_a_records[i].input_5_a;
+                            if (m.item_a_records[i].input_4_a != undefined) drop.options[i].value = m.item_a_records[i].input_4_a;
                         }
                     }
                 }
