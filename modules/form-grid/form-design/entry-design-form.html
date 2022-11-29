@@ -109,6 +109,23 @@
                                 </div>
                             </div>
                         </div>
+                        <div id=specify__ID class="formgroup">
+                            <div class="formgroup grid-container-3">
+                                <div>
+                                    <span class="question">
+                                        <p>"Please specify" entry field</p>
+                                    </span>
+                                </div>
+                                <div id=specify_1__ID class="">
+                                    <label><span id="label_specify_1__ID" class="question">Database name</span></label><input type=text
+                                        name="specify_1" class="formcontrol" />
+                                </div>
+                                <div id=specify_2__ID>
+                                    <label><span id="label_specify_2__ID" class="question">Value when field is shown</span></label><input type=text
+                                        name="specify_2" class="formcontrol" />
+                                </div>
+                            </div>
+                        </div>
                         <div id=input_11__ID class="formgroup">
                             <u style='cursor:pointer;' id=item_a_add__ID><i class="fa fa-plus"></i> Add line per input
                                 box</u>
@@ -137,6 +154,10 @@
                                 <label class="rd_btn" for="test_1__ID">Yes</label>
                                 <input id="test_2__ID" name="_test" type="radio" value="0">
                                 <label class="rd_btn" for="test_2__ID">No</label>
+                            </div>
+                            <div id="_test_option__ID" class="hide">
+                                <label><span class="question">Please specify</span></label><br>
+                                <input id="test_1__ID" name="_test_option" type="text" class="formcontrol fullwidth">
                             </div>
                         </fieldset>
                     </div>
@@ -457,6 +478,12 @@
                 load2();
                 if(window.innerWidth>799) $('.mt-95').css("width","800px");
                 console.log("LOAD")
+                //---------COMMON CODE
+                if($('#F__ID input[name=_test]:checked').val()=="1"){$('#_test_option__ID').show();}
+                else{$('#_test_option__ID').hide();}
+                //-------------
+                $('<style>#vas_con__ID input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0px; height: 0px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');
+                //----------------------
                 $('#main_header__ID').hide();
                 $('#dual_radio_button__ID').hide();
                 $('#instructions__ID').hide();
@@ -474,7 +501,6 @@
                 if ($('[type="date"]').prop('type') != 'date') {
                     $('[type="date"]').datepicker();
                 }
-                $('<style>#vas_con__ID input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0px; height: 0px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');
                 //-------item a part
                 if ($('#F__ID input[name=layout]:checked').val() == "Multiple horizontal number inputs") m.item_a_fields = "Database name|input_3_a,Label text|input_5_a,Text inside input box|input_4_a,Min value|input_6_a,Max value|input_7_a,Step value|input_8_a,_Remove";
                 else if ($('#F__ID input[name=layout]:checked').val() == "Multiple horizontal inputs") m.item_a_fields = "Database name|input_3_a,Label text|input_5_a,Text inside input box|input_4_a,Type of entry|input_10_a,_Remove";
@@ -495,6 +521,10 @@
                 $('<style>#vas_con__ID input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');
                 $('#vas_req__ID').val("OK")
             })
+            $('#F__ID input[name=_test]').on('change',function(){
+                if($('#F__ID input[name=_test]:checked').val()=="1"){$('#_test_option__ID').show();}
+                else{$('#_test_option__ID').hide();}
+            });
             //-------------------------------------
             m.before_submit = function (data, index) {
                 if(m.item_a_records!=undefined) data.items_a = m.item_a_get_data();
@@ -618,6 +648,8 @@
                 input_8 = "";
                 input_9 = "";
                 input_10 = "";
+                specify_1 = "";
+                specify_2 = "";
                 req="";
                 if ($("#F__ID input[name=layout]:checked").val() != undefined) $('#question__ID').text(" - " + $("#F__ID input[name=layout]:checked").val())
                 $('#input_1__ID').hide();
@@ -636,6 +668,7 @@
                 $('#input_11__ID').hide();
                 $('#req_g__ID').hide();
                 $('#req__ID').hide();
+                $('#specify__ID').hide();
                 var txt_layout = "";
                 var input_layout = "";
                 var layout = $("#F__ID input[name=layout]:checked").val()
@@ -647,6 +680,8 @@
                 input_6 = $('#F__ID input[name=input_6]').val();
                 input_7 = $('#F__ID input[name=input_7]').val();
                 input_8 = $('#F__ID input[name=input_8]').val();
+                specify_1 = $('#F__ID input[name=specify_1]').val();
+                specify_2 = $('#F__ID input[name=specify_2]').val();
                 req = $('#F__ID input[name=req]:checked').val();
                 console.log("Layout: "+layout + " - REQ: "+req)
                 switch (layout) {
@@ -680,6 +715,7 @@
                         $('#input_7__ID').show()
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#specify__ID').show();
                         $('#label_input_1__ID').html('Label text')
                         $('#label_input_3__ID').html('Database name')
                         $('#label_input_4__ID').html('Value for option 1')
