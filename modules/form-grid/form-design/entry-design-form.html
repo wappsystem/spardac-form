@@ -110,19 +110,23 @@
                             </div>
                         </div>
                         <div id=specify__ID class="formgroup">
+                            <div>
+                                <span class="question">
+                                    <p>"Please specify" entry field. Leave empty if not required.</p>
+                                </span>
+                            </div>
                             <div class="formgroup grid-container-3">
-                                <div>
-                                    <span class="question">
-                                        <p>"Please specify" entry field</p>
-                                    </span>
-                                </div>
                                 <div id=specify_1__ID class="">
-                                    <label><span id="label_specify_1__ID" class="question">Database name</span></label><input type=text
+                                    <label><span id="label_specify_1__ID" class="question">Label text</span></label><input type=text
                                         name="specify_1" class="formcontrol" />
                                 </div>
-                                <div id=specify_2__ID>
-                                    <label><span id="label_specify_2__ID" class="question">Value when field is shown</span></label><input type=text
+                                <div id=specify_2__ID class="">
+                                    <label><span id="label_specify_2__ID" class="question">Database name</span></label><input type=text
                                         name="specify_2" class="formcontrol" />
+                                </div>
+                                <div id=specify_3__ID>
+                                    <label><span id="label_specify_3__ID" class="question">Value when field is shown</span></label><input type=text
+                                        name="specify_3" class="formcontrol" />
                                 </div>
                             </div>
                         </div>
@@ -154,10 +158,10 @@
                                 <label class="rd_btn" for="test_1__ID">Yes</label>
                                 <input id="test_2__ID" name="_test" type="radio" value="0">
                                 <label class="rd_btn" for="test_2__ID">No</label>
-                            </div>
-                            <div id="_test_option__ID" class="hide">
-                                <label><span class="question">Please specify</span></label><br>
-                                <input id="test_1__ID" name="_test_option" type="text" class="formcontrol fullwidth">
+                                <div id="_test_option__ID" class="formgroup hide">
+                                    <label><span class="question">Please specify</span></label><br>
+                                    <input id="test_1__ID" name="_test_option" type="text" class="formcontrol fullwidth">
+                                </div>
                             </div>
                         </fieldset>
                     </div>
@@ -473,6 +477,9 @@
             var input_9 = "";
             var input_10 = "";
             var req="";
+            var specify_1 = "";
+            var specify_2 = "";
+            var specify_3 = "";
             var load2 = m.load;
             m.load = function () {
                 load2();
@@ -514,7 +521,12 @@
                 m.item_a_render();
                 //-------
                 check_selection();
-
+                console.log("input 3: "+input_3)
+                $('#F__ID input[name="'+input_3+'"]').on('change',function(){
+                    console.log("Specify: "+specify_3)
+                    if($('#F__ID input[name="'+input_3+'"]:checked').val()==specify_3){$('#'+input_3+'_option__ID').show();}
+                    else{$('#'+input_3+'_option__ID').hide();}
+                });
             }
             //-------------------------------------
             $('#vas__ID').on('click', function () {
@@ -546,6 +558,7 @@
                 $('#vertical_radiobuttons__ID').hide();
                 $('#vertical_checkboxes__ID').hide();
                 $('#dropdown_list__ID').hide();
+                $('#specify__ID').hide();
 
                 var lay=$("#F__ID input[name=layout]:checked").val()
                 switch(lay){
@@ -636,6 +649,26 @@
                 check_selection();
             })
             //-------------------------------------
+            $("#F__ID input[name=specify_1]").on('keyup', function () {
+                check_selection();
+            })
+            //-------------------------------------
+            $("#F__ID input[name=specify_2]").on('keyup', function () {
+                check_selection();
+            })
+            //-------------------------------------
+            $("#F__ID input[name=specify_3]").on('keyup', function () {
+                check_selection();
+                console.log("input 3: "+input_3)
+                $('#F__ID input[name="'+input_3+'"]').on('change',function(){
+                    console.log("Specify: "+specify_3)
+                    if($('#F__ID input[name="'+input_3+'"]:checked').val()==specify_3){$('#'+input_3+'_option__ID').show();}
+                    else{$('#'+input_3+'_option__ID').hide();}
+                });
+            //-------------------------------------
+
+            })
+            //-------------------------------------
             var check_selection = function () {
                 console.log("CHECK SELECTION")
                 input_1 = "";
@@ -650,6 +683,7 @@
                 input_10 = "";
                 specify_1 = "";
                 specify_2 = "";
+                specify_3 = "";
                 req="";
                 if ($("#F__ID input[name=layout]:checked").val() != undefined) $('#question__ID').text(" - " + $("#F__ID input[name=layout]:checked").val())
                 $('#input_1__ID').hide();
@@ -682,6 +716,7 @@
                 input_8 = $('#F__ID input[name=input_8]').val();
                 specify_1 = $('#F__ID input[name=specify_1]').val();
                 specify_2 = $('#F__ID input[name=specify_2]').val();
+                specify_3 = $('#F__ID input[name=specify_3]').val();
                 req = $('#F__ID input[name=req]:checked').val();
                 console.log("Layout: "+layout + " - REQ: "+req)
                 switch (layout) {
@@ -703,7 +738,9 @@
                         break;
                     case 'Dual radiobuttons':
                         $('#dual_radio_button__ID').show()
-                        txt_layout = '<div class="formgroup"><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">' + input_1 + '</span></label><br><input id="' + input_3 + '_1__ID" name="' + input_3 + '" type="radio" value="' + input_4 + '" '+req+' ><label class="rd_btn" for="' + input_3 + '_1__ID">' + input_5 + '</label><input id="' + input_3 + '_2__ID" name="' + input_3 + '" type="radio" value="' + input_6 + '"><label class="rd_btn" for="' + input_3 + '_2__ID">' + input_7 + '</label></div></fieldset></div>';
+                        txt_layout = '<div class="formgroup"><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">' + input_1 + '</span></label><br><input id="' + input_3 + '_1__ID" name="' + input_3 + '" type="radio" value="' + input_4 + '" '+req+' ><label class="rd_btn" for="' + input_3 + '_1__ID">' + input_5 + '</label><input id="' + input_3 + '_2__ID" name="' + input_3 + '" type="radio" value="' + input_6 + '"><label class="rd_btn" for="' + input_3 + '_2__ID">' + input_7 + '</label>';
+                        txt_layout +='<div id="' + input_3 + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
+                        txt_layout += '</div></fieldset></div>';
                         $('#question_layout__ID').html(txt_layout)
                         $('#input_1__ID').show()
                         $('#input_3_5__ID').show()
@@ -1093,7 +1130,7 @@
                             input_id.setAttribute('name', m.item_a_records[i].input_3_a)
                         }
                         if (layout == "Horizontal Radiobuttons" || layout == "Vertical Radiobuttons" ) {
-                            $('#button_text_'+i+'__ID').html('<span class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>'+m.item_a_records[i].input_5_a)
+                            $('#button_text_'+i+'__ID').html(m.item_a_records[i].input_5_a)
                             if (m.item_a_records[i].input_4_a != undefined) rb_input_id.value=m.item_a_records[i].input_4_a;
                         }
                         if (layout == "Vertical Checkboxes" ) {
