@@ -109,12 +109,12 @@ m.submit=function(event){
     var data_new=$vm.serialize('#F__ID');
     if(m.input!=undefined && m.input.record!=undefined){
         for(k in m.input.record.Data){
-            data[k]=m.input.record.Data[k];
+            if(k.charAt(0)!="_") data[k]=m.input.record.Data[k];
         }
     }
     if(data_new!=undefined){
         for(k in data_new){
-            data[k]=data_new[k];
+            if(k.charAt(0)!="_") data[k]=data_new[k];
         }
     }
     delete data[""];

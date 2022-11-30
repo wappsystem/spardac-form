@@ -533,17 +533,13 @@
                 else if ($('#F__ID input[name=layout]:checked').val() == "Dropdown List")  m.item_a_fields = "Dropdown option text|input_5_a,Option value|input_4_a,_Remove";
                 else m.item_a_fields = "";
                 m.item_a_records = []; if (m.input.record != undefined) m.item_a_records = m.input.record.Data.items_a;
-                console.log(m.item_a_fields)
                 m.item_a_render();
                 //-------
                 check_selection();
-                console.log("input 3: "+input_3)
                 $('#'+input_3+'_option__ID').hide();
                 var db_name=input_3;
                 if($("#F__ID input[name=layout]:checked").val()=="Vertical Checkboxes" ) {db_name= specify_5; specify_3=specify_4;}
                 $('#F__ID input[name="'+db_name+'"]').on('change',function(){
-                    console.log("Specify: "+specify_3)
-                    console.log("db_name: "+db_name)
                     if($('#F__ID input[name="'+db_name+'"]:checked').val()==specify_3){$('#'+input_3+'_option__ID').show();}
                     else{$('#'+input_3+'_option__ID').hide();}
                 });
@@ -687,25 +683,12 @@
             //-------------------------------------
             $("#F__ID input[name=specify_3]").on('keyup', function () {
                 check_selection();
-
                 var db_name=input_3;
                 if($("#F__ID input[name=layout]:checked").val()=="Vertical Checkboxes" ) {db_name= specify_5; specify_3=specify_4;}
                 $('#F__ID input[name="'+db_name+'"]').on('change',function(){
-                    console.log("Specify: "+specify_3)
-                    console.log("db_name: "+db_name)
                     if($('#F__ID input[name="'+db_name+'"]:checked').val()==specify_3){$('#'+input_3+'_option__ID').show();}
                     else{$('#'+input_3+'_option__ID').hide();}
                 });
-/*
-                console.log("input 3: "+input_3)
-                $('#F__ID input[name="'+input_3+'"]').on('change',function(){
-                    console.log("Specify: "+specify_3)
-                    if($('#F__ID input[name="'+input_3+'"]:checked').val()==specify_3){$('#'+input_3+'_option__ID').show();}
-                    else{$('#'+input_3+'_option__ID').hide();}
-                });
-                */
-            //-------------------------------------
-
             })
             //-------------------------------------
             var check_selection = function () {
@@ -758,7 +741,7 @@
                 specify_2 = $('#F__ID input[name=specify_2]').val();
                 specify_3 = $('#F__ID input[name=specify_3]').val();
                 req = $('#F__ID input[name=req]:checked').val();
-                console.log("Layout: "+layout + " - REQ: "+req)
+                //console.log("Layout: "+layout + " - REQ: "+req)
                 switch (layout) {
                     case 'Main Header':
                         $('#main_header__ID').show()
@@ -1121,20 +1104,16 @@
             }
             //----------------------------------
             // Multiple input entries. Numbers
-            //item a part
-            //m.item_a_fields="Database name|input_3_a,Label text|input_5_a,Text inside input box|input_4_a,Min value|input_6_a,Max value|input_7_a,Step value|input_8_a,_Remove";
             m.item_a_fields = ","
             //----------------------------------
             $('#item_a_add__ID').on('click', function () {
                 var layout = $("#F__ID input[name=layout]:checked").val();
-                console.log("ADD ITEM: "+layout)
                 if (layout != "Vertical Radiobuttons" && layout != "Vertical Checkboxes" && layout != "Dropdown List" ) {
-                    console.log("if")
                     if (m.item_a_records != undefined) {
                         if (m.item_a_records.length < parseInt(input_10)){m.item_a_add();}
                     }
                 }
-                else {console.log("else");m.item_a_add();}
+                else {m.item_a_add();}
             })
             //----------------------------------
             m.item_a_cell_render = function (records, I, field, td, set_value, source) {
@@ -1145,7 +1124,6 @@
                         td.find('select').val(records[I][field]);
                         td.find('select').on('change', function () {
                             var value = $(this).val();
-                            console.log("input_10: "+value)
                             if (value === "" && records[I][field] === undefined) return;
                             records[I][field] = value;
                             m.item_a_after_change(records, I, field, td, set_value, source)
@@ -1156,13 +1134,9 @@
             //----------------------------------
             m.item_a_after_change = function (records, I, field, td, set_value, source) {
                 var layout = $("#F__ID input[name=layout]:checked").val()
-                console.log("LAYOUT: " + layout)
-                console.log("item_a_records: "+JSON.stringify(m.item_a_records))
-                // console.log(JSON.stringify(m.item_a_records[0]));
                 if (m.item_a_records != undefined) {
                     for (var i = 0; i < m.item_a_records.length; i++) {
                         $('#input_label_' + i + '__ID').text(m.item_a_records[i].input_5_a)
-                        console.log(m.item_a_records[i].input_5_a)
                         var input_id = document.getElementById('input_id_' + i + '__ID');
                         var rb_input_id = document.getElementById(input_3+'_' + i + '__ID');
                         var drop =  document.getElementById(input_3+'__ID');
@@ -1186,8 +1160,7 @@
                             $('#button_text_'+i+'__ID').html('<span class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>'+m.item_a_records[i].input_5_a)
                             if (m.item_a_records[i].input_4_a != undefined) input_id.value=m.item_a_records[i].input_4_a;
                             input_id.setAttribute('name', m.item_a_records[i].input_3_a)
-                            if(specify_3==m.item_a_records[i].input_4_a){specify_4=m.item_a_records[i].input_4_a;specify_5=m.item_a_records[i].input_3_a;
-                                console.log("specify_4:"+specify_4);console.log("specify_5:"+specify_5);}
+                            if(specify_3==m.item_a_records[i].input_4_a){specify_4=m.item_a_records[i].input_4_a;specify_5=m.item_a_records[i].input_3_a;}
                         }
                         if (layout == "Dropdown List" ) {
                             if (m.item_a_records[i].input_5_a != undefined) drop.options[i].text = m.item_a_records[i].input_5_a;
