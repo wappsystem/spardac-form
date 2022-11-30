@@ -131,8 +131,8 @@
                             </div>
                         </div>
                         <div id=input_11__ID class="formgroup">
-                            <u style='cursor:pointer;' id=item_a_add__ID><i class="fa fa-plus"></i> Add line per input
-                                box</u>
+                            <u style='cursor:pointer;' id=item_a_add__ID><i class="fa fa-plus"></i> <span id=input_11_text__ID>Add line per input
+                                box</span></u>
                             <table id=grid_item_a__ID></table>
                         </div>
 
@@ -153,7 +153,7 @@
                         <span class="question"></span>
                         <fieldset class="grid-container-1">
                             <div class="">
-                                <label><span class="question">Dual radiobuttons</span></label><br>
+                                <label><span class="question">Dual radiobuttons, with optional "please specify"</span></label><br>
                                 <input id="test_1__ID" name="_test" type="radio" value="1">
                                 <label class="rd_btn" for="test_1__ID">Yes</label>
                                 <input id="test_2__ID" name="_test" type="radio" value="0">
@@ -339,7 +339,7 @@
                         <div class="questiongroup">
                             <fieldset class="">
                                 <span class="question">
-                                    <p>Vertical Radio Buttons</p>
+                                    <p>Vertical Radio Buttons, with optional "please specify" with Option 4</p>
                                 </span>
                                 <input id="vrb_1__ID" name="_vrb" type="radio" value="0">
                                 <label class="rd_btn width_btn_250" for="vrb_1__ID">0 - Button Text Option 1
@@ -353,6 +353,11 @@
                                 <input id="vrb_4__ID" name="_vrb" type="radio" value="3">
                                 <label class="rd_btn width_btn_250" for="vrb_4__ID">3 - Button Text Option 4
                                     <b>HIGH</b></label><br>
+                                <div id="_vrb_option__ID" class="formgroup ">
+                                    <label><span class="question">Please specify</span></label><br>
+                                    <input id="_vrb__ID" name="_vrb_option" type="text" class="formcontrol fullwidth">
+                                </div>
+    
                             </fieldset>
                         </div>
                     </div>
@@ -362,28 +367,33 @@
                         <div class="">
                             <fieldset>
                                 <span class="question">
-                                    <p>Vertical Check Boxes</p>
+                                    <p>Vertical Check Boxes, with optional "please specify" with Option 5</p>
                                 </span>
-                                <input type="checkbox" id="vcb_1__ID" name="_vcb_1">
+                                <input type="checkbox" id="vcb_1__ID" name="_vcb_1" value="1">
                                 <label class="rd_btn width_btn_130" for="vcb_1__ID"><span
                                         class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>Option
                                     1</label><br>
-                                <input type="checkbox" id="vcb_2__ID" name="_vcb_2">
+                                <input type="checkbox" id="vcb_2__ID" name="_vcb_2" value="2">
                                 <label class="rd_btn width_btn_130" for="vcb_2__ID"><span
                                         class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>Option
                                     2</label><br>
-                                <input type="checkbox" id="vcb_3__ID" name="_vcb_3">
+                                <input type="checkbox" id="vcb_3__ID" name="_vcb_3" value="3">
                                 <label class="rd_btn width_btn_130" for="vcb_3__ID"><span
                                         class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>Option
                                     3</label><br>
-                                <input type="checkbox" id="vcb_4__ID" name="_vcb_4">
+                                <input type="checkbox" id="vcb_4__ID" name="_vcb_4" value="4">
                                 <label class="rd_btn width_btn_130" for="vcb_4__ID"><span
                                         class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>Option
                                     4</label><br>
-                                <input type="checkbox" id="vcb_5__ID" name="_vcb_5">
+                                <input type="checkbox" id="vcb_5__ID" name="_vcb_5" value="5">
                                 <label class="rd_btn width_btn_130" for="vcb_5__ID"><span
                                         class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>Option
                                     5</label><br>
+                                <div id="_vcb_option__ID" class="formgroup ">
+                                    <label><span class="question">Please specify</span></label><br>
+                                    <input id="_vcb__ID" name="_vcb_option" type="text" class="formcontrol fullwidth">
+                                </div>
+    
                             </fieldset>
                         </div>
                     </div>
@@ -480,6 +490,8 @@
             var specify_1 = "";
             var specify_2 = "";
             var specify_3 = "";
+            var specify_4 = "";
+            var specify_5 = "";
             var load2 = m.load;
             m.load = function () {
                 load2();
@@ -488,6 +500,10 @@
                 //---------COMMON CODE
                 if($('#F__ID input[name=_test]:checked').val()=="1"){$('#_test_option__ID').show();}
                 else{$('#_test_option__ID').hide();}
+                if($('#F__ID input[name=_vrb]:checked').val()=="3"){$('#_vrb_option__ID').show();}
+                else{$('#_vrb_option__ID').hide();}
+                if($('#F__ID input[name=_vcb_5]:checked').val()=="5"){$('#_vcb_option__ID').show();}
+                else{$('#_vcb_option__ID').hide();}
                 //-------------
                 $('<style>#vas_con__ID input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0px; height: 0px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');
                 //----------------------
@@ -513,7 +529,7 @@
                 else if ($('#F__ID input[name=layout]:checked').val() == "Multiple horizontal inputs") m.item_a_fields = "Database name|input_3_a,Label text|input_5_a,Text inside input box|input_4_a,Type of entry|input_10_a,_Remove";
                 else if ($('#F__ID input[name=layout]:checked').val() == "Horizontal Radiobuttons")  m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
                 else if ($('#F__ID input[name=layout]:checked').val() == "Vertical Radiobuttons")  m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
-                else if ($('#F__ID input[name=layout]:checked').val() == "Vertical Checkboxes")  m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input3_a,_Remove";
+                else if ($('#F__ID input[name=layout]:checked').val() == "Vertical Checkboxes")  m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input_3_a,_Remove";
                 else if ($('#F__ID input[name=layout]:checked').val() == "Dropdown List")  m.item_a_fields = "Dropdown option text|input_5_a,Option value|input_4_a,_Remove";
                 else m.item_a_fields = "";
                 m.item_a_records = []; if (m.input.record != undefined) m.item_a_records = m.input.record.Data.items_a;
@@ -522,9 +538,13 @@
                 //-------
                 check_selection();
                 console.log("input 3: "+input_3)
-                $('#F__ID input[name="'+input_3+'"]').on('change',function(){
+                $('#'+input_3+'_option__ID').hide();
+                var db_name=input_3;
+                if($("#F__ID input[name=layout]:checked").val()=="Vertical Checkboxes" ) {db_name= specify_5; specify_3=specify_4;}
+                $('#F__ID input[name="'+db_name+'"]').on('change',function(){
                     console.log("Specify: "+specify_3)
-                    if($('#F__ID input[name="'+input_3+'"]:checked').val()==specify_3){$('#'+input_3+'_option__ID').show();}
+                    console.log("db_name: "+db_name)
+                    if($('#F__ID input[name="'+db_name+'"]:checked').val()==specify_3){$('#'+input_3+'_option__ID').show();}
                     else{$('#'+input_3+'_option__ID').hide();}
                 });
             }
@@ -536,6 +556,14 @@
             $('#F__ID input[name=_test]').on('change',function(){
                 if($('#F__ID input[name=_test]:checked').val()=="1"){$('#_test_option__ID').show();}
                 else{$('#_test_option__ID').hide();}
+            });
+            $('#F__ID input[name=_vrb]').on('change',function(){
+                if($('#F__ID input[name=_vrb]:checked').val()=="3"){$('#_vrb_option__ID').show();}
+                else{$('#_vrb_option__ID').hide();}
+            });
+            $('#F__ID input[name=_vcb_5]').on('change',function(){
+                if($('#F__ID input[name=_vcb_5]:checked').val()=="5"){$('#_vcb_option__ID').show();}
+                else{$('#_vcb_option__ID').hide();}
             });
             //-------------------------------------
             m.before_submit = function (data, index) {
@@ -659,12 +687,23 @@
             //-------------------------------------
             $("#F__ID input[name=specify_3]").on('keyup', function () {
                 check_selection();
+
+                var db_name=input_3;
+                if($("#F__ID input[name=layout]:checked").val()=="Vertical Checkboxes" ) {db_name= specify_5; specify_3=specify_4;}
+                $('#F__ID input[name="'+db_name+'"]').on('change',function(){
+                    console.log("Specify: "+specify_3)
+                    console.log("db_name: "+db_name)
+                    if($('#F__ID input[name="'+db_name+'"]:checked').val()==specify_3){$('#'+input_3+'_option__ID').show();}
+                    else{$('#'+input_3+'_option__ID').hide();}
+                });
+/*
                 console.log("input 3: "+input_3)
                 $('#F__ID input[name="'+input_3+'"]').on('change',function(){
                     console.log("Specify: "+specify_3)
                     if($('#F__ID input[name="'+input_3+'"]:checked').val()==specify_3){$('#'+input_3+'_option__ID').show();}
                     else{$('#'+input_3+'_option__ID').hide();}
                 });
+                */
             //-------------------------------------
 
             })
@@ -684,6 +723,7 @@
                 specify_1 = "";
                 specify_2 = "";
                 specify_3 = "";
+                specify_4 = "";
                 req="";
                 if ($("#F__ID input[name=layout]:checked").val() != undefined) $('#question__ID').text(" - " + $("#F__ID input[name=layout]:checked").val())
                 $('#input_1__ID').hide();
@@ -900,6 +940,7 @@
                         $('#input_11__ID').show()
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#input_11_text__ID').text("Add one line per input box");
                         $('#input_10_1_label__ID').text('2')
                         $('#input_10_2_label__ID').text('3')
                         $('#input_10_3_label__ID').text('4')
@@ -931,6 +972,7 @@
                         $('#input_9_10__ID').show()
                         $('#input_10__ID').show()
                         $('#input_11__ID').show();
+                        $('#input_11_text__ID').text("Add one line per input box");
                         $('#input_10_1_label__ID').text('2')
                         $('#input_10_2_label__ID').text('3')
                         $('#input_10_3_label__ID').text('4')
@@ -969,6 +1011,7 @@
                         $('#input_11__ID').show();
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#input_11_text__ID').text("Add one line per button");
                         $('#input_10_1_label__ID').text('3')
                         $('#input_10_2_label__ID').text('4')
                         $('#input_10_3_label__ID').text('5')
@@ -994,6 +1037,7 @@
                                 else txt_layout +=' >'
                                 txt_layout +='<label id="button_text_'+i+'__ID" class="rd_btn '+width+'" for="'+input_3+'_'+i+'__ID"></label><br>';
                             }
+                            txt_layout +='<div id="' + input_3 + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
                             txt_layout += '</fieldset></div></div>';
                         $('#question_layout__ID').html(txt_layout);
                         $('#input_1__ID').show();
@@ -1004,6 +1048,8 @@
                         $('#input_11__ID').show();
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#specify__ID').show();
+                        $('#input_11_text__ID').text("Add one line per button");
                         $('#input_10_1_label__ID').text('As button Text')
                         $('#input_10_2_label__ID').text('Short')
                         $('#input_10_3_label__ID').text('Medium')
@@ -1027,12 +1073,15 @@
                             txt_layout += '<input id="input_id_' + i + '__ID" type="checkbox" >';
                             txt_layout +='<label id="button_text_'+i+'__ID" class="rd_btn '+width+'" for="input_id_' + i + '__ID"></label><br>';
                         }
+                        txt_layout +='<div id="' + input_3 + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
                         txt_layout += '</fieldset></div></div>';
                         $('#question_layout__ID').html(txt_layout);
                         $('#input_1__ID').show();
                         $('#input_9_10__ID').show();
                         $('#input_10__ID').show();
                         $('#input_11__ID').show();
+                        $('#specify__ID').show();
+                        $('#input_11_text__ID').text("Add one line per checkbox");
                         $('#input_10_1_label__ID').text('As button Text')
                         $('#input_10_2_label__ID').text('Short')
                         $('#input_10_3_label__ID').text('Medium')
@@ -1040,7 +1089,7 @@
                         $('#input_10_5_label__ID').hide();
                         $('#label_input_1__ID').html('Main label text')
                         $('#label_input_10__ID').html('Button Length')
-                        m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input3_a,_Remove";
+                        m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input_3_a,_Remove";
                         m.item_a_after_change();
                         break;
                         case 'Dropdown List':
@@ -1137,6 +1186,8 @@
                             $('#button_text_'+i+'__ID').html('<span class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>'+m.item_a_records[i].input_5_a)
                             if (m.item_a_records[i].input_4_a != undefined) input_id.value=m.item_a_records[i].input_4_a;
                             input_id.setAttribute('name', m.item_a_records[i].input_3_a)
+                            if(specify_3==m.item_a_records[i].input_4_a){specify_4=m.item_a_records[i].input_4_a;specify_5=m.item_a_records[i].input_3_a;
+                                console.log("specify_4:"+specify_4);console.log("specify_5:"+specify_5);}
                         }
                         if (layout == "Dropdown List" ) {
                             if (m.item_a_records[i].input_5_a != undefined) drop.options[i].text = m.item_a_records[i].input_5_a;
