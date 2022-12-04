@@ -5,7 +5,7 @@ m.query={};
 m.options={}
 m.sort={_id:-1}
 m.projection={}
-console.log("Grid.01.js: "+JSON.stringify(m))
+//console.log("Grid.01.js: "+JSON.stringify(m))
 $('#nav_title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name);
 //if(m.title!=undefined) $('#nav_title__ID').text(m.title);
 //-------------------------------------

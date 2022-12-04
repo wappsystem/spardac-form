@@ -7,12 +7,10 @@
         //-------------------------------------
         VmInclude:__HOST__/assets/js/grid.01.js
         //-------------------------------------
-        $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name);
-        //if(m.input!=undefined) $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name+' - '+m.input.form_info.Data.Name);
-        //else $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name);
+       $('#nav_title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name+' - '+m.input.record.Data.Form_Name);
         //-------------------------------------
         var fields="layout,input_1,input_2,input_3,input_4,input_5,input_6,input_7,input_8,input_9,input_10";
-        m.fields="_Form,Form_uid,Name,"+fields+",Submit_date,Submitted_by,_Delete"
+        m.fields="_Form,Order,"+fields+",Submit_date,Submitted_by,_Delete"
         //-------------------------------------
     }
 </script>
