@@ -9,7 +9,7 @@
     m[p+"form-design-data"] ={url:H+"/form-grid/form-design/form-design-data.html",Table:"form-design-form-builder"
                             ,form_module:"form-design-form",
                             design_panel:"entry-design-data",
-                            order_panel:"order-form",
+                            sequence_panel:"sequence-form",
                             task_name:"Form Design",
     };                   
     m[p+"form-design-form"] ={url:H+"/form-grid/form-design/form-design-form.html",Table:"form-design-form-builder",task_name:"Form Design Details"},
@@ -19,7 +19,7 @@
     m[p+"entry-design-data"]	={url:H+"/form-grid/form-design/entry-design-data.html",Table:"entry-design-form-builder",form_module:"entry-design-form",task_name:"Entry Design"},
     m[p+"entry-design-form"]	={url:H+"/form-grid/form-design/entry-design-form.html",Table:"entry-design-form-builder",task_name:"Entry Design"}
 
-    m[p+"order-form"]	={url:H+"/form-grid/form-design/order-form.html",Table:"entry-design-form-builder",task_name:"Order"}
+    m[p+"sequence-form"]	={url:H+"/form-grid/form-design/sequence-form.html",Table:"entry-design-form-builder",task_name:"Sequencing Inputs"}
 
     //if(window.location.toString().indexOf('tb=demo')!=-1){
         for(p in $vm.module_list){
