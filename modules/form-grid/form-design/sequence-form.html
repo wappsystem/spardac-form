@@ -23,7 +23,7 @@
                 </div>
                 <div class="gap"></div>
                 <div class="formgroup right">
-					<button type="submit" id="submit__ID" class="btn">Submit</button>
+					<button type="submit" id="submit__ID" class="btn">Save current order</button>
 				</div>
                 <div class="gap"></div>
                 <div id="items__ID"></div>
@@ -43,25 +43,38 @@
                 //m.query={$and: [{'Data.Participant_uid':{$exists: true}}, {'Data.Participant_uid': {'$ne' : ''}}]}
                 m.query={"Data.Form_uid": {"$eq" : form_uid}};
                 m.sort={'I1':-1}
+                var entry_data=[];
                 jQuery.ajaxSetup({async:false});
                 $vm.request({api:m.api,cmd:'find',table:m.Table,query:m.query,sort:m.sort},function(res){
                     console.log(res)
+                    entry_data=res.result
                     var txt=''
-                    txt+='<table id="table" class="draggable-table"> <thead><th>Sequence order</th><th>Input Heading</th><th>Input layout</thead><tbody>'
+                    txt+='<table id="table" class="draggable-table"> <thead><th>Order</th><th>Input Heading</th><th>Input layout</thead><tbody>'
+                    var order=[];
+                    var seq=0;
                     for (var i=0;i<res.result.length;i++){
-                        var order=res.result[i].I1;
-                        if(order==undefined) order='';
-                        txt+='<tr id=row'+i.toString()+'__ID ><td>'+order+'</td><td>'+res.result[i].Data.input_1+'</td><td>'+res.result[i].Data.layout+'</td></tr>';
+                        order.push(res.result[i].I1);
+                        seq++;
+                        if(order[i]==undefined) order[i]=(seq).toString();
+                        txt+='<tr id=row'+i.toString()+'__ID ><td>'+order[i]+'</td><td>'+res.result[i].Data.input_1+'</td><td>'+res.result[i].Data.layout+'</td></tr>';
                     }
                     txt+='</tbody></table>'
                     $('#items__ID').html(txt)
                 })
+                console.log(JSON.stringify(entry_data));
                 //table = $('#table');
                 table=document.getElementById('table')
                 console.log(table)
                 tbody = table.querySelector('tbody');
                 jQuery.ajaxSetup({async:true});
                 init();
+            }
+
+            //-------------------------------
+            m.submit=function(event){
+            //--------------------------------------------------------
+                event.preventDefault();
+                $('#submit__ID').hide();
             }
 
             var currRow = null,
