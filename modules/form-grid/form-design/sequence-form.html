@@ -75,7 +75,7 @@
                 event.preventDefault();
                 $('#submit__ID').hide();
             }
-
+            var not_extra_rows=false;
             var currRow = null,
                 dragElem = null,
                 mouseDownX = 0,
@@ -90,35 +90,38 @@
                 }
                 //--------------------
                 var bindMouse=function(){
-                    document.removeEventListener('mousedown',(event));
                     document.addEventListener('mousedown', (event) => {
                         if(event.button != 0) return true;
                         
                         let target = getTargetRow(event.target);
+                        //console.log(target)
                         if(target) {
+                            if(not_extra_rows) return true;
                             currRow = target;
                             addDraggableRow(target);
                             currRow.classList.add('is-dragging');
 
                             let coords = getMouseCoords(event);
                             mouseDownX = coords.x;
-                            mouseDownY = coords.y;      
-
+                            mouseDownY = coords.y;
+                            ///console.log(mouseDownX+' | '+mouseDownY);
                             mouseDrag = true;   
                         }
                     });
-                    document.removeEventListener('mousemove',(event));
                     document.addEventListener('mousemove', (event) => {
                         if(!mouseDrag) return;
                         
                         let coords = getMouseCoords(event);
                         mouseX = coords.x - mouseDownX;
-                        mouseY = coords.y - mouseDownY;  
+                        mouseY = coords.y - mouseDownY;
+                        if(mouseX<0) mouseX=0;
+                        //if(mouseY<0) mouseY=0;
+
                         
                         moveRow(mouseX, mouseY);
+                        //console.log(mouseX+' - '+mouseY);
                     });
                         
-                    document.removeEventListener('mouseup',(event));
                     document.addEventListener('mouseup', (event) => {
                         if(!mouseDrag) return;
                         
@@ -127,10 +130,11 @@
                         
                         dragElem = null;
                         mouseDrag = false;
+                        not_extra_rows=false;
                     });    
                 }
                 var swapRow=function(row, index) {
-                    console.log("row: "+row+" - "+index)
+                    console.log("row: "+JSON.stringify(row)+" - "+index)
                     let currIndex = Array.from(tbody.children).indexOf(currRow),
                     row1 = currIndex > index ? currRow : row,
                     row2 = currIndex > index ? row : currRow;
@@ -151,7 +155,9 @@
                         }
                     }    
                 }
-                var addDraggableRow=function(target) {    
+                var addDraggableRow=function(target) { 
+                    console.log("Add Row"); 
+                    not_extra_rows=true;  
                     dragElem = target.cloneNode(true);
                     dragElem.classList.add('draggable-table__drag');
                     dragElem.style.height = getStyle(target, 'height');
