@@ -36,26 +36,32 @@
             VmInclude: '__HOST__/assets/js/form.01.js'
             var table;
             var tbody;
+            var entry_data=[];
+            var order=[];
             m.load=function(){
-                $('#F__ID input[name=Name]').val(m.input.record.Data.Form_Name);
+                $('#F__ID input[name=Name]').val(m.input.record.Data.Name);
                 $('#F__ID input[name=Form_uid]').val(m.input.record.UID);
                 var form_uid=(m.input.record.UID).toString();
                 //m.query={$and: [{'Data.Participant_uid':{$exists: true}}, {'Data.Participant_uid': {'$ne' : ''}}]}
                 m.query={"Data.Form_uid": {"$eq" : form_uid}};
                 m.sort={'I1':-1}
-                var entry_data=[];
                 jQuery.ajaxSetup({async:false});
                 $vm.request({api:m.api,cmd:'find',table:m.Table,query:m.query,sort:m.sort},function(res){
                     //console.log(res)
                     entry_data=res.result
                     var txt=''
                     txt+='<table id="table" class="draggable-table"> <thead><th>Order</th><th>Input Heading</th><th>Input layout</thead><tbody>'
-                    var order=[];
                     var seq=0;
+                    var orderI1;
                     for (var i=0;i<res.result.length;i++){
-                        order.push(res.result[i].I1);
+                        orderI1=res.result[i].I1
+                        if (orderI1==undefined){
+                            order.push((seq).toString())
+                        }
+                        else{
+                            order.push(orderI1.toString());
+                        }
                         seq++;
-                        if(order[i]==undefined) order[i]=(seq).toString();
                         txt+='<tr id=row'+i.toString()+'__ID ><td>'+order[i]+'</td><td>'+res.result[i].Data.input_1+'</td><td>'+res.result[i].Data.layout+'</td></tr>';
                     }
                     txt+='</tbody></table>'
@@ -74,8 +80,49 @@
             //--------------------------------------------------------
                 event.preventDefault();
                 $('#submit__ID').hide();
+                console.log(JSON.stringify(entry_data));
+                var rows = getRows();
+                for(var i = 0; i < rows.length; i++) {
+                    let rowElem = rows[i];
+                    var data=entry_data[i].Data;
+                    var id=entry_data[i]._id;
+                    var index={};
+                    var update=false;
+                    var exitOrder=$(rowElem).closest('tr').find("td:eq(0)").text()
+                    if(entry_data[i].I1==undefined){
+                        index.I1=parseInt(exitOrder);
+                        update=true;
+                    }
+                    else{
+                        if(order[i]!=exitOrder) {
+                            index.I1=parseInt(exitOrder);
+                            update=true;
+                        }
+                    }
+                    if(update){
+                        $vm.request({cmd:"update",id:id,table:m.Table,data:data,index:index},function(res){
+                            //-----------------------------
+                            if(res.status=="lk"){
+                                $vm.alert("This record is locked.");
+                                return;
+                            }
+                            //-----------------------------
+                            if(res.status=="np"){
+                                alert("No permission to update this record.");
+                                return;
+                            }
+                        });
+
+                    }
+                    console.log(data);
+                    console.log(index);
+                    console.log(m.Table);
+                    console.log(order[i]);
+                    console.log($(rowElem).closest('tr').find("td:eq(0)").text());
+                }    
             }
-            var not_extra_rows=false;
+            //---------------------
+            var noExtraRows=false;
             var currRow = null,
                 dragElem = null,
                 mouseDownX = 0,
@@ -96,7 +143,7 @@
                         let target = getTargetRow(event.target);
                         //console.log(target)
                         if(target) {
-                            if(not_extra_rows) return true;
+                            if(noExtraRows) return true;
                             currRow = target;
                             addDraggableRow(target);
                             currRow.classList.add('is-dragging');
@@ -130,9 +177,10 @@
                         
                         dragElem = null;
                         mouseDrag = false;
-                        not_extra_rows=false;
+                        noExtraRows=false;
                     });    
                 }
+                //--------------------
                 var swapRow=function(row, index) {
                     console.log("row: "+JSON.stringify(row)+" - "+index)
                     let currIndex = Array.from(tbody.children).indexOf(currRow),
@@ -140,6 +188,7 @@
                     row2 = currIndex > index ? row : currRow;
                     tbody.insertBefore(row1, row2);
                 }
+                //--------------------
                 var  moveRow=function(x, y) {
                     dragElem.style.transform = "translate3d(" + x + "px, " + y + "px, 0)";                    
                     let	dPos = dragElem.getBoundingClientRect(),
@@ -155,9 +204,10 @@
                         }
                     }    
                 }
+                //--------------------
                 var addDraggableRow=function(target) { 
                     console.log("Add Row"); 
-                    not_extra_rows=true;  
+                    noExtraRows=true;  
                     dragElem = target.cloneNode(true);
                     dragElem.classList.add('draggable-table__drag');
                     dragElem.style.height = getStyle(target, 'height');
@@ -179,36 +229,35 @@
                         { view: window, cancelable: true, bubbles: true }
                     ));    
                 }  
+                //--------------------
                 var getRows=function() {
                     return table.querySelectorAll('tbody tr');
                 }    
-                
+                //--------------------                
                 var getTargetRow=function(target) {
                     let elemName = target.tagName.toLowerCase();
-
                     if(elemName == 'tr') return target;
                     if(elemName == 'td') return target.closest('tr');     
                 }
-                
+                //--------------------
                 var getMouseCoords=function(event) {
                     return {
                         x: event.clientX,
                         y: event.clientY
                     };    
                 }  
-                
+                //--------------------
                 var getStyle=function(target, styleName) {
                     let compStyle = getComputedStyle(target),
                         style = compStyle[styleName];
 
                     return style ? style : null;
                 }  
-                
+                //--------------------
                 var isIntersecting=function(min0, max0, min1, max1) {
                     return Math.max(min0, max0) >= Math.min(min1, max1) &&
                             Math.min(min0, max0) <= Math.max(min1, max1);
                 }            
-            
             }
     </script>
     <style>
