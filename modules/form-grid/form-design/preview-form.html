@@ -1,0 +1,238 @@
+<div id=D__ID>
+	<!--third html start -->
+	<div class="container mt-95">
+	  <!-- form container start -->
+	  	<div class="formbox">
+		<!-- form start -->
+			<form id="F__ID">
+		  		<span id=title__ID></span>
+		  		<!-- participant name and study id -->
+		  		<div id="participant_div__ID">
+					<div class="formgroup">
+			  			<fieldset class="dynbreaks">
+							<label><span class="question">Participant</span>
+							<input type=text name="Participant" class=formcontrol id=Participant__ID data-id="Participant" />
+							</label><br>
+							<label><span class="question">Participant ID</span>
+							<input type=text name="Participant_uid" class=formcontrol readonly />
+							</label>
+						</fieldset>
+					</div>
+				</div>
+				<div id="questionaire_form__ID">
+
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+		function F__ID() {
+			//-------------------------------------
+			VmInclude: '__HOST__/assets/js/form.01.js'
+			//-------------------------------------
+			var entry_data=[];
+			var load = m.load;
+			m.load = function () {
+				load();
+                $('#F__ID input[name=Name]').val(m.input.record.Data.Name);
+                $('#F__ID input[name=Form_uid]').val(m.input.record.UID);
+                var form_uid=(m.input.record.UID).toString();
+                //m.query={$and: [{'Data.Participant_uid':{$exists: true}}, {'Data.Participant_uid': {'$ne' : ''}}]}
+                m.query={"Data.Form_uid": {"$eq" : form_uid}};
+                m.sort={'I1':-1}
+                jQuery.ajaxSetup({async:false});
+                $vm.request({api:m.api,cmd:'find',table:m.Table,query:m.query,sort:m.sort},function(res){
+                    //console.log(res)
+                    entry_data=res.result
+				})
+				console.log(JSON.stringify(entry_data))
+				if(entry_data!=undefined) create_form(entry_data);
+                jQuery.ajaxSetup({async:true});
+			}
+			//-----------------------------
+			create_form=function (entry_data){
+				var txt_layout = "";
+				for (var i=0;i<entry_data.length;i++){
+					var specified_width="";
+					var input_style="";
+					var min = "";
+                    var max = "";
+                    var step = "";
+					switch (entry_data[i].Data.layout) {
+						case 'Main Header':
+							txt_layout += "<h3 style='margin-left:30px'>" + entry_data[i].Data.input_1 + "</h3>"
+							break;
+						case 'Instructions':
+							txt_layout += '<div class="formgroup"><fieldset class=""><span class="question"><p>' + entry_data[i].Data.input_1 + '</p></span><span>' + entry_data[i].Data.input_2 + '</span></fieldset></div>';
+							break;
+						case 'Dual radio buttons':
+
+							txt_layout += '<div class="formgroup"><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">' + entry_data[i].Data.input_1 + '</span></label><br><input id="' + entry_data[i].Data.input_3 + '_1__ID" name="' + entry_data[i].Data.input_3 + '" type="radio" value="' + entry_data[i].Data.input_4 + '" '+entry_data[i].Data.req+' ><label class="rd_btn" for="' + entry_data[i].Data.input_3 + '_1__ID">' + entry_data[i].Data.input_5 + '</label><input id="' + entry_data[i].Data.input_3 + '_2__ID" name="' + entry_data[i].Data.input_3 + '" type="radio" value="' + entry_data[i].Data.input_6 + '"><label class="rd_btn" for="' + entry_data[i].Data.input_3 + '_2__ID">' + entry_data[i].Data.input_7 + '</label>';
+							if(entry_data[i].Data.specify_1!=""){
+								txt_layout +='<div id="' + entry_data[i].Data.input_3 + '_option__ID" class="formgroup hide"><label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br><input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
+							}
+							txt_layout += '</div></fieldset></div>';
+							break;
+						case 'Single text input':
+							if (entry_data[i].Data.input_9 == '1') specified_width = " fullwidth";
+							if (entry_data[i].Data.input_10 == '0') input_style = "text";
+                        	else if (entry_data[i].Data.input_10 == '1') {
+								input_style = "number";
+	                            min = "min=" + entry_data[i].Data.input_6
+    	                        max = "max=" + entry_data[i].Data.input_7
+        	                    step = "step=" + entry_data[i].Data.input_8
+                        	}
+                       		else if (entry_data[i].Data.input_10 == '2') input_style = "date";
+                        	else if (entry_data[i].Data.input_10 == '3') input_style = "time";
+
+							txt_layout += '<div class="formgroup"><fieldset class=""><span class="question">' + entry_data[i].Data.input_1 + '</span><div class="grid-container-1"><div><label><span class="question">' + entry_data[i].Data.input_5 + '</span><input type=' + input_style + ' name="' + entry_data[i].Data.input_3 + '" class="formcontrol ' + specified_width + '" ' + min + ' ' + max + ' ' + step + ' placeholder="' + entry_data[i].Data.input_4 + '" '+entry_data[i].Data.req+' /></label></div></div></fieldset></div>';
+							break;
+/*						case 'Visual Analogue Scale':
+							txt_layout = '<div class="formgroup"><fieldset class=""><div class="textcenter"><span class="question">' + input_1 + '</span></div><div class="grid-container-slider"><div class="textleft"><span class="question">' + input_4 + '</span><input type="text" id="vas_req__ID" '+req+'></div><div class="slidecontainer" id=vas_con__ID><input type="range" min="0" max="' + range + '" step=' + step + ' class="slider" name="' + input_3 + '" id="vas__ID"></div><div class="textright"><span class="question">' + input_5 + '</span></div></div></fieldset></div>';
+							break;
+						case 'Digital Scale':
+							txt_layout = '<div class="formgroup"><div class="questiongroup "><fieldset class="dynbreaks"><div class="textcenter"><span class="question">' + input_1 + '</span></div><div class="grid-container-3-special"><div class="textleft"><span class="question">' + input_4 + '</span></div><div class="textcenter">';
+							if (start != undefined && end != undefined) {
+								for (var i = start; i < end + 1; i = i + step) {
+									txt_layout += '<input id="' + input_3 + '_' + i.toString() + '__ID" name="' + input_3 + '" type="radio" value="' + i.toString();
+									if(i==start) txt_layout +='" '+req+' >';
+									else txt_layout +='" >';
+									txt_layout += '<label class="rd_btn" for="' + input_3 + '_' + i + '__ID">' + i.toString() + '</label><br>'
+								}
+							}
+							txt_layout += '</div><div class="textright"><span class="question">' + input_5 + '</span></div></div></fieldset></div></div>';
+							break;
+						case 'Multiple horizontal number inputs':
+							$('#multiple_horizontal_number_inputs__ID').show()
+							var max = "";
+							var min = "";
+							var width = ""
+							if ($('#F__ID input[name=input_9]:checked').val() == '1') input_9 = " fullwidth";
+							else input_9 = "";
+							if (entry_data[i].Data.input_10 == '0') input_10 = "2";
+							else if (entry_data[i].Data.input_10 == '1') input_10 = "3"
+							else if (entry_data[i].Data.input_10 == '2') { input_10 = "4"; width = "width_input_4"; }
+							else if (entry_data[i].Data.input_10 == '3') { input_10 = "5"; width = "width_input_5"; }
+							else if (entry_data[i].Data.input_10 == '4') { input_10 = "6"; width = "width_input_6"; }
+							var box_num = parseInt(input_10)
+							if (box_num != undefined) {
+								txt_layout = '<div class="formgroup"><fieldset class=""><span class="question">' + input_1 + '</span><div class="grid-container-input-' + input_10 + '">';
+								for (var i = 0; i < box_num; i++) {
+									txt_layout += '<div><label><span id=input_label_' + i + '__ID class="question"></span><input type=number id="input_id_' + (i) + '__ID" class="formcontrol ' + width + '" '+req+' /></label></div>';
+								}
+								txt_layout += '</div></fieldset></div>';
+							}
+							$('#questionaire_form__ID').html(txt_layout)
+							m.item_a_fields = "Database name|input_3_a,Label text|input_5_a,Text inside input box|input_4_a,Min value|input_6_a,Max value|input_7_a,Step value|input_8_a,_Remove";
+							m.item_a_after_change();
+							break;
+						case 'Multiple horizontal inputs':
+							var width = ""
+							if (entry_data[i].Data.input_10 == '0') input_10 = "2";
+							else if (entry_data[i].Data.input_10 == '1') input_10 = "3"
+							else if (entry_data[i].Data.input_10 == '2') { input_10 = "4"; width = "width_input_4"; }
+							else if (entry_data[i].Data.input_10 == '3') { input_10 = "5"; width = "width_input_5"; }
+							else if (entry_data[i].Data.input_10 == '4') { input_10 = "6"; width = "width_input_6"; }
+							var box_num = parseInt(input_10)
+							if (box_num != undefined) {
+								txt_layout = '<div class="formgroup"><fieldset class=""><span class="question">' + input_1 + '</span><div class="grid-container-input-' + input_10 + '">';
+								for (var i = 0; i < box_num; i++) {
+									txt_layout += '<div><label><span id=input_label_' + i + '__ID class="question"></span><input id="input_id_' + (i) + '__ID" class="formcontrol ' + width + '" '+req+' /></label></div>';
+								}
+								txt_layout += '</div></fieldset></div>';
+							}
+							m.item_a_fields = "Database name|input_3_a,Label text|input_5_a,Text inside input box|input_4_a,Type of entry|input_10_a,_Remove";
+							m.item_a_after_change();
+							break;
+						case 'Horizontal radio buttons':
+							var width = ""
+							if (entry_data[i].Data.input_10 == '0') {input_10 = "3"; width = "width_input_3";}
+							else if (entry_data[i].Data.input_10 == '1') {input_10 = "4"; width = "width_input_4";}
+							else if (entry_data[i].Data.input_10 == '2') { input_10 = "5"; width = "width_input_5"; }
+							else if (entry_data[i].Data.input_10 == '3') { input_10 = "6"; width = "width_input_6"; }
+							else if (entry_data[i].Data.input_10 == '4') { input_10 = "7"; width = "width_input_7"; }
+							var box_num = parseInt(input_10)
+							if (box_num != undefined) {
+								txt_layout = '<div class="formgroup"><div class="questiongroup "><fieldset class=""><span class="question">' + input_1 + '</span><div class="grid-container-' + input_10 + '">';
+								for (var i = 0; i < box_num; i++) {
+									txt_layout += '<div ><input id="'+input_3+'_'+i+'__ID" name="'+input_3+'" type="radio"';
+									if(i==0) txt_layout +=' '+req+' >';
+									else txt_layout +=' >'
+									txt_layout +='<label id="button_text_'+i+'__ID" class="rd_btn '+width+'" for="'+input_3+'_'+i+'__ID"></label></div>';
+								}
+								txt_layout += '</div></fieldset></div></div>';
+							}
+							m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
+							m.item_a_after_change();
+							break;
+						case 'Vertical radio buttons':
+							var width = ""
+							if (entry_data[i].Data.input_10 == '') {width = "";}
+							else if (entry_data[i].Data.input_10 == '1') {width = "width_btn_130";}
+							else if (entry_data[i].Data.input_10 == '2') {width = "width_btn_250";}
+							else if (entry_data[i].Data.input_10 == '3') {width = "width_btn_full"; }
+								txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span>';
+								for (var i = 0; i < m.item_a_records.length; i++) {
+									txt_layout += '<input id="'+input_3+'_'+i+'__ID" name="'+input_3+'" type="radio"';
+									if(i==0) txt_layout +=' '+req+' >';
+									else txt_layout +=' >'
+									txt_layout +='<label id="button_text_'+i+'__ID" class="rd_btn '+width+'" for="'+input_3+'_'+i+'__ID"></label><br>';
+								}
+								txt_layout +='<div id="' + input_3 + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
+								txt_layout += '</fieldset></div></div>';
+							m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
+							m.item_a_after_change();
+							break;
+							case 'Vertical Checkboxes':
+							var width = ""
+							if (entry_data[i].Data.input_10 == '') {width = "";}
+							else if (entry_data[i].Data.input_10 == '1') {width = "width_btn_130";}
+							else if (entry_data[i].Data.input_10 == '2') {width = "width_btn_250";}
+							else if (entry_data[i].Data.input_10 == '3') {width = "width_btn_full"; }
+							txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span>';
+							for (var i = 0; i < m.item_a_records.length; i++) {
+								txt_layout += '<input id="input_id_' + i + '__ID" type="checkbox" >';
+								txt_layout +='<label id="button_text_'+i+'__ID" class="rd_btn '+width+'" for="input_id_' + i + '__ID"></label><br>';
+							}
+							txt_layout +='<div id="' + input_3 + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
+							txt_layout += '</fieldset></div></div>';
+							m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input_3_a,_Remove";
+							m.item_a_after_change();
+							break;
+							case 'Dropdown List':
+							txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span><select id="' + input_3 + '__ID" name="' + input_3 + '" '+req+' class="formcontrol" >';
+							for (var i = 0; i < m.item_a_records.length; i++) {
+								txt_layout += '<option ></option>';
+							}
+							txt_layout += '</select></fieldset></div></div>';
+							m.item_a_fields = "Dropdown option text|input_5_a,Option value|input_4_a,_Remove";
+							m.item_a_after_change();
+							break;*/
+							case 'Textarea':
+							var specified_width="";
+							if (entry_data[i].Data.input_9 == '1') specified_width = " fullwidth";
+							txt_layout += '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+entry_data[i].Data.input_1+'</p></span><label><span class="question">' + entry_data[i].Data.input_5 + '</span><textarea class="formcontrol '+ specified_width +'" name="'+entry_data[i].Data.input_3+'" placeholder="'+entry_data[i].Data.input_4+'" " '+entry_data[i].Data.req+' ></textarea></label></fieldset></div></div>';
+							break;
+						/*default:
+							console.log("DEFAULT")
+							$('#questionaire_form__ID').html("<div></div>")
+							$('#question__ID').text("");
+							break;*/
+						}
+
+                }
+				$('#questionaire_form__ID').html(txt_layout)
+            }
+			//-------------------------------------
+			m.before_submit = function (data, index) {
+			}
+			//-------------------------------------
+		}
+	</script>
+	<style>
+		#D__ID {
+		}
+
+		/*VmInclude:__HOST__/assets/css/wapp-form.css*/
+	</style>
+</div>
