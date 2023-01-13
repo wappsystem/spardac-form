@@ -490,6 +490,8 @@
             var input_9 = "";
             var input_10 = "";
             var req="";
+            var range = "";
+            var vas_step = "";
             var specify_1 = "";
             var specify_2 = "";
             var specify_3 = "";
@@ -566,6 +568,8 @@
             });
             //-------------------------------------
             m.before_submit = function (data, index) {
+                data.range=range;
+                data.vas_step=vas_step;
                 if(m.item_a_records!=undefined) data.items_a = m.item_a_get_data();
                 return true;
             }
@@ -788,9 +792,9 @@
                         break;
                     case 'Single text input':
                         $('#single_text_input__ID').show();
-                        var max = "";
-                        var min = "";
-                        var step = ""
+                        max = "";
+                        min = "";
+                        tep = ""
                         $('#input_6_8__ID').hide()
                         $('#input_6__ID').hide();
                         $('#input_7__ID').hide();
@@ -841,11 +845,9 @@
                         break;
                     case 'Visual Analogue Scale':
                         $('#visual_analogue_scale__ID').show()
-                        var range = "";
-                        var step = "";
-                        if ($('#F__ID input[name=input_9]:checked').val() == '0') { range = '100'; step = '1'; }
-                        else { range = '10'; step = '0.1'; }
-                        txt_layout = '<div class="formgroup"><fieldset class=""><div class="textcenter"><span class="question">' + input_1 + '</span></div><div class="grid-container-slider"><div class="textleft"><span class="question">' + input_4 + '</span><input type="text" id="vas_req__ID" '+req+'></div><div class="slidecontainer" id=vas_con__ID><input type="range" min="0" max="' + range + '" step=' + step + ' class="slider" name="' + input_3 + '" id="vas__ID"></div><div class="textright"><span class="question">' + input_5 + '</span></div></div></fieldset></div>';
+                        if ($('#F__ID input[name=input_9]:checked').val() == '0') { range = '100'; vas_step = '1'; }
+                        else { range = '10'; vas_step = '0.1'; }
+                        txt_layout = '<div class="formgroup"><fieldset class=""><div class="textcenter"><span class="question">' + input_1 + '</span></div><div class="grid-container-slider"><div class="textleft"><span class="question">' + input_4 + '</span><input type="text" id="vas_req__ID" '+req+'></div><div class="slidecontainer" id=vas_con__ID><input type="range" min="0" max="' + range + '" step=' + vas_step + '  class="slider" name="' + input_3 + '" id="vas__ID"></div><div class="textright"><span class="question">' + input_5 + '</span></div></div></fieldset></div>';
                         $('#question_layout__ID').html(txt_layout);
                         $('#input_1__ID').show();
                         $('#input_3_5__ID').show();
@@ -1108,7 +1110,7 @@
                         $('#input_3_5__ID').show();
                         $('#input_3__ID').show();
                         $('#input_4__ID').show();
-                        $('#input_5__ID').show();
+                        $('#input_5__ID').show();range
                         $('#input_9_10__ID').show();
                         $('#input_9_1_label__ID').text('Short')
                         $('#input_9_2_label__ID').text('Long')

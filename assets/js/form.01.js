@@ -9,8 +9,9 @@ m.load=function(){
     $('#F__ID')[0].reset();
     $('#submit__ID').show();
     $('#delete__ID').hide(); if(m.input!=undefined && m.input.record!=undefined && m.input.record._id!==undefined) $('#delete__ID').show();
-    $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name+m.input.record.Data.Name); 
-
+    if(m.input!=undefined && m.input.record!=undefined && m.input.record.Data!==undefined) $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name+m.input.record.Data.Name);
+    else $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name);
+    
     if(m.input.record!=undefined) {$vm.deserialize(m.input.record,'#F__ID');}
     else {
         //console.log(JSON.stringify(m.input.form_info.Data))
