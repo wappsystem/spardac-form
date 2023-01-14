@@ -21,7 +21,8 @@
     m[p+"entry-design-form"]	={url:H+"/form-grid/form-design/entry-design-form.html",Table:"entry-design-form-builder",task_name:"Entry Design"}
 
     m[p+"sequence-form"]	={url:H+"/form-grid/form-design/sequence-form.html",Table:"entry-design-form-builder",task_name:"Sequencing Inputs"}
-    m[p+"preview-form"]	={url:H+"/form-grid/form-design/preview-form.html",Table:"entry-design-form-builder",task_name:"Preview Form - "}
+    m[p+"preview-form"]	={url:H+"/form-grid/form-design/preview-form.html",Table:"entry-design-form-builder",task_name:"Preview Form - ",form_module:"preview"}
+    m[p+"preview"]	={url:H+"/form-grid/form-design/preview.html"}
 
     //if(window.location.toString().indexOf('tb=demo')!=-1){
         for(p in $vm.module_list){
