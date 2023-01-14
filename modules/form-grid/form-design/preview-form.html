@@ -61,17 +61,29 @@
 				a.click();
 			})
 			//-----------------------------
-			$('#preview__ID').on('click',function(){
+			$('#_preview__ID').on('click',function(){
 				html_content="<div id=D@@ID>\n<div class=\"container mt-95\">\n<div class=\"formbox\">\n<form id=\"F@@ID\">\n<span id=title@@ID>"+m.input.record.Data.Name+"</span>\n"
 				html_content+=form_html;
 				html_content+="\n</form>\n</div>\n</div>\n"	
-				html_content+="<script>\n  function F@@ID() {\n    //-------------------------------------\n    Vm##Include: '@@COMPONENT@@/f/form.01.js'\n    //-------------------------------------\n    var load2 = m.load;\n    m.load = function () {\n      load2();\n      $('#title@@ID').text($vm.module_list[$vm.vm['@@ID'].name].task_name);\n"+script_load+"    }\n//-------------------------------------\n"+script_other+"  }\n  %%script>"
+				html_content+="<script>\n  function F@@ID() { \n    //-------------------------------------\n    Vm##Include: '@@COMPONENT@@/f/form.01.js'\n    //-------------------------------------\n    var load2 = m.load;\n    m.load = function () {\n      load2();\n      $('#title@@ID').text($vm.module_list[$vm.vm['@@ID'].name].task_name);\n"+script_load+"    }\n//-------------------------------------\n"+script_other+"  }\n  %%script>"
 				html_content+="<style>\n/*Vm##Include:@@HOST@@/assets/css/wapp-form.css*/\n"+style_content+"%%style>\n</div>";
 				html_content=html_content.replace(/@@/g,'__').replace(/##/g,'').replace(/%%/g,'</');
 				console.log(m.form_module)
 				localStorage.setItem('http://127.0.0.1:8000/wappsystem/spardac-formhttp://127.0.0.1:8000/wappsystem/spardac-form/modules/form-grid/form-design/preview.html_txt',html_content)
 				$vm.load_content('preview','','',html_content)
 			});
+			$('#preview__ID').on('click',function(){
+				html_content="<div id=D@@ID>\n<div class=\"container mt-95\">\n<div class=\"formbox\">\n<form id=\"F@@ID\">\n<span id=title@@ID>"+m.input.record.Data.Name+"</span>\n"
+				html_content+=form_html;
+				html_content+="\n</form>\n</div>\n</div>\n"	
+				html_content+="<script>\n  function F@@ID() { \n    //-------------------------------------\n    Vm##Include: '@@COMPONENT@@/f/form.01.js'\n    //-------------------------------------\n    var load2 = m.load;\n    m.load = function () {\n      load2();\n      $('#title@@ID').text($vm.module_list[$vm.vm['@@ID'].name].task_name);\n"+script_load+"    }\n//-------------------------------------\n"+script_other+"  }\n  %%script>"
+				html_content+="<style>\n/*Vm##Include:@@HOST@@/assets/css/wapp-form.css*/\n"+style_content+"%%style>\n</div>";
+				html_content=html_content.replace(/@@/g,'__').replace(/##/g,'').replace(/%%/g,'</');
+				var H=$vm.hosting_path+"/modules";
+				var url=H+"/preview123";
+				localStorage.setItem(url+"_txt",html_content);
+				$vm.show_module_wapp("preview",{})
+			})
 			//-----------------------------
 			create_form=function (entry_data){
 				form_html = "";

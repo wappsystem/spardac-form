@@ -4,6 +4,125 @@
             $vm.xxx=function(){
             }
             //-------------------------------------------------
+            $vm.show_module_wapp=function(name,input){
+                if($vm.module_list[name]===undefined){
+                    alert("The module '"+name+"' is not in the module list.");
+                    return;
+                }
+                var prefix=$vm.module_list[name].prefix;
+                if(prefix==undefined) prefix="";
+                var m=$vm.module_list[name];
+                var install_this=function(){
+                    var parent=prefix+m.parent;
+                    m.input=input;	
+                    //var id=$vm.module_list[name].id;
+                    var id=undefined;
+                    if(id==undefined){ 
+                        var slot=$vm.root_layout_content_slot;
+                        if(m.parent!=undefined)	slot='content'+$vm.module_list[parent].id;
+                        $vm.install_module_wapp(name,slot,input, function(name,id){
+                            //console.log('%c'+name + ' is installed','color:green');
+                            if(m.parent!=undefined){
+                                var pm=$vm.module_list[parent];
+                                $vm.insert_and_trigger_load(pm.id,pm.slot,parent);	
+                            }
+                            $vm.insert_and_trigger_load(m.id,m.slot,name);
+                        })
+                    }
+                    else{
+                        if(m.parent!=undefined){
+                            var pm=$vm.module_list[parent];
+                            $vm.insert_and_trigger_load(pm.id,pm.slot,parent);	
+                        }
+                        $vm.insert_and_trigger_load(m.id,m.slot,name);
+                    }
+                }
+                if(m.parent!=undefined){
+                    var parent=prefix+m.parent;
+                    if($vm.module_list[parent].id==undefined){ //install parent first
+                        $vm.install_module(parent,$vm.root_layout_content_slot,{},function(name,id){
+                            //console.log('%c'+name + ' is installed','color:green');
+                            install_this();	
+                        })
+                    }
+                    else install_this(); //parent is installed already
+                }
+                else install_this(); //no parent;
+                
+                /*
+                var m=$vm.module_list[name];
+                m.input=input;
+                if(m.parent!=undefined){
+                    var pm=$vm.module_list[m.parent];
+                    $vm.insert_and_trigger_load(pm.id,pm.slot,m.parent);	
+                }
+                $vm.insert_and_trigger_load(m.id,m.slot,name);
+                */
+            }
+            //-----------------------------------
+            $vm.install_module_wapp=function(name,slot,input,callback){
+                //---
+                /*
+                var id0=$vm.module_list[name].id;
+                if(id0!=undefined){ //all ready installed
+                    callback(name,id0);
+                    return; 
+                }
+                */
+                //---
+                if(name==undefined) return;
+                if($vm.vm==undefined) $vm.vm={}
+                var slot_1=$vm.root_layout_content_slot;
+                if(slot!=undefined && slot!="") slot_1=slot;
+                slot=slot_1
+                $vm.module_list[name].slot=slot;
+                if($vm.module_list[name]===undefined){
+                    console.log("%cThe module '"+name+"' is not in the module list.","color:red");
+                    return;
+                }
+                var url=$vm.module_list[name]['url'];
+                if(url===undefined) return;
+                url=$vm.url(url);
+                
+                
+                var id=$vm.id();
+                
+                $vm.module_list[name].id=id;
+                var m=$vm.module_list[name];
+                m.input=input;	
+                var m_name=name;
+                var module_id	=id;
+                if(url[0]=='/') url=$vm.hosting_path+url;
+                var last_part=url.split('/').pop();
+                var current_path=url.replace(last_part,'');
+                if($('#D'+module_id).length===0){
+                    $vm.vm[module_id]={};
+                }
+                if($vm.vm[module_id]==undefined) $vm.vm[module_id]={};
+                $vm.vm[module_id].current_path=current_path;
+                $vm.vm[module_id].input=input;
+                $vm.vm[module_id].name=name;
+                $vm.vm[module_id].url=url;
+                //------------------------------
+                //if($('#D'+module_id).length==0){
+                    var apppath=window.location.href.substring(0, window.location.href.lastIndexOf('/')).split('\/?')[0];
+                    var storage_url=url;
+                    var txt=localStorage.getItem(storage_url+"_txt");
+    console.log(txt);
+                    if($vm.loading_url_info==1)	console.log('%cloading from stotage. '+url+" "+ver+"/"+$vm.ver[0]+" for "+m_name,"color:#055")
+                    var current_all=txt;
+                    if(current_all.indexOf('Vm'+'Include:')==-1){
+                        $vm.install_create_module_and_run_code(current_all,module_id,url,slot,m_name,callback);
+                    }
+                    else{
+                        $vm.install_process_first_include(current_all,module_id,slot,url,m_name,callback);
+                    }
+                //}
+            }
+            //-----------------------------------
+
+
+
         }
     </script>   
 </div>
