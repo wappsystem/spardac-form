@@ -154,47 +154,45 @@
 								form_html += '</div></fieldset></div>';
 							}
 							break;
-/*						case 'Multiple horizontal inputs':
+						case 'Multiple horizontal inputs':
 							var width = ""
-							if (entry_data[i].Data.input_10 == '0') input_10 = "2";
-							else if (entry_data[i].Data.input_10 == '1') input_10 = "3"
-							else if (entry_data[i].Data.input_10 == '2') { input_10 = "4"; width = "width_input_4"; }
-							else if (entry_data[i].Data.input_10 == '3') { input_10 = "5"; width = "width_input_5"; }
-							else if (entry_data[i].Data.input_10 == '4') { input_10 = "6"; width = "width_input_6"; }
-							var box_num = parseInt(input_10)
+							var num_boxes=""
+							if (entry_data[i].Data.input_10 == '0') num_boxes = "2";
+							else if (entry_data[i].Data.input_10 == '1') num_boxes = "3"
+							else if (entry_data[i].Data.input_10 == '2') { num_boxes = "4"; width = "width_input_4"; }
+							else if (entry_data[i].Data.input_10 == '3') { num_boxes = "5"; width = "width_input_5"; }
+							else if (entry_data[i].Data.input_10 == '4') { num_boxes = "6"; width = "width_input_6"; }
+							var box_num = parseInt(num_boxes)
 							if (box_num != undefined) {
-								form_html = '<div class="formgroup"><fieldset class=""><span class="question">' + input_1 + '</span><div class="grid-container-input-' + input_10 + '">';
-								for (var i = 0; i < box_num; i++) {
-									form_html += '<div><label><span id=input_label_' + i + '@@ID class="question"></span><input id="input_id_' + (i) + '@@ID" class="formcontrol ' + width + '" '+req+' /></label></div>';
+								form_html += '<div class="formgroup"><fieldset class=""><span class="question">' + entry_data[i].Data.input_1 + '</span><div class="grid-container-input-' + num_boxes + '">';
+								for (var k = 0; k < box_num; k++) {
+									form_html += '<div><label><span id=input_label_' + k + '@@ID class="question">'+entry_data[i].Data.items_a[k].input_5_a+'</span><input type='+entry_data[i].Data.items_a[k].input_10_a+' id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" '+entry_data[i].Data.req+' placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+'" /></label></div>';
 								}
 								form_html += '</div></fieldset></div>';
 							}
-							console.log(JSON.stringify(entry_data[i].Data.items_a))
-							m.item_a_fields = "Database name|input_3_a,Label text|input_5_a,Text inside input box|input_4_a,Type of entry|input_10_a,_Remove";
-							m.item_a_after_change();
 							break;
 						case 'Horizontal radio buttons':
 							var width = ""
-							if (entry_data[i].Data.input_10 == '0') {input_10 = "3"; width = "width_input_3";}
-							else if (entry_data[i].Data.input_10 == '1') {input_10 = "4"; width = "width_input_4";}
-							else if (entry_data[i].Data.input_10 == '2') { input_10 = "5"; width = "width_input_5"; }
-							else if (entry_data[i].Data.input_10 == '3') { input_10 = "6"; width = "width_input_6"; }
-							else if (entry_data[i].Data.input_10 == '4') { input_10 = "7"; width = "width_input_7"; }
-							var box_num = parseInt(input_10)
+							if (entry_data[i].Data.input_10 == '0') {box_num = "3"; width = "width_input_3";}
+							else if (entry_data[i].Data.input_10 == '1') {box_num = "4"; width = "width_input_4";}
+							else if (entry_data[i].Data.input_10 == '2') { box_num = "5"; width = "width_input_5"; }
+							else if (entry_data[i].Data.input_10 == '3') { box_num = "6"; width = "width_input_6"; }
+							else if (entry_data[i].Data.input_10 == '4') { box_num = "7"; width = "width_input_7"; }
+							var box_num = parseInt(box_num)
 							if (box_num != undefined) {
-								form_html = '<div class="formgroup"><div class="questiongroup "><fieldset class=""><span class="question">' + input_1 + '</span><div class="grid-container-' + input_10 + '">';
-								for (var i = 0; i < box_num; i++) {
-									form_html += '<div ><input id="'+input_3+'_'+i+'@@ID" name="'+input_3+'" type="radio"';
-									if(i==0) form_html +=' '+req+' >';
+								form_html = '<div class="formgroup"><div class="questiongroup "><fieldset class=""><span class="question">' + entry_data[i].Data.input_1 + '</span><div class="grid-container-' + box_num + '">';
+								for (var k = 0; k < box_num; k++) {
+									form_html += '<div ><input id="'+entry_data[i].Data.input_3+'_'+k+'@@ID" name="'+entry_data[i].Data.input_3+'" type="radio" value="'+entry_data[i].Data.items_a[k].input_4_a+'"';
+									if(k==0) form_html +=' '+entry_data[i].Data.req+' >';
 									else form_html +=' >'
-									form_html +='<label id="button_text_'+i+'@@ID" class="rd_btn '+width+'" for="'+input_3+'_'+i+'@@ID"></label></div>';
+									form_html +='<label id="button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.input_3+'_'+k+'@@ID">'+entry_data[i].Data.items_a[k].input_5_a+'</label></div>';
 								}
 								form_html += '</div></fieldset></div></div>';
 							}
-							m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
-							m.item_a_after_change();
+							//m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
+							console.log(JSON.stringify(entry_data[i]))
 							break;
-						case 'Vertical radio buttons':
+/*						case 'Vertical radio buttons':
 							var width = ""
 							if (entry_data[i].Data.input_10 == '') {width = "";}
 							else if (entry_data[i].Data.input_10 == '1') {width = "width_btn_130";}

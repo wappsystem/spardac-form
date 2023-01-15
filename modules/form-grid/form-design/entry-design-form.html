@@ -768,7 +768,7 @@
                         break;
                     case 'Dual radio buttons':
                         $('#dual_radio_button__ID').show()
-                        txt_layout = '<div class="formgroup"><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">' + input_1 + '</span></label><br><input id="' + input_3 + '_1__ID" name="' + input_3 + '" type="radio" value="' + input_4 + '" '+req+' ><label class="rd_btn" for="' + input_3 + '_1__ID">' + input_5 + '</label><input id="' + input_3 + '_2__ID" name="' + input_3 + '" type="radio" value="' + input_6 + '"><label class="rd_btn" for="' + input_3 + '_2__ID">' + input_7 + '</label>';
+                        txt_layout = '<div class="formgroup"><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">' + input_1 + '</span></label><br><input id="' + input_3 + '_1__ID" name="' + input_3 + '" type="radio" value="' + input_4 + '"  ><label class="rd_btn" for="' + input_3 + '_1__ID">' + input_5 + '</label><input id="' + input_3 + '_2__ID" name="' + input_3 + '" type="radio" value="' + input_6 + '"><label class="rd_btn" for="' + input_3 + '_2__ID">' + input_7 + '</label>';
                         txt_layout +='<div id="' + input_3 + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
                         txt_layout += '</div></fieldset></div>';
                         $('#question_layout__ID').html(txt_layout)
@@ -815,7 +815,7 @@
                         }
                         else if ($('#F__ID input[name=input_10]:checked').val() == '2') input_10 = "date";
                         else if ($('#F__ID input[name=input_10]:checked').val() == '3') input_10 = "time";
-                        txt_layout = '<div class="formgroup"><fieldset class=""><span class="question">' + input_1 + '</span><div class="grid-container-1"><div><label><span class="question">' + input_5 + '</span><input type=' + input_10 + ' name="' + input_3 + '" class="formcontrol ' + input_9 + '" ' + min + ' ' + max + ' ' + step + ' placeholder="' + input_4 + '" '+req+' /></label></div></div></fieldset></div>';
+                        txt_layout = '<div class="formgroup"><fieldset class=""><span class="question">' + input_1 + '</span><div class="grid-container-1"><div><label><span class="question">' + input_5 + '</span><input type=' + input_10 + ' name="' + input_3 + '" class="formcontrol ' + input_9 + '" ' + min + ' ' + max + ' ' + step + ' placeholder="' + input_4 + '"  /></label></div></div></fieldset></div>';
                         $('#question_layout__ID').html(txt_layout)
                         $('#input_1__ID').show()
                         $('#input_3_5__ID').show()
@@ -847,7 +847,7 @@
                         $('#visual_analogue_scale__ID').show()
                         if ($('#F__ID input[name=input_9]:checked').val() == '0') { range = '100'; vas_step = '1'; }
                         else { range = '10'; vas_step = '0.1'; }
-                        txt_layout = '<div class="formgroup"><fieldset class=""><div class="textcenter"><span class="question">' + input_1 + '</span></div><div class="grid-container-slider"><div class="textleft"><span class="question">' + input_4 + '</span><input type="text" id="vas_req__ID" '+req+'></div><div class="slidecontainer" id=vas_con__ID><input type="range" min="0" max="' + range + '" step=' + vas_step + '  class="slider" name="' + input_3 + '" id="vas__ID"></div><div class="textright"><span class="question">' + input_5 + '</span></div></div></fieldset></div>';
+                        txt_layout = '<div class="formgroup"><fieldset class=""><div class="textcenter"><span class="question">' + input_1 + '</span></div><div class="grid-container-slider"><div class="textleft"><span class="question">' + input_4 + '</span><input type="text" id="vas_req__ID" ></div><div class="slidecontainer" id=vas_con__ID><input type="range" min="0" max="' + range + '" step=' + vas_step + '  class="slider" name="' + input_3 + '" id="vas__ID"></div><div class="textright"><span class="question">' + input_5 + '</span></div></div></fieldset></div>';
                         $('#question_layout__ID').html(txt_layout);
                         $('#input_1__ID').show();
                         $('#input_3_5__ID').show();
@@ -875,7 +875,7 @@
                         if (start != undefined && end != undefined) {
                             for (var i = start; i < end + 1; i = i + step) {
                                 txt_layout += '<input id="' + input_3 + '_' + i.toString() + '__ID" name="' + input_3 + '" type="radio" value="' + i.toString();
-                                if(i==start) txt_layout +='" '+req+' >';
+                                if(i==start) txt_layout +='"  >';
                                 else txt_layout +='" >';
                                 txt_layout += '<label class="rd_btn" for="' + input_3 + '_' + i + '__ID">' + i.toString() + '</label><br>'
                             }
@@ -917,7 +917,7 @@
                         if (box_num != undefined) {
                             txt_layout = '<div class="formgroup"><fieldset class=""><span class="question">' + input_1 + '</span><div class="grid-container-input-' + input_10 + '">';
                             for (var i = 0; i < box_num; i++) {
-                                txt_layout += '<div><label><span id=input_label_' + i + '__ID class="question"></span><input type=number id="input_id_' + (i) + '__ID" class="formcontrol ' + width + '" '+req+' /></label></div>';
+                                txt_layout += '<div><label><span id=input_label_' + i + '__ID class="question"></span><input type=number id="input_id_' + (i) + '__ID" class="formcontrol ' + width + '"  /></label></div>';
                             }
                             txt_layout += '</div></fieldset></div>';
                         }
@@ -951,7 +951,7 @@
                         if (box_num != undefined) {
                             txt_layout = '<div class="formgroup"><fieldset class=""><span class="question">' + input_1 + '</span><div class="grid-container-input-' + input_10 + '">';
                             for (var i = 0; i < box_num; i++) {
-                                txt_layout += '<div><label><span id=input_label_' + i + '__ID class="question"></span><input id="input_id_' + (i) + '__ID" class="formcontrol ' + width + '" '+req+' /></label></div>';
+                                txt_layout += '<div><label><span id=input_label_' + i + '__ID class="question"></span><input id="input_id_' + (i) + '__ID" class="formcontrol ' + width + '"  /></label></div>';
                             }
                             txt_layout += '</div></fieldset></div>';
                         }
@@ -960,6 +960,8 @@
                         $('#input_9_10__ID').show()
                         $('#input_10__ID').show()
                         $('#input_11__ID').show();
+                        $('#req_g__ID').show();
+                        $('#req__ID').show();
                         $('#input_11_text__ID').text("Add one line per input box");
                         $('#input_10_1_label__ID').text('2')
                         $('#input_10_2_label__ID').text('3')
@@ -984,7 +986,7 @@
                             txt_layout = '<div class="formgroup"><div class="questiongroup "><fieldset class=""><span class="question">' + input_1 + '</span><div class="grid-container-' + input_10 + '">';
                             for (var i = 0; i < box_num; i++) {
                                 txt_layout += '<div ><input id="'+input_3+'_'+i+'__ID" name="'+input_3+'" type="radio"';
-                                if(i==0) txt_layout +=' '+req+' >';
+                                if(i==0) txt_layout +='  >';
                                 else txt_layout +=' >'
                                 txt_layout +='<label id="button_text_'+i+'__ID" class="rd_btn '+width+'" for="'+input_3+'_'+i+'__ID"></label></div>';
                             }
@@ -1021,7 +1023,7 @@
                             txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span>';
                             for (var i = 0; i < m.item_a_records.length; i++) {
                                 txt_layout += '<input id="'+input_3+'_'+i+'__ID" name="'+input_3+'" type="radio"';
-                                if(i==0) txt_layout +=' '+req+' >';
+                                if(i==0) txt_layout +='  >';
                                 else txt_layout +=' >'
                                 txt_layout +='<label id="button_text_'+i+'__ID" class="rd_btn '+width+'" for="'+input_3+'_'+i+'__ID"></label><br>';
                             }
@@ -1082,7 +1084,7 @@
                         break;
                         case 'Dropdown List':
                         $('#dropdown_list__ID').show();
-                        txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span><select id="' + input_3 + '__ID" name="' + input_3 + '" '+req+' class="formcontrol" >';
+                        txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span><select id="' + input_3 + '__ID" name="' + input_3 + '"  class="formcontrol" >';
                         for (var i = 0; i < m.item_a_records.length; i++) {
                             txt_layout += '<option ></option>';
                         }
@@ -1104,7 +1106,7 @@
                         $('#textarea__ID').show();
                         if ($('#F__ID input[name=input_9]:checked').val() == '1') input_9 = " fullwidth";
                         else input_9 = "";
-                        txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span><label><span class="question">' + input_5 + '</span><textarea class="formcontrol '+ input_9 +'" name="'+input_3+'" placeholder="'+input_4+'" " '+req+' ></textarea></label></fieldset></div></div>';
+                        txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span><label><span class="question">' + input_5 + '</span><textarea class="formcontrol '+ input_9 +'" name="'+input_3+'" placeholder="'+input_4+'" "  ></textarea></label></fieldset></div></div>';
                         $('#question_layout__ID').html(txt_layout);
                         $('#input_1__ID').show();
                         $('#input_3_5__ID').show();
