@@ -1,1 +1,0 @@
-check_special = function () {console.log("ABCDE")}

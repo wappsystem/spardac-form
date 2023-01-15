@@ -23,7 +23,7 @@
     m[p+"sequence-form"]	={url:H+"/form-grid/form-design/sequence-form.html",Table:"entry-design-form-builder",task_name:"Sequencing Inputs"}
     m[p+"preview-form"]	={url:H+"/form-grid/form-design/preview-form.html",Table:"entry-design-form-builder",task_name:"Preview Form - ",form_module:"preview"}
     //m[p+"preview"]	={url:H+"/form-grid/form-design/preview.html"}
-    m[p+"preview"]	={url:H+"/preview123"}
+    m[p+"preview"]	={url:H+"/previewer"}
 
     //if(window.location.toString().indexOf('tb=demo')!=-1){
         for(p in $vm.module_list){
