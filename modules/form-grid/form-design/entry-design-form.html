@@ -32,8 +32,8 @@
                     <fieldset class="border-green">
                         <div id=input_1__ID class="formgroup">
                             <div class="grid-container-1">
-                                <div><label><span id="label_input_1__ID" class="question"></span></label><input
-                                        type=text name="input_1" class="formcontrol fullwidth" /></div>
+                                <div><label><span id="label_input_1__ID" class="question"></span></label><input id="input_1_id__ID"
+                                        type=text name="input_1" placeholder="" class="formcontrol fullwidth" /></div>
                             </div>
                         </div>
                         <div id=input_2__ID class="formgroup">
@@ -45,11 +45,11 @@
                         <div id=input_3_5__ID class="formgroup">
                             <div class="formgroup grid-container-3">
                                 <div id=input_3__ID>
-                                    <label><span id="label_input_3__ID" class="question"></span></label><input type=text
+                                    <label><span id="label_input_3__ID" class="question"></span></label><input id=input_3_id__ID type=text
                                         name="input_3" class="formcontrol" />
                                 </div>
                                 <div id=input_4__ID>
-                                    <label><span id="label_input_4__ID" class="question"></span></label><input type=text
+                                    <label><span id="label_input_4__ID" class="question"></span></label><input id=input_4_id__ID type=text
                                         name="input_4" class="formcontrol" />
                                 </div>
                                 <div id=input_5__ID>
@@ -466,6 +466,9 @@
                             <input id="layout_12__ID" name="layout" type="radio" value="Hide/Show section">
                             <label class="rd_btn width_btn_full" for="layout_12__ID">Hide/Show section
                             </label><br>
+                            <input id="layout_13__ID" name="layout" type="radio" value="Calculation">
+                            <label class="rd_btn width_btn_full" for="layout_13__ID">Calculation
+                            </label><br>
                         </fieldset>
                     </div>
                 </div>
@@ -631,6 +634,9 @@
                     break;
                     case "Dropdown List":
                         $('#dropdown_list__ID').show();
+                    break;
+                    case "Calculation":
+                        $('#calculation__ID').show();
                     break;
                 }
                 check_selection();
@@ -1051,7 +1057,7 @@
                         m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
                         m.item_a_after_change();
                         break;
-                        case 'Vertical Checkboxes':
+                     case 'Vertical Checkboxes':
                         $('#vertical_checkboxes__ID').show()
                         var width = ""
                         if ($('#F__ID input[name=input_10]:checked').val() == '') {width = "";}
@@ -1082,7 +1088,7 @@
                         m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input_3_a,_Remove";
                         m.item_a_after_change();
                         break;
-                        case 'Dropdown List':
+                    case 'Dropdown List':
                         $('#dropdown_list__ID').show();
                         txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+input_1+'</p></span><select id="' + input_3 + '__ID" name="' + input_3 + '"  class="formcontrol" >';
                         for (var i = 0; i < m.item_a_records.length; i++) {
@@ -1102,7 +1108,7 @@
                         m.item_a_fields = "Dropdown option text|input_5_a,Option value|input_4_a,_Remove";
                         m.item_a_after_change();
                         break;
-                        case 'Textarea':
+                    case 'Textarea':
                         $('#textarea__ID').show();
                         if ($('#F__ID input[name=input_9]:checked').val() == '1') input_9 = " fullwidth";
                         else input_9 = "";
@@ -1124,6 +1130,19 @@
                         $('#label_input_3__ID').html('Database name')
                         $('#label_input_4__ID').html('Text inside input box')
                         $('#label_input_5__ID').html('Label text')
+                        break;
+                    case 'Calculation':
+                        $('#question_layout__ID').html("<div></div>");
+                        $('#input_1__ID').show();
+                        $('#input_3_5__ID').show();
+                        $('#input_3__ID').show();
+                        $('#input_4__ID').show();
+                        $('#label_input_1__ID').html('Formula with new database name to the left of the equal sign. All variables to the right of the equal sign must exist as a database name in this form.')
+                        document.getElementById('input_1_id__ID').setAttribute("placeholder", "Example: ESS=ESS1+ESS2+ESS3+ESS4+ESS5+ESS6+ESS7+ESS8");
+                        document.getElementById('input_4_id__ID').setAttribute("type", "number");
+                        document.getElementById('input_4_id__ID').setAttribute("min", "0");
+                        $('#label_input_4__ID').html('Number of decimals')
+                        $('#label_input_3__ID').html('Database name')
                         break;
                     default:
                         console.log("DEFAULT")
