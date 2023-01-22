@@ -1137,8 +1137,8 @@
                         $('#input_3_5__ID').show();
                         $('#input_3__ID').show();
                         $('#input_4__ID').show();
-                        $('#label_input_1__ID').html('Formula with new database name to the left of the equal sign. All variables to the right of the equal sign must exist as a database name in this form.')
-                        document.getElementById('input_1_id__ID').setAttribute("placeholder", "Example: ESS=ESS1+ESS2+ESS3+ESS4+ESS5+ESS6+ESS7+ESS8");
+                        $('#label_input_1__ID').html('Formula with new database name to the left of the equal sign. All variables to the right of the equal sign must exist as a database name in this form. Put a quare bracket around the database name. Allowed calculation characters:<br> + (add), - (subtract), * (multiply), / (divide), % (modulus), ( ) (parentheses)')
+                        document.getElementById('input_1_id__ID').setAttribute("placeholder", "Example: ESS=[ESS1]+[ESS2]+[ESS3]+[ESS4]+[ESS5]+[ESS6]+[ESS7]+[ESS8]");
                         document.getElementById('input_4_id__ID').setAttribute("type", "number");
                         document.getElementById('input_4_id__ID').setAttribute("min", "0");
                         $('#label_input_4__ID').html('Number of decimals')
@@ -1222,7 +1222,6 @@
             m.item_a_after_remove = function () {
             }
             //----------------------------------
-
         }
     </script>
     <style>

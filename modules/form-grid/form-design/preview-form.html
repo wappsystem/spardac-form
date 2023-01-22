@@ -28,6 +28,7 @@
 			var script_load="    //-------------------------------------\n ";
 			var script_before_submit ="    //-------------------------------------\n ";
 			var style_content="";
+			var id_name=[];
 			m.load = function () {
 				load();
                 var form_uid=(m.input.record.UID).toString();
@@ -40,6 +41,7 @@
                     entry_data=res.result
 				})
 				//console.log(JSON.stringify(entry_data))
+				id_name=[];
 				if(entry_data!=undefined) create_form(entry_data);
                 jQuery.ajaxSetup({async:true});
 			}
@@ -99,6 +101,7 @@
 								script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.input_3 + "\"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').hide();\n      } "
 								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.input_3 + "\"]').on('change',function(){ console.log('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID'); if($('#F@@ID input[name="+entry_data[i].Data.input_3+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').hide();\n      }\n});\n"
 							}
+							id_name.push(entry_data[i].Data.input_3);
 							form_html += '</div></fieldset></div>';
 							break;
 						case 'Single text input':
@@ -109,29 +112,33 @@
 	                            min = "min=" + entry_data[i].Data.input_6
     	                        max = "max=" + entry_data[i].Data.input_7
         	                    step = "step=" + entry_data[i].Data.input_8
+								id_name.push(entry_data[i].Data.input_3);
                         	}
                        		else if (entry_data[i].Data.input_10 == '2') input_style = "date";
                         	else if (entry_data[i].Data.input_10 == '3') input_style = "time";
-
+							id_name.push(entry_data[i].Data.input_3);
 							form_html += '<div class="formgroup" ><fieldset class=""><span class="question">' + entry_data[i].Data.input_1 + '</span><div class="grid-container-1"><div><label><span class="question">' + entry_data[i].Data.input_5 + '</span><input id="abcd" type=' + entry_data[i].Data.input_style + ' name="' + entry_data[i].Data.input_3 + '" class="formcontrol ' + entry_data[i].Data.specified_width + '" ' + entry_data[i].Data.min + ' ' + entry_data[i].Data.max + ' ' + entry_data[i].Data.step + ' placeholder="' + entry_data[i].Data.input_4 + '" '+entry_data[i].Data.req+' /></label></div></div></fieldset></div>';
 							break;
 						case 'Visual Analogue Scale':
+							id_name.push(entry_data[i].Data.input_3);
 							form_html += '<div class="formgroup" >\n<fieldset class="">\n<div class="textcenter">\n<span class="question">' + entry_data[i].Data.input_1 + '</span>\n</div>\n<div class="grid-container-slider">\n<div class="textleft">\n<span class="question">' + entry_data[i].Data.input_4 + '</span>\n<input type="text" id="' + entry_data[i].Data.input_3 + '_req@@ID" '+entry_data[i].Data.req+' style="opacity:0">\n</div>\n<div class="slidecontainer" id=' + entry_data[i].Data.input_3 + '_con@@ID>\n<input type="range" min="0" max="' + entry_data[i].Data.range + '" step=' + entry_data[i].Data.vas_step + ' class="slider" name="' + entry_data[i].Data.input_3 + '" id="' + entry_data[i].Data.input_3 + '@@ID">\n</div>\n<div class="textright">\n<span class="question">' + entry_data[i].Data.input_5 + '</span>\n</div>\n</div>\n</fieldset>\n</div>';
 							script_load+="\n//-------------------------------------\nif (m.input.record != undefined) \n{$('<style>#" + entry_data[i].Data.input_3 + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');$('#" + entry_data[i].Data.input_3 + "_req@@ID').val(\"OK\")} \nelse { $('<style>#" + entry_data[i].Data.input_3 + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0px; height: 0px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');}"
 							script_other+="\n//-------------------------------------\n $('#" + entry_data[i].Data.input_3 + "@@ID').on('click', function () {$('<style>#" + entry_data[i].Data.input_3 + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');$('#" + entry_data[i].Data.input_3 + "_req@@ID').val(\"OK\")})//-------------------------------------\n";
+							console.log(script_other)
 							break;
 						case 'Digital Scale':
+							id_name.push(entry_data[i].Data.input_3);
 							form_html += '<div class="formgroup"><div class="questiongroup "><fieldset class="dynbreaks"><div class="textcenter"><span class="question">' + entry_data[i].Data.input_1 + '</span></div><div class="grid-container-3-special"><div class="textleft"><span class="question">' + entry_data[i].Data.input_4 + '</span></div><div class="textcenter">';
 							start= parseInt(entry_data[i].Data.input_6);
 							step= parseInt(entry_data[i].Data.input_8);
 							end= parseInt(entry_data[i].Data.input_7);
 							if (start != undefined && end != undefined) {
 								for (var k = start; k < end + 1; k = k + step) {
-									var kk=k.toString();
-									form_html += '<input id="' + entry_data[i].Data.input_3 + '_' + kk + '@@ID" name="' + entry_data[i].Data.input_3 + '" type="radio" value=' + kk;
+									//var kk=k.toString();
+									form_html += '<input id="' + entry_data[i].Data.input_3 + '_' + k + '@@ID" name="' + entry_data[i].Data.input_3 + '" type="radio" value="' + k+'";'
 									if(k==start) form_html +='" '+entry_data[i].Data.req+' >';
 									else form_html +='" >';
-									form_html += '<label class="rd_btn" for="' + entry_data[i].Data.input_3 + '_' + k + '@@ID">' + kk + '</label><br>'
+									form_html += '<label class="rd_btn" for="' + entry_data[i].Data.input_3 + '_' + k + '@@ID">' + k + '</label><br>'
 								}
 							}
 							form_html += '</div><div class="textright"><span class="question">' + entry_data[i].Data.input_5 + '</span></div></div></fieldset></div></div>';
@@ -151,6 +158,7 @@
 								form_html += '<div class="formgroup"><fieldset class=""><span class="question">' + entry_data[i].Data.input_1 + '</span><div class="grid-container-input-' + num_boxes + '">';
 								for (var k = 0; k < box_num; k++) {
 									form_html += '<div><label><span id=input_label_' + k + '@@ID class="question"> '+entry_data[i].Data.items_a[k].input_5_a+'</span><input type=number id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" '+entry_data[i].Data.req+' placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" min="'+entry_data[i].Data.items_a[k].input_6_a+'" max="'+entry_data[i].Data.items_a[k].input_7_a+'" step="'+entry_data[i].Data.items_a[k].input_8_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+' "/></label></div>';
+									id_name.push(entry_data[i].Data.items_a[k].input_3_a);
 								}
 								form_html += '</div></fieldset></div>';
 							}
@@ -173,6 +181,7 @@
 							}
 							break;
 						case 'Horizontal radio buttons':
+							id_name.push(entry_data[i].Data.input_3);
 							var width = ""
 							if (entry_data[i].Data.input_10 == '0') {box_num = "3"; width = "width_input_3";}
 							else if (entry_data[i].Data.input_10 == '1') {box_num = "4"; width = "width_input_4";}
@@ -193,6 +202,7 @@
 							//m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
 							break;
 						case 'Vertical radio buttons':
+							id_name.push(entry_data[i].Data.input_3);
 							var width = ""
 							if (entry_data[i].Data.input_10 == '') {width = "";}
 							else if (entry_data[i].Data.input_10 == '1') {width = "width_btn_130";}
@@ -224,6 +234,7 @@
 							for (var k = 0; k < entry_data[i].Data.items_a.length; k++) {
 								form_html += '<input id="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID" type="checkbox" value="'+entry_data[i].Data.items_a[k].input_4_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+'">';
 								form_html +='<label id="'+entry_data[i].Data.input_3+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID"><span class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>'+entry_data[i].Data.items_a[k].input_5_a+'</label><br>';
+								id_name.push(entry_data[i].Data.items_a[k].input_3_a);
 							}
 							if(entry_data[i].Data.specify_1!=""){
 								form_html +='<div id="' + entry_data[i].Data.specify_2 + '_option@@ID" class="formgroup hide"><label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br><input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
@@ -238,13 +249,14 @@
 							//m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input_3_a,_Remove";
 							break;
 						case 'Dropdown List':
+							id_name.push(entry_data[i].Data.input_3);
 							form_html += '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+entry_data[i].Data.input_1+'</p></span><select id="' + entry_data[i].Data.input_3 + '@@ID" name="' + entry_data[i].Data.input_3 + '" '+entry_data[i].Data.req+' class="formcontrol" >';
 							for (var k= 0; k < entry_data[i].Data.items_a.length; k++) {
 								form_html += '<option value='+entry_data[i].Data.items_a[k].input_4_a+' >'+entry_data[i].Data.items_a[k].input_5_a+'</option>';
 							}
 							form_html += '</select></fieldset></div></div>';
 							//m.item_a_fields = "Dropdown option text|input_5_a,Option value|input_4_a,_Remove";
-							console.log(JSON.stringify(entry_data[i]))
+							//console.log(JSON.stringify(entry_data[i]))
 							break;
 						case 'Textarea':
 							var specified_width="";
@@ -252,8 +264,28 @@
 							form_html += '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+entry_data[i].Data.input_1+'</p></span><label><span class="question">' + entry_data[i].Data.input_5 + '</span><textarea class="formcontrol '+ specified_width +'" name="'+entry_data[i].Data.input_3+'" placeholder="'+entry_data[i].Data.input_4+'" '+entry_data[i].Data.req+' ></textarea></label></fieldset></div></div>';
 							break;
 						case 'Calculation':
-							form_html = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><h3> This will not be shown in the form</h3><span class="question"><p>'+entry_data[i].Data.input_1+'</p></span><input id='+entry_data[i].Data.input_3+'_calc type=button value="Calculate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='+entry_data[i].Data.input_3+'_result class="question"><p></p></span></fieldset></div></div>';
-							script_before_submit+='$("#'+entry_data[i].Data.input_3+'_calc").click(function(){console.log("CDEAAA");$("#'+entry_data[i].Data.input_3+'_result").text("CDEAAA")})';
+							//console.log(entry_data[i].Data)
+							/*var input = entry_data[i].Data.input_1;
+							input=input.split('=');
+							console.log("ABBC: "+i+" - "+input[1]);
+							for (var m=0;m<entry_data.length;m++){
+								var id_entry=entry_data[m].Data.input_3
+								console.log("HH"+id_entry+"HH")
+								if(id_entry!="" && id_entry!=undefined){
+									if(input[1].indexOf(id_entry!=-1)){
+										console.log("abbc: "+input[1].indexOf(id_entry))
+										input[1]=input[1].replace(id_entry,"12"); 
+										console.log("abc: "+input[1])
+									}	
+								}
+							}*/
+							var input_length=id_name.length;
+							id_name=JSON.stringify(id_name);
+							console.log(input_length)
+							form_html += '<div class="formgroup"><div class="questiongroup" style="background-color: coral;"><fieldset class=""><h3> This will not be shown in the form</h3><span id=formula_'+entry_data[i].Data.input_3+' class="question"><p>'+entry_data[i].Data.input_1+'</p></span><button type="submit" id="submit__ID" class="btn btn-primary btn-lg">Calc</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='+entry_data[i].Data.input_3+'_result class="question"><p></p></span></fieldset></div></div>';
+							script_other='//-------------------\nvar clean_string=function(input_string){\ninput_string = input_string.replace(/[^0-9%*\/()\-+.]/g, "");\nreturn(input_string);}';
+							script_before_submit+='var before_submit = m.before_submit;m.before_submit = function (data, index) {var input = "'+entry_data[i].Data.input_1+'";var calc_string = input.split("=");var input_right = calc_string[1];var output="";for (var m = 0; m < '+input_length+'; m++) {var single_input = '+id_name+'[m];if (input_right.indexOf(single_input) >= 0) {input_right = input_right.replace(single_input, "parseFloat(data." + single_input + ")");}} output = input_right;output=output.replaceAll("[","").replaceAll("]","");var total=eval(output);$("#'+entry_data[i].Data.input_3+'_result").text(total.toFixed('+entry_data[i].Data.input_4+'));return false;};'
+							
 							break;
 						/*default:
 							console.log("DEFAULT")
@@ -263,9 +295,7 @@
 						}
 
                 }
-			}
-			//-------------------------------------
-			m.before_submit = function (data, index) {
+
 			}
 			//-------------------------------------
 		}
