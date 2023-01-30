@@ -99,7 +99,7 @@
 							if(entry_data[i].Data.specify_1!=""){
 								form_html +='<div id="' + entry_data[i].Data.input_3 + '_option@@ID" class="formgroup hide"><label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br><input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
 								script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.input_3 + "\"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').hide();\n      } "
-								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.input_3 + "\"]').on('change',function(){ console.log('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID'); if($('#F@@ID input[name="+entry_data[i].Data.input_3+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').hide();\n      }\n});\n"
+								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.input_3 + "\"]').on('change',function(){ if($('#F@@ID input[name="+entry_data[i].Data.input_3+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').hide();\n      }\n});\n"
 							}
 							id_name.push(entry_data[i].Data.input_3);
 							form_html += '</div></fieldset></div>';
@@ -122,9 +122,9 @@
 						case 'Visual Analogue Scale':
 							id_name.push(entry_data[i].Data.input_3);
 							form_html += '<div class="formgroup" >\n<fieldset class="">\n<div class="textcenter">\n<span class="question">' + entry_data[i].Data.input_1 + '</span>\n</div>\n<div class="grid-container-slider">\n<div class="textleft">\n<span class="question">' + entry_data[i].Data.input_4 + '</span>\n<input type="text" id="' + entry_data[i].Data.input_3 + '_req@@ID" '+entry_data[i].Data.req+' style="opacity:0">\n</div>\n<div class="slidecontainer" id=' + entry_data[i].Data.input_3 + '_con@@ID>\n<input type="range" min="0" max="' + entry_data[i].Data.range + '" step=' + entry_data[i].Data.vas_step + ' class="slider" name="' + entry_data[i].Data.input_3 + '" id="' + entry_data[i].Data.input_3 + '@@ID">\n</div>\n<div class="textright">\n<span class="question">' + entry_data[i].Data.input_5 + '</span>\n</div>\n</div>\n</fieldset>\n</div>';
-							script_load+="\n//-------------------------------------\nif (m.input.record != undefined) \n{$('<style>#" + entry_data[i].Data.input_3 + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');$('#" + entry_data[i].Data.input_3 + "_req@@ID').val(\"OK\")} \nelse { $('<style>#" + entry_data[i].Data.input_3 + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0px; height: 0px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');}"
+							script_load+="\n//-------------------------------------\nif (m.input.record != undefined) \n{$('<style>#" + entry_data[i].Data.input_3 + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');$('#" + entry_data[i].Data.input_3 + "_req@@ID').val(\"OK\")} \nelse { $('<style>.slidecontainer input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0px; height: 0px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');}"
 							script_other+="\n//-------------------------------------\n $('#" + entry_data[i].Data.input_3 + "@@ID').on('click', function () {$('<style>#" + entry_data[i].Data.input_3 + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');$('#" + entry_data[i].Data.input_3 + "_req@@ID').val(\"OK\")})//-------------------------------------\n";
-							console.log(script_other)
+							//console.log(script_other)
 							break;
 						case 'Digital Scale':
 							id_name.push(entry_data[i].Data.input_3);
@@ -218,7 +218,7 @@
 								if(entry_data[i].Data.specify_1!=""){
 									form_html +='<div id="' + entry_data[i].Data.input_3 + '_option@@ID" class="formgroup hide"><label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br><input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
 									script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.input_3 + "\"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').hide();\n      } "
-									script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.input_3 + "\"]').on('change',function(){ console.log('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID'); if($('#F@@ID input[name="+entry_data[i].Data.input_3+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').hide();\n      }\n});\n"
+									script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.input_3 + "\"]').on('change',function(){ if($('#F@@ID input[name="+entry_data[i].Data.input_3+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.input_3+"_option@@ID').hide();\n      }\n});\n"
 								}
 								form_html += '</fieldset></div></div>';
 							//m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
@@ -281,9 +281,9 @@
 							}*/
 							var input_length=id_name.length;
 							id_name=JSON.stringify(id_name);
-							console.log(input_length)
+							//console.log(input_length)
 							form_html += '<div class="formgroup"><div class="questiongroup" style="background-color: coral;"><fieldset class=""><h3> This will not be shown in the form</h3><span id=formula_'+entry_data[i].Data.input_3+' class="question"><p>'+entry_data[i].Data.input_1+'</p></span><button type="submit" id="submit__ID" class="btn btn-primary btn-lg">Calc</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='+entry_data[i].Data.input_3+'_result class="question"><p></p></span></fieldset></div></div>';
-							script_other='//-------------------\nvar clean_string=function(input_string){\ninput_string = input_string.replace(/[^0-9%*\/()\-+.]/g, "");\nreturn(input_string);}';
+							script_other+='//-------------------\nvar clean_string=function(input_string){\ninput_string = input_string.replace(/[^0-9%*\/()\-+.]/g, "");\nreturn(input_string);}';
 							script_before_submit+='var before_submit = m.before_submit;m.before_submit = function (data, index) {var input = "'+entry_data[i].Data.input_1+'";var calc_string = input.split("=");var input_right = calc_string[1];var output="";for (var m = 0; m < '+input_length+'; m++) {var single_input = '+id_name+'[m];if (input_right.indexOf(single_input) >= 0) {input_right = input_right.replace(single_input, "parseFloat(data." + single_input + ")");}} output = input_right;output=output.replaceAll("[","").replaceAll("]","");var total=eval(output);$("#'+entry_data[i].Data.input_3+'_result").text(total.toFixed('+entry_data[i].Data.input_4+'));return false;};'
 							
 							break;

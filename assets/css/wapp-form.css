@@ -420,22 +420,11 @@ padding:10px
     -webkit-transition: .2s;
     /* 0.2 seconds transition on hover */
     transition: opacity .2s;
+    cursor: pointer;
   }
 
   /* Mouse-over effects */
   #D__ID .slider:hover {
     opacity: 1;
     /* Fully shown on mouse-over */
-  }
-
-  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-  #D__ID .slider::-moz-range-thumb {
-    width: 25px;
-    /* Set a specific slider handle width */
-    height: 25px;
-    /* Slider handle height */
-    background: #167d7f;
-    /* Green background */
-    cursor: pointer;
-    /* Cursor on hover */
   }

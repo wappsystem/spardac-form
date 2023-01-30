@@ -513,7 +513,7 @@
                 if($('#F__ID input[name=_vcb_5]:checked').val()=="5"){$('#_vcb_option__ID').show();}
                 else{$('#_vcb_option__ID').hide();}
                 //-------------
-                $('<style>#vas_con__ID input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0px; height: 0px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');
+                $('<style>.slidecontainer input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0px; height: 0px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');
                 //----------------------
                 $('#main_header__ID').hide();
                 $('#dual_radio_button__ID').hide();
@@ -551,9 +551,15 @@
                     if($('#F__ID input[name="'+db_name+'"]:checked').val()==specify_3){$('#'+input_3+'_option__ID').show();}
                     else{$('#'+input_3+'_option__ID').hide();}
                 });
+                $('#vas2__ID').on('click', function () {
+                    //console.log("VAS2")
+                    $('<style>#vas2_con__ID input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');
+                    $('#vas2_req__ID').val("OK")
+                })
             }
             //-------------------------------------
             $('#vas__ID').on('click', function () {
+                //console.log("VAS1")
                 $('<style>#vas_con__ID input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');
                 $('#vas_req__ID').val("OK")
             })
@@ -638,6 +644,9 @@
                     case "Calculation":
                         $('#calculation__ID').show();
                     break;
+                    case "Hide/Show section":
+                        $('#hideshow__ID');
+                        break;
                 }
                 check_selection();
             })
@@ -853,7 +862,7 @@
                         $('#visual_analogue_scale__ID').show()
                         if ($('#F__ID input[name=input_9]:checked').val() == '0') { range = '100'; vas_step = '1'; }
                         else { range = '10'; vas_step = '0.1'; }
-                        txt_layout = '<div class="formgroup"><fieldset class=""><div class="textcenter"><span class="question">' + input_1 + '</span></div><div class="grid-container-slider"><div class="textleft"><span class="question">' + input_4 + '</span><input type="text" id="vas_req__ID" ></div><div class="slidecontainer" id=vas_con__ID><input type="range" min="0" max="' + range + '" step=' + vas_step + '  class="slider" name="' + input_3 + '" id="vas__ID"></div><div class="textright"><span class="question">' + input_5 + '</span></div></div></fieldset></div>';
+                        txt_layout = '<div class="formgroup"><fieldset class=""><div class="textcenter"><span class="question">' + input_1 + '</span></div><div class="grid-container-slider"><div class="textleft"><span class="question">' + input_4 + '</span><input type="text" id="vas2_req__ID" style="display:none" ></div><div class="slidecontainer" id=vas2_con__ID><input type="range" min="0" max="' + range + '" step=' + vas_step + '  class="slider" name="' + input_3 + '" id="vas2__ID"></div><div class="textright"><span class="question">' + input_5 + '</span></div></div></fieldset></div>';
                         $('#question_layout__ID').html(txt_layout);
                         $('#input_1__ID').show();
                         $('#input_3_5__ID').show();
@@ -1144,6 +1153,22 @@
                         $('#label_input_4__ID').html('Number of decimals')
                         $('#label_input_3__ID').html('Database name')
                         break;
+                    case 'Hide/Show section':
+                        $('#question_layout__ID').html("<div></div>");
+                        $('#input_1__ID').show();
+                        $('#input_3_5__ID').show();
+                        $('#input_3__ID').show();
+                        $('#input_4__ID').show();
+                        $('#input_9_10__ID').show();
+                        $('#label_input_1__ID').html('Unique name (within this form) for the Hide/Show section')
+                        $('#label_input_3__ID').html('The name of Database field (must exist in the form) to activate Hide/Show ')
+                        $('#label_input_4__ID').html('Value of Database field when to activate Hide/Show ');
+                        $('#input_9_1_label__ID').text('Equal to value')
+                        $('#input_9_2_label__ID').text('Not equal to value')
+                        $('#label_input_9__ID').html('Section should be shown when')
+                        $('#input_9__ID').show();
+
+                        break;
                     default:
                         console.log("DEFAULT")
                         $('#question_layout__ID').html("<div></div>")
@@ -1166,7 +1191,7 @@
             })
             //----------------------------------
             m.item_a_cell_render = function (records, I, field, td, set_value, source) {
-                console.log("Render: ")
+                //console.log("Render: ")
                 switch (field) {
                     case "input_10_a":
                         td.html("<select><option></option><option value='text'>Text input</option><option value='date'>Date input</option><option value='time'>Time input</option></select>");
