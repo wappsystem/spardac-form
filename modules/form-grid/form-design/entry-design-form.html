@@ -109,7 +109,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id=specify__ID class="formgroup">
+                        <!--<div id=specify__ID class="formgroup">
                             <div>
                                 <span class="question">
                                     <p>"Please specify" entry field. Leave empty if not required.</p>
@@ -129,11 +129,30 @@
                                         name="specify_3" class="formcontrol" />
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div id=input_11__ID class="formgroup">
                             <u style='cursor:pointer;' id=item_a_add__ID><i class="fa fa-plus"></i> <span id=input_11_text__ID>Add line per input
                                 box</span></u>
                             <table id=grid_item_a__ID></table>
+                        </div>
+                        <div id=specify__ID class="formgroup">
+                            <u style='cursor:pointer;' id=simple_hide_show__ID><span id="add_specify__ID">Add "Please specify" entry field.</span></u>
+                            <div id=simple__ID style="display:none">
+                                <div class="formgroup grid-container-3">
+                                    <div id=specify_1__ID class="">
+                                        <label><span id="label_specify_1__ID" class="question">Label text</span></label><input type=text
+                                            name="specify_1" class="formcontrol" />
+                                    </div>
+                                    <div id=specify_2__ID class="">
+                                        <label><span id="label_specify_2__ID" class="question">Database name</span></label><input type=text
+                                            name="specify_2" class="formcontrol" />
+                                    </div>
+                                    <div id=specify_3__ID>
+                                        <label><span id="label_specify_3__ID" class="question">Value when "Please specify" is shown</span></label><input type=text
+                                            name="specify_3" class="formcontrol" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="formgroup right">
@@ -561,7 +580,21 @@
                     $('<style>#vas2_con__ID input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');
                     $('#vas2_req__ID').val("OK")
                 })
+                if($('#F__ID input[name=specify_1]').val()=='' && $('#F__ID input[name=specify_2]').val()=='' && $('#F__ID input[name=specify_3]').val()=='') {
+                    $('#simple__ID').css('display','none');
+                    $('#add_specify__ID').text('Add "Please specify" entry field.');
+                }
+                else{
+                    $('#simple__ID').css('display','block');
+                    $('#add_specify__ID').text('"Please specify" entry field.');
+                }
+
             }
+            //-------------------------------------
+            $('#simple_hide_show').on('click', function () {
+                console.log("AAAA")
+                if($('#simple_hide_show').val()=='&#43;') $('#simple_hide_show').val('&#45;'); else  $('#simple_hide_show').val('&#43;');
+            })
             //-------------------------------------
             $('#vas__ID').on('click', function () {
                 //console.log("VAS1")
@@ -768,6 +801,14 @@
                 specify_2 = $('#F__ID input[name=specify_2]').val();
                 specify_3 = $('#F__ID input[name=specify_3]').val();
                 req = $('#F__ID input[name=req]:checked').val();
+                if($('#F__ID input[name=specify_1]').val()=='' && $('#F__ID input[name=specify_2]').val()=='' && $('#F__ID input[name=specify_3]').val()=='') {
+                    $('#simple__ID').css('display','none');
+                    $('#add_specify__ID').text('Add "Please specify" entry field.');
+                }
+                else{
+                    $('#simple__ID').css('display','block');
+                    $('#add_specify__ID').text('"Please specify" entry field.');
+                }
                 //console.log("Layout: "+layout + " - REQ: "+req)
                 switch (layout) {
                     case 'Main Header':
@@ -1181,6 +1222,19 @@
                         break;
                 }
             }
+            //----------------------------------
+            $('#simple_hide_show__ID').on('click', function () {
+                if($('#F__ID input[name=specify_1]').val()=='' && $('#F__ID input[name=specify_2]').val()=='' && $('#F__ID input[name=specify_3]').val()==''){
+                    if($('#simple__ID').css('display')=='none'){
+                    $('#simple__ID').css('display','block')
+                    }
+                    else{
+                        $('#simple__ID').css('display','none')
+                    }
+                }
+                else $('#simple__ID').css('display','block');
+
+            })
             //----------------------------------
             // Multiple input entries. Numbers
             m.item_a_fields = ","
