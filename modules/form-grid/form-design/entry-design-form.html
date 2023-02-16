@@ -154,6 +154,41 @@
                                 </div>
                             </div>
                         </div>
+                        <div id=hide_show__ID class="formgroup">
+                            <u style='cursor:pointer;' id=full_hide_show__ID><span id="full_hide_show_label__ID">Define "Hide/Show" element.</span></u><br><span style="font-size: smaller;"> Specify controlling value and entries included in the normally hidden section.</span>
+                            <div id=define_hide_show__ID style="display:xnone">
+                                <div class="formgroup grid-container-1">
+                                    <div id=hide_type__ID>
+                                            <label><span id="label_hide_type__ID" class="question">What part of the Hide/Show section is this entry?</span></label><br>
+                                            <div style="display:flex">
+                                            <div id=hide_start__ID>
+                                                <input id="hide_type_1__ID" name="hide_type" type="radio" value="start">
+                                        <label id="hide_type_1_label__ID" class="rd_btn" for="hide_type_1__ID">Controlling</label>
+                                    </div>
+                                    <input id="hide_type_2__ID" name="hide_type" type="radio" value="middle">
+                                        <label id="hide_type_2_label__ID" class="rd_btn" for="hide_type_2__ID">Entry within</label>
+                                        <input id="hide_type_3__ID" name="hide_type" type="radio" value="end">
+                                        <label id="hide_type_3_label__ID" class="rd_btn" for="hide_type_3__ID">Last entry</label>
+                                    </div>
+                                </div>
+                                </div>
+                                <div id=control_hide_show__ID style="display:xnone">
+                                    <div class="formgroup grid-container-2">
+                                        <div id=start_hide_value__ID>
+                                            <label><span id="label_start_hide_value__ID" class="question">Value when section is Hidden/Shown</span></label><input type=text
+                                                name="start_hide_value" class="formcontrol" />
+                                        </div>
+                                        <div id=start_hide_equal__ID>
+                                            <label><span id="label_start_hide_equal__ID" class="question">When to show?</span></label><br>
+                                            <input id="start_hide_equal_1__ID" name="start_hide_equal" type="radio" value="equal">
+                                            <label id="start_hide_equal_1_label__ID" class="rd_btn" for="start_hide_equal_1__ID">Equal to value</label>
+                                            <input id="start_hide_equal_2__ID" name="start_hide_equal" type="radio" value="not_equal">
+                                            <label id="start_hide_equal_2_label__ID" class="rd_btn" for="start_hide_equal_2__ID">Not equal to value</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="formgroup right">
                             <button type="submit" id="submit__ID" class="btn">Submit</button>
