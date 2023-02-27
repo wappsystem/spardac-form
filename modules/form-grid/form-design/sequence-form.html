@@ -44,7 +44,7 @@
                 var form_uid=(m.input.record.UID).toString();
                 //m.query={$and: [{'Data.Participant_uid':{$exists: true}}, {'Data.Participant_uid': {'$ne' : ''}}]}
                 m.query={"Data.Form_uid": {"$eq" : form_uid}};
-                m.sort={'I1':-1}
+                m.sort={'I1':1}
                 jQuery.ajaxSetup({async:false});
                 $vm.request({api:m.api,cmd:'find',table:m.Table,query:m.query,sort:m.sort},function(res){
                     //console.log(res)
