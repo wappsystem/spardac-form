@@ -560,6 +560,7 @@
             var specify_4 = "";
             var specify_5 = "";
             var please_specify=false;
+            var define_hide_show=false;
             var load2 = m.load;
             m.load = function () {
                 load2();
@@ -718,9 +719,6 @@
                     case "Calculation":
                         $('#calculation__ID').show();
                     break;
-                    case "Hide/Show section":
-                        $('#hideshow__ID');
-                        break;
                 }
                 clear_selection();
                 check_selection();
@@ -789,7 +787,24 @@
             })
             //-------------------------------------
             $("#full_hide_show__ID").on('click', function () {
-                $("#define_hide_show__ID").show();
+                if(define_hide_show){
+                    $("#define_hide_show__ID").hide();
+                    define_hide_show=false;
+                } 
+                else{
+                    $("#define_hide_show__ID").show();
+                    define_hide_show=true;
+                }
+            })
+            //-------------------------------------
+            $("#hide_type__ID").on('change', function () {
+                console.log("HHHH"+$('#F__ID input[name=hide_type]:checked').val())
+                if($('#F__ID input[name=hide_type]:checked').val()=='start'){
+                    $("#control_hide_show__ID").show();
+                } 
+                else{
+                    $("#control_hide_show__ID").hide();
+                }
             })
             //-------------------------------------
             var clear_selection = function () {
@@ -914,6 +929,8 @@
                         txt_layout = '<div class="formgroup"><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">' + main_label + '</span></label><br><input id="' + db_name + '_1__ID" name="' + db_name + '" type="radio" value="' + value_1 + '"  ><label class="rd_btn" for="' + db_name + '_1__ID">' + label_1 + '</label><input id="' + db_name + '_2__ID" name="' + db_name + '" type="radio" value="' + value_2 + '"><label class="rd_btn" for="' + db_name + '_2__ID">' + label_2 + '</label>';
                         if(please_specify) txt_layout +='<div id="' + db_name + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
                         txt_layout += '</div></fieldset></div>';
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').show();
                         $('#question_layout__ID').html(txt_layout)
                         $('#main_label__ID').show()
                         $('#db_name_5__ID').show()
@@ -1015,6 +1032,8 @@
                         break;
                     case 'Digital Scale':
                         $('#digital_scale__ID').show()
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').hide();
                         var start = parseInt(value_1);
                         var end = parseInt(value_2);
                         var step = parseInt(value_3);;
@@ -1126,6 +1145,8 @@
                         break;
                     case 'Horizontal radio buttons':
                         $('#horizontal_radiobuttons__ID').show()
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').show();
                         var width = ""
                         if ($('#F__ID input[name=five_options]:checked').val() == '0') {five_options = "3"; width = "width_input_3";}
                         else if ($('#F__ID input[name=five_options]:checked').val() == '1') {five_options = "4"; width = "width_input_4";}
@@ -1169,6 +1190,8 @@
                         break;
                     case 'Vertical radio buttons':
                         $('#vertical_radiobuttons__ID').show()
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').show();
                         var width = ""
                         if ($('#F__ID input[name=five_options]:checked').val() == '') {width = "";}
                         else if ($('#F__ID input[name=five_options]:checked').val() == '1') {width = "width_btn_130";}
@@ -1207,6 +1230,8 @@
                         break;
                      case 'Vertical Checkboxes':
                         $('#vertical_checkboxes__ID').show()
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').show();
                         var width = ""
                         if ($('#F__ID input[name=five_options]:checked').val() == '') {width = "";}
                         else if ($('#F__ID input[name=five_options]:checked').val() == '1') {width = "width_btn_130";}
@@ -1238,6 +1263,8 @@
                         break;
                     case 'Dropdown List':
                         $('#dropdown_list__ID').show();
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').show();
                         txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+main_label+'</p></span><select id="' + db_name + '__ID" name="' + db_name + '"  class="formcontrol" >';
                         for (var i = 0; i < m.item_a_records.length; i++) {
                             txt_layout += '<option ></option>';
@@ -1299,22 +1326,6 @@
                         document.getElementById('label_1_id__ID').setAttribute("min", "0");
                         $('#label_label_1__ID').html('Number of decimals')
                         $('#label_db_name__ID').html('Database name')
-                        break;
-                    case 'Hide/Show section':
-                        $('#question_layout__ID').html("<div></div>");
-                        $('#main_label__ID').show();
-                        $('#db_name_5__ID').show();
-                        $('#db_name__ID').show();
-                        $('#label_1__ID').show();
-                        $('#two_options_10__ID').show();
-                        $('#label_main_label__ID').html('Unique name (within this form) for the Hide/Show section')
-                        $('#label_db_name__ID').html('The name of Database field (must exist in the form) to activate Hide/Show ')
-                        $('#label_label_1__ID').html('Value of Database field when to activate Hide/Show ');
-                        $('#two_options_1_label__ID').text('Equal to value')
-                        $('#two_options_2_label__ID').text('Not equal to value')
-                        $('#label_two_options__ID').html('Section should be shown when')
-                        $('#two_options__ID').show();
-
                         break;
                     default:
                         console.log("DEFAULT")
