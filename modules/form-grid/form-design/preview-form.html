@@ -197,6 +197,11 @@
 									else form_html +=' >'
 									form_html +='<label id="'+entry_data[i].Data.db_name+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.db_name+'_'+k+'@@ID">'+entry_data[i].Data.items_a[k].input_5_a+'</label></div>';
 								}
+								if(entry_data[i].Data.specify_1!=""){
+									form_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide"><label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br><input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
+									script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      } "
+									script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ if($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      }\n});\n"
+								}
 								form_html += '</div></fieldset></div></div>';
 							}
 							//m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
@@ -254,7 +259,14 @@
 							for (var k= 0; k < entry_data[i].Data.items_a.length; k++) {
 								form_html += '<option value='+entry_data[i].Data.items_a[k].input_4_a+' >'+entry_data[i].Data.items_a[k].input_5_a+'</option>';
 							}
-							form_html += '</select></fieldset></div></div>';
+							form_html += '</select>'
+							if(entry_data[i].Data.specify_1!=""){
+								form_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide"><label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br><input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
+								script_load+="if($('#F@@ID select[name=\"" + entry_data[i].Data.db_name + "\"]').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      } "
+								script_other+=" $('#F@@ID select[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ console.log('AAAA');if($('#F@@ID select[name="+entry_data[i].Data.db_name+"]').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      }\n});\n"
+							}
+							form_html +='</fieldset></div></div>';
+							console.log(script_other)
 							//m.item_a_fields = "Dropdown option text|input_5_a,Option value|input_4_a,_Remove";
 							//console.log(JSON.stringify(entry_data[i]))
 							break;

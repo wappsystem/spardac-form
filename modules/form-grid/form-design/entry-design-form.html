@@ -154,25 +154,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div id=hide_show__ID class="formgroup">
+                        <div id=hide_show__ID class="formgroup"  style="display:none">
                             <u style='cursor:pointer;' id=full_hide_show__ID><span id="full_hide_show_label__ID">Define "Hide/Show" element.</span></u><br><span style="font-size: smaller;"> Specify controlling value and entries included in the normally hidden section.</span>
-                            <div id=define_hide_show__ID style="display:xnone">
+                            <div id=define_hide_show__ID style="display:none">
                                 <div class="formgroup grid-container-1">
                                     <div id=hide_type__ID>
-                                            <label><span id="label_hide_type__ID" class="question">What part of the Hide/Show section is this entry?</span></label><br>
-                                            <div style="display:flex">
+                                        <label><span id="label_hide_type__ID" class="question">What part of the Hide/Show section is this entry?</span></label><br>
+                                        <div style="display:flex">
                                             <div id=hide_start__ID>
                                                 <input id="hide_type_1__ID" name="hide_type" type="radio" value="start">
-                                        <label id="hide_type_1_label__ID" class="rd_btn" for="hide_type_1__ID">Controlling</label>
-                                    </div>
-                                    <input id="hide_type_2__ID" name="hide_type" type="radio" value="middle">
-                                        <label id="hide_type_2_label__ID" class="rd_btn" for="hide_type_2__ID">Entry within</label>
-                                        <input id="hide_type_3__ID" name="hide_type" type="radio" value="end">
-                                        <label id="hide_type_3_label__ID" class="rd_btn" for="hide_type_3__ID">Last entry</label>
+                                                <label id="hide_type_1_label__ID" class="rd_btn" for="hide_type_1__ID">Controlling</label>
+                                            </div>
+                                            <input id="hide_type_2__ID" name="hide_type" type="radio" value="middle">
+                                            <label id="hide_type_2_label__ID" class="rd_btn" for="hide_type_2__ID">Entry within</label>
+                                            <input id="hide_type_3__ID" name="hide_type" type="radio" value="end">
+                                            <label id="hide_type_3_label__ID" class="rd_btn" for="hide_type_3__ID">Last entry</label>
+                                        </div>
                                     </div>
                                 </div>
-                                </div>
-                                <div id=control_hide_show__ID style="display:xnone">
+                                <div id=control_hide_show__ID style="display:none">
                                     <div class="formgroup grid-container-2">
                                         <div id=start_hide_value__ID>
                                             <label><span id="label_start_hide_value__ID" class="question">Value when section is Hidden/Shown</span></label><input type=text
@@ -499,7 +499,7 @@
                             <label class="rd_btn width_btn_full" for="layout_1__ID">Dual radio buttons. Includes "please specify" entry.
                             </label><br>
                             <input id="layout_8__ID" name="layout" type="radio" value="Horizontal radio buttons">
-                            <label class="rd_btn width_btn_full" for="layout_8__ID">Horizontal radio buttons
+                            <label class="rd_btn width_btn_full" for="layout_8__ID">Horizontal radio buttons. Includes "please specify" entry.
                             </label><br>
                             <input id="layout_9__ID" name="layout" type="radio" value="Vertical radio buttons">
                             <label class="rd_btn width_btn_full" for="layout_9__ID">Vertical radio buttons. Includes "please specify" entry.
@@ -508,7 +508,7 @@
                             <label class="rd_btn width_btn_full" for="layout_10__ID">Vertical checkboxes. Includes "please specify" entry.
                             </label><br>
                             <input id="layout_11__ID" name="layout" type="radio" value="Dropdown List">
-                            <label class="rd_btn width_btn_full" for="layout_11__ID">Dropdown List
+                            <label class="rd_btn width_btn_full" for="layout_11__ID">Dropdown List. Includes "please specify" entry.
                             </label><br>
                             <input id="layout_6__ID" name="layout" type="radio" value="Visual Analogue Scale">
                             <label class="rd_btn width_btn_full" for="layout_6__ID">Visual analogue scale
@@ -559,6 +559,7 @@
             var specify_3 = "";
             var specify_4 = "";
             var specify_5 = "";
+            var please_specify=false;
             var load2 = m.load;
             m.load = function () {
                 load2();
@@ -615,15 +616,15 @@
                     $('<style>#vas2_con__ID input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');
                     $('#vas2_req__ID').val("OK")
                 })
-                if($('#F__ID input[name=specify_1]').val()=='' && $('#F__ID input[name=specify_2]').val()=='' && $('#F__ID input[name=specify_3]').val()=='') {
-                    $('#simple__ID').css('display','none');
-                    $('#add_specify__ID').text('Add "Please specify" entry field.');
-                }
-                else{
+                if(please_specify){
+//                if($('#F__ID input[name=specify_1]').val()=='' && $('#F__ID input[name=specify_2]').val()=='' && $('#F__ID input[name=specify_3]').val()=='') {
                     $('#simple__ID').css('display','block');
                     $('#add_specify__ID').text('"Please specify" entry field.');
                 }
-
+                else{
+                    $('#simple__ID').css('display','none');
+                    $('#add_specify__ID').text('Add "Please specify" entry field.');
+                }
             }
             //-------------------------------------
             $('#simple_hide_show').on('click', function () {
@@ -721,6 +722,7 @@
                         $('#hideshow__ID');
                         break;
                 }
+                clear_selection();
                 check_selection();
             })
             //-------------------------------------
@@ -786,6 +788,43 @@
                 });
             })
             //-------------------------------------
+            $("#full_hide_show__ID").on('click', function () {
+                $("#define_hide_show__ID").show();
+            })
+            //-------------------------------------
+            var clear_selection = function () {
+                console.log("CLEAR SELECTION")
+                document.getElementById('main_label_id__ID').setAttribute("placeholder", "");
+                document.getElementById('label_1_id__ID').setAttribute("type","text");
+                document.getElementById('label_1_id__ID').setAttribute("min", "");
+                $('#F__ID input[name=main_label]').val("");
+                $('#F__ID input[name=instruction_text]').val("");
+                $('#F__ID input[name=db_name]').val("");
+                $('#F__ID input[name=label_1]').val("");
+                $('#F__ID input[name=label_2]').val("");
+                $('#F__ID input[name=value_1]').val("");
+                $('#F__ID input[name=value_2]').val("");
+                $('#F__ID input[name=value_3]').val("");
+                $('#F__ID input[name=specify_1]').val("");
+                $('#F__ID input[name=specify_2]').val("");
+                $('#F__ID input[name=specify_3]').val("");
+                $('#F__ID input[name=start_hide_value]').val("");
+                document.getElementById("two_options_1__ID").checked = false;
+                document.getElementById("two_options_2__ID").checked = false;
+                document.getElementById("five_options_1__ID").checked = false;
+                document.getElementById("five_options_2__ID").checked = false;
+                document.getElementById("five_options_3__ID").checked = false;
+                document.getElementById("five_options_4__ID").checked = false;
+                document.getElementById("five_options_5__ID").checked = false;
+                document.getElementById("req_1__ID").checked = false;
+                document.getElementById("req_2__ID").checked = false;
+                document.getElementById("hide_type_1__ID").checked = false;
+                document.getElementById("hide_type_2__ID").checked = false;
+                document.getElementById("hide_type_3__ID").checked = false;
+                document.getElementById("start_hide_equal_1__ID").checked = false;
+                document.getElementById("start_hide_equal_2__ID").checked = false;
+            }
+            //-------------------------------------
             var check_selection = function () {
                 console.log("CHECK SELECTION")
                 main_label = "";
@@ -805,6 +844,9 @@
                 req="";
                 if ($("#F__ID input[name=layout]:checked").val() != undefined) $('#question__ID').text(" - " + $("#F__ID input[name=layout]:checked").val())
                 $('#main_label__ID').hide();
+                $('#hide_show__ID').hide();
+                $('#define_hide_show__ID').hide();
+                $('#control_hide_show__ID').hide();
                 $('#instruction_text__ID').hide();
                 $('#db_name_5__ID').hide();
                 $('#db_name__ID').hide();
@@ -836,18 +878,21 @@
                 specify_2 = $('#F__ID input[name=specify_2]').val();
                 specify_3 = $('#F__ID input[name=specify_3]').val();
                 req = $('#F__ID input[name=req]:checked').val();
-                if($('#F__ID input[name=specify_1]').val()=='' && $('#F__ID input[name=specify_2]').val()=='' && $('#F__ID input[name=specify_3]').val()=='') {
-                    $('#simple__ID').css('display','none');
-                    $('#add_specify__ID').text('Add "Please specify" entry field.');
-                }
-                else{
+                if(please_specify){
+                //if($('#F__ID input[name=specify_1]').val()=='' && $('#F__ID input[name=specify_2]').val()=='' && $('#F__ID input[name=specify_3]').val()=='') {
                     $('#simple__ID').css('display','block');
                     $('#add_specify__ID').text('"Please specify" entry field.');
+                }
+                else{
+                    $('#simple__ID').css('display','none');
+                    $('#add_specify__ID').text('Add "Please specify" entry field.');
                 }
                 //console.log("Layout: "+layout + " - REQ: "+req)
                 switch (layout) {
                     case 'Main Header':
                         $('#main_header__ID').show()
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').hide();
                         txt_layout = "<h3 style='margin-left:30px'>" + main_label + "</h3>"
                         $('#question_layout__ID').html(txt_layout)
                         $('#main_label__ID').show()
@@ -855,6 +900,8 @@
                         break;
                     case 'Instructions':
                         $('#instructions__ID').show()
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').hide();
                         txt_layout = '<div class="formgroup"><fieldset class=""><span class="question"><p>' + main_label + '</p></span><span>' + instruction_text + '</span></fieldset></div>';
                         $('#question_layout__ID').html(txt_layout)
                         $('#main_label__ID').show()
@@ -865,7 +912,7 @@
                     case 'Dual radio buttons':
                         $('#dual_radio_button__ID').show()
                         txt_layout = '<div class="formgroup"><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">' + main_label + '</span></label><br><input id="' + db_name + '_1__ID" name="' + db_name + '" type="radio" value="' + value_1 + '"  ><label class="rd_btn" for="' + db_name + '_1__ID">' + label_1 + '</label><input id="' + db_name + '_2__ID" name="' + db_name + '" type="radio" value="' + value_2 + '"><label class="rd_btn" for="' + db_name + '_2__ID">' + label_2 + '</label>';
-                        txt_layout +='<div id="' + db_name + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
+                        if(please_specify) txt_layout +='<div id="' + db_name + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
                         txt_layout += '</div></fieldset></div>';
                         $('#question_layout__ID').html(txt_layout)
                         $('#main_label__ID').show()
@@ -886,8 +933,10 @@
                         $('#label_value_1__ID').html('Value for first button')
                         $('#label_value_2__ID').html('Value for second button')
                         break;
-                    case 'Single text input':
+                    case 'Single text input':                        
                         $('#single_text_input__ID').show();
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').hide();
                         max = "";
                         min = "";
                         tep = ""
@@ -941,6 +990,8 @@
                         break;
                     case 'Visual Analogue Scale':
                         $('#visual_analogue_scale__ID').show()
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').hide();
                         if ($('#F__ID input[name=two_options]:checked').val() == '0') { range = '100'; vas_step = '1'; }
                         else { range = '10'; vas_step = '0.1'; }
                         txt_layout = '<div class="formgroup"><fieldset class=""><div class="textcenter"><span class="question">' + main_label + '</span></div><div class="grid-container-slider"><div class="textleft"><span class="question">' + label_1 + '</span><input type="text" id="vas2_req__ID" style="display:none" ></div><div class="slidecontainer" id=vas2_con__ID><input type="range" min="0" max="' + range + '" step=' + vas_step + '  class="slider" name="' + db_name + '" id="vas2__ID"></div><div class="textright"><span class="question">' + label_2 + '</span></div></div></fieldset></div>';
@@ -998,6 +1049,8 @@
                         $('#label_value_3__ID').html('Step');
                         break;
                     case 'Multiple horizontal number inputs':
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').hide();
                         $('#multiple_horizontal_number_inputs__ID').show()
                         var max = "";
                         var min = "";
@@ -1037,6 +1090,8 @@
                         break;
                     case 'Multiple horizontal inputs':
                         $('#multiple_horizontal_inputs__ID').show()
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').hide();
                         var width = ""
                         if ($('#F__ID input[name=five_options]:checked').val() == '0') five_options = "2";
                         else if ($('#F__ID input[name=five_options]:checked').val() == '1') five_options = "3"
@@ -1086,7 +1141,9 @@
                                 else txt_layout +=' >'
                                 txt_layout +='<label id="button_text_'+i+'__ID" class="rd_btn '+width+'" for="'+db_name+'_'+i+'__ID"></label></div>';
                             }
-                            txt_layout += '</div></fieldset></div></div>';
+                            txt_layout += '</div>';
+                            if(please_specify) txt_layout +='<div id="' + db_name + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
+                            txt_layout +='</fieldset></div></div>';
                         }
                         $('#question_layout__ID').html(txt_layout);
                         $('#main_label__ID').show();
@@ -1097,6 +1154,7 @@
                         $('#input_11__ID').show();
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#specify__ID').show();
                         $('#input_11_text__ID').text("Add one line per button");
                         $('#five_options_1_label__ID').text('3')
                         $('#five_options_2_label__ID').text('4')
@@ -1123,7 +1181,7 @@
                                 else txt_layout +=' >'
                                 txt_layout +='<label id="button_text_'+i+'__ID" class="rd_btn '+width+'" for="'+db_name+'_'+i+'__ID"></label><br>';
                             }
-                            txt_layout +='<div id="' + db_name + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
+                            if(please_specify) txt_layout +='<div id="' + db_name + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
                             txt_layout += '</fieldset></div></div>';
                         $('#question_layout__ID').html(txt_layout);
                         $('#main_label__ID').show();
@@ -1159,7 +1217,7 @@
                             txt_layout += '<input id="input_id_' + i + '__ID" type="checkbox" >';
                             txt_layout +='<label id="button_text_'+i+'__ID" class="rd_btn '+width+'" for="input_id_' + i + '__ID"></label><br>';
                         }
-                        txt_layout +='<div id="' + db_name + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
+                        if(please_specify) txt_layout +='<div id="' + db_name + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
                         txt_layout += '</fieldset></div></div>';
                         $('#question_layout__ID').html(txt_layout);
                         $('#main_label__ID').show();
@@ -1184,7 +1242,9 @@
                         for (var i = 0; i < m.item_a_records.length; i++) {
                             txt_layout += '<option ></option>';
                         }
-                        txt_layout += '</select></fieldset></div></div>';
+                        txt_layout += '</select>'
+                        if(please_specify) txt_layout +='<div id="' + db_name + '_option__ID" class="formgroup hide"><label><span class="question">' + specify_1 + '</span></label><br><input  name="' + specify_2 + '" type="text" class="formcontrol fullwidth"></div>';                        
+                        txt_layout +='</fieldset></div></div>';
                         $('#question_layout__ID').html(txt_layout);
                         $('#main_label__ID').show();
                         $('#db_name_5__ID').show();
@@ -1193,6 +1253,7 @@
                         $('#input_11__ID').show();
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#specify__ID').show();
                         $('#label_main_label__ID').html('Main label text')
                         $('#label_db_name__ID').html('Database name')
                         m.item_a_fields = "Dropdown option text|input_5_a,Option value|input_4_a,_Remove";
@@ -1200,6 +1261,8 @@
                         break;
                     case 'Textarea':
                         $('#textarea__ID').show();
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').hide();
                         if ($('#F__ID input[name=two_options]:checked').val() == '1') two_options = " fullwidth";
                         else two_options = "";
                         txt_layout = '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+main_label+'</p></span><label><span class="question">' + label_2 + '</span><textarea class="formcontrol '+ two_options +'" name="'+db_name+'" placeholder="'+label_1+'" "  ></textarea></label></fieldset></div></div>';
@@ -1223,6 +1286,9 @@
                         break;
                     case 'Calculation':
                         $('#question_layout__ID').html("<div></div>");
+                        $('#hide_show__ID').show();
+                        $('#hide_start__ID').hide();
+                        $('#hide_show__ID').hide();
                         $('#main_label__ID').show();
                         $('#db_name_5__ID').show();
                         $('#db_name__ID').show();
@@ -1259,16 +1325,20 @@
             }
             //----------------------------------
             $('#simple_hide_show__ID').on('click', function () {
-                if($('#F__ID input[name=specify_1]').val()=='' && $('#F__ID input[name=specify_2]').val()=='' && $('#F__ID input[name=specify_3]').val()==''){
-                    if($('#simple__ID').css('display')=='none'){
+                //if($('#F__ID input[name=specify_1]').val()=='' && $('#F__ID input[name=specify_2]').val()=='' && $('#F__ID input[name=specify_3]').val()==''){
+                if(please_specify==false){
                     $('#simple__ID').css('display','block')
-                    }
-                    else{
-                        $('#simple__ID').css('display','none')
-                    }
+                    please_specify=true;
+                    check_selection();
                 }
-                else $('#simple__ID').css('display','block');
-
+                else{
+                    $('#simple__ID').css('display','none')
+                    please_specify=false;
+                    $('#F__ID input[name=specify_1]').val("");
+                    $('#F__ID input[name=specify_2]').val("");
+                    $('#F__ID input[name=specify_3]').val("");
+                    check_selection();
+                }
             })
             //----------------------------------
             // Multiple input entries. Numbers
