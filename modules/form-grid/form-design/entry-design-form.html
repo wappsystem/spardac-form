@@ -617,24 +617,34 @@
                     $('<style>#vas2_con__ID input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');
                     $('#vas2_req__ID').val("OK")
                 })
-                if(please_specify){
-//                if($('#F__ID input[name=specify_1]').val()=='' && $('#F__ID input[name=specify_2]').val()=='' && $('#F__ID input[name=specify_3]').val()=='') {
+                //-------------------------------------
+                if($('#F__ID input[name=specify_1]').val()!='' && $('#F__ID input[name=specify_1]').val()!=undefined){
                     $('#simple__ID').css('display','block');
                     $('#add_specify__ID').text('"Please specify" entry field.');
+                    please_specify=true;
                 }
                 else{
                     $('#simple__ID').css('display','none');
                     $('#add_specify__ID').text('Add "Please specify" entry field.');
+                    please_specify=false;
+                }
+                //-------------------------------------
+                if($('#F__ID input[name=hide_type]:checked').val()!='' && $('#F__ID input[name=hide_type]:checked').val()!=undefined) {
+                    $("#define_hide_show__ID").show();
+                    define_hide_show=true;
+                }
+                else{
+                    console.log("FALSE SHOW")
+                    $("#define_hide_show__ID").hide();
+                    define_hide_show=false;
                 }
             }
             //-------------------------------------
             $('#simple_hide_show').on('click', function () {
-                console.log("AAAA")
                 if($('#simple_hide_show').val()=='&#43;') $('#simple_hide_show').val('&#45;'); else  $('#simple_hide_show').val('&#43;');
             })
             //-------------------------------------
             $('#vas__ID').on('click', function () {
-                //console.log("VAS1")
                 $('<style>#vas_con__ID input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');
                 $('#vas_req__ID').val("OK")
             })
@@ -787,18 +797,46 @@
             })
             //-------------------------------------
             $("#full_hide_show__ID").on('click', function () {
+                console.log("full hide show")
                 if(define_hide_show){
+                    console.log("HIDE2 SHOW")
                     $("#define_hide_show__ID").hide();
+                    document.getElementById("hide_type_1__ID").checked = false;
+                    document.getElementById("hide_type_2__ID").checked = false;
+                    document.getElementById("hide_type_3__ID").checked = false;
+                    $('#F__ID input[name=start_hide_value]').val('');
+                    document.getElementById("start_hide_equal_1__ID").checked = false;
+                    document.getElementById("start_hide_equal_2__ID").checked = false;
                     define_hide_show=false;
+                    check_selection();
                 } 
                 else{
+                    console.log("TRUE2 SHOW")
                     $("#define_hide_show__ID").show();
                     define_hide_show=true;
+                    check_selection();
                 }
             })
+            //----------------------------------
+            $('#simple_hide_show__ID').on('click', function () {
+                //if($('#F__ID input[name=specify_1]').val()=='' && $('#F__ID input[name=specify_2]').val()=='' && $('#F__ID input[name=specify_3]').val()==''){
+                if(please_specify==false){
+                    $('#simple__ID').css('display','block')
+                    please_specify=true;
+                    check_selection();
+                }
+                else{
+                    $('#simple__ID').css('display','none')
+                    please_specify=false;
+                    $('#F__ID input[name=specify_1]').val("");
+                    $('#F__ID input[name=specify_2]').val("");
+                    $('#F__ID input[name=specify_3]').val("");
+                    check_selection();
+                }
+            })
+
             //-------------------------------------
             $("#hide_type__ID").on('change', function () {
-                console.log("HHHH"+$('#F__ID input[name=hide_type]:checked').val())
                 if($('#F__ID input[name=hide_type]:checked').val()=='start'){
                     $("#control_hide_show__ID").show();
                 } 
@@ -860,7 +898,7 @@
                 if ($("#F__ID input[name=layout]:checked").val() != undefined) $('#question__ID').text(" - " + $("#F__ID input[name=layout]:checked").val())
                 $('#main_label__ID').hide();
                 $('#hide_show__ID').hide();
-                $('#define_hide_show__ID').hide();
+                //$('#define_hide_show__ID').hide();
                 $('#control_hide_show__ID').hide();
                 $('#instruction_text__ID').hide();
                 $('#db_name_5__ID').hide();
@@ -893,7 +931,7 @@
                 specify_2 = $('#F__ID input[name=specify_2]').val();
                 specify_3 = $('#F__ID input[name=specify_3]').val();
                 req = $('#F__ID input[name=req]:checked').val();
-                if(please_specify){
+                /*if(please_specify){
                 //if($('#F__ID input[name=specify_1]').val()=='' && $('#F__ID input[name=specify_2]').val()=='' && $('#F__ID input[name=specify_3]').val()=='') {
                     $('#simple__ID').css('display','block');
                     $('#add_specify__ID').text('"Please specify" entry field.');
@@ -901,7 +939,7 @@
                 else{
                     $('#simple__ID').css('display','none');
                     $('#add_specify__ID').text('Add "Please specify" entry field.');
-                }
+                }*/
                 //console.log("Layout: "+layout + " - REQ: "+req)
                 switch (layout) {
                     case 'Main Header':
@@ -1334,23 +1372,6 @@
                         break;
                 }
             }
-            //----------------------------------
-            $('#simple_hide_show__ID').on('click', function () {
-                //if($('#F__ID input[name=specify_1]').val()=='' && $('#F__ID input[name=specify_2]').val()=='' && $('#F__ID input[name=specify_3]').val()==''){
-                if(please_specify==false){
-                    $('#simple__ID').css('display','block')
-                    please_specify=true;
-                    check_selection();
-                }
-                else{
-                    $('#simple__ID').css('display','none')
-                    please_specify=false;
-                    $('#F__ID input[name=specify_1]').val("");
-                    $('#F__ID input[name=specify_2]').val("");
-                    $('#F__ID input[name=specify_3]').val("");
-                    check_selection();
-                }
-            })
             //----------------------------------
             // Multiple input entries. Numbers
             m.item_a_fields = ","
