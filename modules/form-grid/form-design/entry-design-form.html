@@ -22,12 +22,12 @@
                     </div>
                 </div>
                 <div class="gap"></div>
-                <span class="formgroup question">Pre-view entry <span id="question__ID"></span></span>
+                <span class="formgroup main-label>Pre-view entry <span id="question__ID"></span></span>
                 <div id="question_layout__ID" class="border-darkgreen">
 
                 </div>
                 <div class="gap"></div>
-                <span class="formgroup question">Setup section</span>
+                <span class="formgroup main-label">Setup section</span>
                 <div id="question_input__ID">
                     <fieldset class="border-green">
                         <div id=main_label__ID class="formgroup">
@@ -162,13 +162,11 @@
                                         <label><span id="label_hide_type__ID" class="question">What part of the Hide/Show section is this entry?</span></label><br>
                                         <div style="display:flex">
                                             <div id=hide_start__ID>
-                                                <input id="hide_type_1__ID" name="hide_type" type="radio" value="start">
-                                                <label id="hide_type_1_label__ID" class="rd_btn" for="hide_type_1__ID">Controlling</label>
+                                                <input id="hide_type_1__ID" name="hide_type" type="radio" value="control">
+                                                <label id="hide_type_1_label__ID" class="rd_btn" for="hide_type_1__ID">Controls hide and show</label>
                                             </div>
-                                            <input id="hide_type_2__ID" name="hide_type" type="radio" value="middle">
-                                            <label id="hide_type_2_label__ID" class="rd_btn" for="hide_type_2__ID">Entry within</label>
-                                            <input id="hide_type_3__ID" name="hide_type" type="radio" value="end">
-                                            <label id="hide_type_3_label__ID" class="rd_btn" for="hide_type_3__ID">Last entry</label>
+                                            <input id="hide_type_2__ID" name="hide_type" type="radio" value="end">
+                                            <label id="hide_type_2_label__ID" class="rd_btn" for="hide_type_2__ID">Last entry</label>
                                         </div>
                                     </div>
                                 </div>
@@ -186,6 +184,7 @@
                                             <label id="start_hide_equal_2_label__ID" class="rd_btn" for="start_hide_equal_2__ID">Not equal to value</label>
                                         </div>
                                     </div>
+                                    <span style="font-size: smaller;"> Next entry will be first included in "Hide/Show". All will be included until a "Last entry" is specify.</span>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +195,7 @@
                     </fieldset>
                 </div>
                 <div class="gap"></div>
-                <span class="formgroup question">Example of selected entry</span>
+                <span class="formgroup main-label">Example of selected entry</span>
                 <div id="main_header__ID">
                     <div class="formgroup">
                         <h3 style="margin-left:30px">Main Header</h3>
@@ -236,7 +235,7 @@
                     <div class="formgroup">
                         <div class="questiongroup ">
                             <fieldset class="">
-                                <span class="question">
+                                <span class="main-label">
                                     <p>Text Area Entry</p>
                                 </span>
                                 <label ><span class="question">Text 1</span>
@@ -249,7 +248,7 @@
                 <div id="single_text_input__ID">
                     <div class="formgroup">
                         <fieldset class="">
-                            <span class="question">
+                            <span class="main-label">
                                 <p>Single entry</p>
                             </span>
                             <div class="grid-container-1">
@@ -263,7 +262,7 @@
                 <div id="multiple_horizontal_number_inputs__ID">
                     <div class="formgroup">
                         <fieldset class="">
-                            <span class="question">
+                            <span class="main-label">
                                 <p>Multiple horizontal number entries</p>
                             </span>
                             <div class="grid-container-3">
@@ -283,7 +282,7 @@
                 <div id="multiple_horizontal_inputs__ID">
                     <div class="formgroup">
                         <fieldset class="">
-                            <span class="question">
+                            <span class="main-label">
                                 <p>Multiple horizontal entries (Text, Date or Time)</p>
                             </span>
                             <div class="grid-container-input-4">
@@ -307,7 +306,7 @@
                     <div class="formgroup">
                         <fieldset class="">
                             <div class="textcenter">
-                                <span class="question">Visual Analogue Scale</span>
+                                <span class="main-label">Visual Analogue Scale</span>
                             </div>
                             <div class="grid-container-slider">
                                 <div class="textleft">
@@ -327,7 +326,7 @@
                     <div class="formgroup">
                         <div class="questiongroup ">
                             <fieldset class="dynbreaks">
-                                <div class="textcenter"><span class="question">Digital Scale</span></div>
+                                <div class="textcenter"><span class="main-label">Digital Scale</span></div>
                                 <div class="grid-container-3-special">
                                     <div class="textleft"><span class="question">Left Side</span></div>
                                     <div class="textcenter">
@@ -364,7 +363,7 @@
                     <div class="formgroup">
                         <div class="questiongroup ">
                             <fieldset class="">
-                                <span class="question">Horizontal Radio Buttons</span>
+                                <span class="main-label">Horizontal Radio Buttons</span>
                                 <div class="grid-container-4">
                                     <div>
                                         <input id="hrb_1__ID" name="_hrb" type="radio" value="0">
@@ -392,7 +391,7 @@
                     <div class="formgroup">
                         <div class="questiongroup">
                             <fieldset class="">
-                                <span class="question">
+                                <span class="main-label">
                                     <p>Vertical Radio Buttons, with optional "please specify" with Option 4</p>
                                 </span>
                                 <input id="vrb_1__ID" name="_vrb" type="radio" value="0">
@@ -420,7 +419,7 @@
                     <div class="formgroup">
                         <div class="">
                             <fieldset>
-                                <span class="question">
+                                <span class="main-label">
                                     <p>Vertical Check Boxes, with optional "please specify" with Option 5</p>
                                 </span>
                                 <input type="checkbox" id="vcb_1__ID" name="_vcb_1" value="1">
@@ -456,7 +455,7 @@
                     <div class="formgroup">
                         <div class="">
                             <fieldset>
-                                <span class="question">
+                                <span class="main-label">
                                     <p>Drop Down List</p>
                                 </span>
                                 <select class="formcontrol" >
@@ -638,6 +637,14 @@
                     $("#define_hide_show__ID").hide();
                     define_hide_show=false;
                 }
+                //-------------------------------------
+                if($('#F__ID input[name=hide_type]:checked').val()=='control'){
+                    $("#control_hide_show__ID").show();
+                } 
+                else{
+                    $("#control_hide_show__ID").hide();
+                }
+
             }
             //-------------------------------------
             $('#simple_hide_show').on('click', function () {
@@ -662,6 +669,8 @@
             });
             //-------------------------------------
             m.before_submit = function (data, index) {
+                data.hide_type=$('#F__ID input[name=hide_type]:checked').val();
+                data.start_hide_equal=$('#F__ID input[name=start_hide_equal]:checked').val();
                 data.range=range;
                 data.vas_step=vas_step;
                 if(m.item_a_records!=undefined) data.items_a = m.item_a_get_data();
@@ -803,7 +812,6 @@
                     $("#define_hide_show__ID").hide();
                     document.getElementById("hide_type_1__ID").checked = false;
                     document.getElementById("hide_type_2__ID").checked = false;
-                    document.getElementById("hide_type_3__ID").checked = false;
                     $('#F__ID input[name=start_hide_value]').val('');
                     document.getElementById("start_hide_equal_1__ID").checked = false;
                     document.getElementById("start_hide_equal_2__ID").checked = false;
@@ -813,6 +821,7 @@
                 else{
                     console.log("TRUE2 SHOW")
                     $("#define_hide_show__ID").show();
+                    console.log($('#F__ID input[name=hide_type]:checked').val())
                     define_hide_show=true;
                     check_selection();
                 }
@@ -837,7 +846,7 @@
 
             //-------------------------------------
             $("#hide_type__ID").on('change', function () {
-                if($('#F__ID input[name=hide_type]:checked').val()=='start'){
+                if($('#F__ID input[name=hide_type]:checked').val()=='control'){
                     $("#control_hide_show__ID").show();
                 } 
                 else{
@@ -873,7 +882,6 @@
                 document.getElementById("req_2__ID").checked = false;
                 document.getElementById("hide_type_1__ID").checked = false;
                 document.getElementById("hide_type_2__ID").checked = false;
-                document.getElementById("hide_type_3__ID").checked = false;
                 document.getElementById("start_hide_equal_1__ID").checked = false;
                 document.getElementById("start_hide_equal_2__ID").checked = false;
             }

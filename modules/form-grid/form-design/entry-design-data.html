@@ -19,6 +19,16 @@
             m.sort={"I1": 1}
                 
         }
+        var cell_render=m.cell_render;
+        m.cell_render=function(records,I,field,td){
+            switch(field){
+                case 'instruction_text':
+                    if((records[I].Data[field]).length>0) td.html((records[I].Data[field]).substring(0,20)+"..");
+                    break;
+            }
+        }
+        //-------------------------------------
+
     }
 </script>
 <style>

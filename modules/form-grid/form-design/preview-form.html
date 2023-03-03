@@ -20,6 +20,7 @@
 			//-------------------------------------
 			VmInclude: '__HOST__/assets/js/form.01.js'
 			//-------------------------------------
+			var hide_entry=false;
 			var html_content=""
 			var entry_data=[];
 			var load = m.load;
@@ -90,12 +91,14 @@
 					switch (entry_data[i].Data.layout) {
 						case 'Main Header':
 							form_html += "<h3 style='margin-left:30px'  >" + entry_data[i].Data.main_label + "</h3>";
+								if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Instructions':
 							form_html += '<div class="formgroup" ><fieldset class=""><span class="question"><p>' + entry_data[i].Data.main_label + '</p></span><span>' + entry_data[i].Data.instruction_text + '</span></fieldset></div>';
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Dual radio buttons':
-							form_html += '<div class="formgroup" ><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">' + entry_data[i].Data.main_label + '</span></label><br><input id="' + entry_data[i].Data.db_name + '_1@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + entry_data[i].Data.label_1 + '" '+entry_data[i].Data.req+' ><label class="rd_btn" for="' + entry_data[i].Data.db_name + '_1@@ID">' + entry_data[i].Data.label_2 + '</label><input id="' + entry_data[i].Data.db_name + '_2@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + entry_data[i].Data.value_1 + '"><label class="rd_btn" for="' + entry_data[i].Data.db_name + '_2@@ID">' + entry_data[i].Data.value_2 + '</label>';
+							form_html += '<div class="formgroup" ><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">' + entry_data[i].Data.main_label + '</span></label><br><input id="' + entry_data[i].Data.db_name + '_1@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + entry_data[i].Data.value_1 + '" '+entry_data[i].Data.req+' ><label class="rd_btn" for="' + entry_data[i].Data.db_name + '_1@@ID">' + entry_data[i].Data.label_1 + '</label><input id="' + entry_data[i].Data.db_name + '_2@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + entry_data[i].Data.value_2 + '"><label class="rd_btn" for="' + entry_data[i].Data.db_name + '_2@@ID">' + entry_data[i].Data.label_2 + '</label>';
 							if(entry_data[i].Data.specify_1!=""){
 								form_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide"><label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br><input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
 								script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      } "
@@ -103,21 +106,30 @@
 							}
 							id_name.push(entry_data[i].Data.db_name);
 							form_html += '</div></fieldset></div>';
+							if(entry_data[i].Data.hide_type=='control'){
+								var equal="="
+								if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
+								form_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >';
+								script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      } ";
+								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ if($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      }\n});\n"								
+							}
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Single text input':
 							if (entry_data[i].Data.input_9 == '1') specified_width = " fullwidth";
-							if (entry_data[i].Data.input_10 == '0') input_style = "text";
-                        	else if (entry_data[i].Data.input_10 == '1') {
+							if (entry_data[i].Data.five_options == '0') input_style = "text";
+                        	else if (entry_data[i].Data.five_options == '1') {
 								input_style = "number";
 	                            min = "min=" + entry_data[i].Data.value_1
     	                        max = "max=" + entry_data[i].Data.value_2
         	                    step = "step=" + entry_data[i].Data.value_3
 								id_name.push(entry_data[i].Data.db_name);
                         	}
-                       		else if (entry_data[i].Data.input_10 == '2') input_style = "date";
-                        	else if (entry_data[i].Data.input_10 == '3') input_style = "time";
+                       		else if (entry_data[i].Data.five_options == '2') input_style = "date";
+                        	else if (entry_data[i].Data.five_options == '3') input_style = "time";
 							id_name.push(entry_data[i].Data.db_name);
 							form_html += '<div class="formgroup" ><fieldset class=""><span class="question">' + entry_data[i].Data.main_label + '</span><div class="grid-container-1"><div><label><span class="question">' + entry_data[i].Data.label_2 + '</span><input id="abcd" type=' + entry_data[i].Data.input_style + ' name="' + entry_data[i].Data.db_name + '" class="formcontrol ' + entry_data[i].Data.specified_width + '" ' + entry_data[i].Data.min + ' ' + entry_data[i].Data.max + ' ' + entry_data[i].Data.step + ' placeholder="' + entry_data[i].Data.label_1 + '" '+entry_data[i].Data.req+' /></label></div></div></fieldset></div>';
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Visual Analogue Scale':
 							id_name.push(entry_data[i].Data.db_name);
@@ -125,6 +137,7 @@
 							script_load+="\n//-------------------------------------\nif (m.input.record != undefined) \n{$('<style>#" + entry_data[i].Data.db_name + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');$('#" + entry_data[i].Data.db_name + "_req@@ID').val(\"OK\")} \nelse { $('<style>.slidecontainer input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0px; height: 0px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');}"
 							script_other+="\n//-------------------------------------\n $('#" + entry_data[i].Data.db_name + "@@ID').on('click', function () {$('<style>#" + entry_data[i].Data.db_name + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');$('#" + entry_data[i].Data.db_name + "_req@@ID').val(\"OK\")})//-------------------------------------\n";
 							//console.log(script_other)
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Digital Scale':
 							id_name.push(entry_data[i].Data.db_name);
@@ -142,17 +155,18 @@
 								}
 							}
 							form_html += '</div><div class="textright"><span class="question">' + entry_data[i].Data.label_2 + '</span></div></div></fieldset></div></div>';
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Multiple horizontal number inputs':
 							var width = ""
 							var num_boxes=""
 							if ($('#F__ID input[name=input_9]:checked').val() == '1') input_9 = " fullwidth";
 							else input_9 = "";
-							if (entry_data[i].Data.input_10 == '0') num_boxes = "2";
-							else if (entry_data[i].Data.input_10 == '1') num_boxes = "3"
-							else if (entry_data[i].Data.input_10 == '2') { num_boxes = "4"; width = "width_input_4"; }
-							else if (entry_data[i].Data.input_10 == '3') { num_boxes = "5"; width = "width_input_5"; }
-							else if (entry_data[i].Data.input_10 == '4') { num_boxes = "6"; width = "width_input_6"; }
+							if (entry_data[i].Data.five_options == '0') num_boxes = "2";
+							else if (entry_data[i].Data.five_options == '1') num_boxes = "3"
+							else if (entry_data[i].Data.five_options == '2') { num_boxes = "4"; width = "width_input_4"; }
+							else if (entry_data[i].Data.five_options == '3') { num_boxes = "5"; width = "width_input_5"; }
+							else if (entry_data[i].Data.five_options == '4') { num_boxes = "6"; width = "width_input_6"; }
 							var box_num = parseInt(num_boxes)
 							if (box_num != undefined) {
 								form_html += '<div class="formgroup"><fieldset class=""><span class="question">' + entry_data[i].Data.main_label + '</span><div class="grid-container-input-' + num_boxes + '">';
@@ -162,33 +176,36 @@
 								}
 								form_html += '</div></fieldset></div>';
 							}
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Multiple horizontal inputs':
 							var width = ""
 							var num_boxes=""
-							if (entry_data[i].Data.input_10 == '0') num_boxes = "2";
-							else if (entry_data[i].Data.input_10 == '1') num_boxes = "3"
-							else if (entry_data[i].Data.input_10 == '2') { num_boxes = "4"; width = "width_input_4"; }
-							else if (entry_data[i].Data.input_10 == '3') { num_boxes = "5"; width = "width_input_5"; }
-							else if (entry_data[i].Data.input_10 == '4') { num_boxes = "6"; width = "width_input_6"; }
+							if (entry_data[i].Data.five_options == '0') num_boxes = "2";
+							else if (entry_data[i].Data.five_options == '1') num_boxes = "3"
+							else if (entry_data[i].Data.five_options == '2') { num_boxes = "4"; width = "width_input_4"; }
+							else if (entry_data[i].Data.five_options == '3') { num_boxes = "5"; width = "width_input_5"; }
+							else if (entry_data[i].Data.five_options == '4') { num_boxes = "6"; width = "width_input_6"; }
 							var box_num = parseInt(num_boxes)
 							if (box_num != undefined) {
 								form_html += '<div class="formgroup"><fieldset class=""><span class="question">' + entry_data[i].Data.main_label + '</span><div class="grid-container-input-' + num_boxes + '">';
 								for (var k = 0; k < box_num; k++) {
-									form_html += '<div><label><span id=input_label_' + k + '@@ID class="question">'+entry_data[i].Data.items_a[k].input_5_a+'</span><input type='+entry_data[i].Data.items_a[k].input_10_a+' id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" '+entry_data[i].Data.req+' placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+'" /></label></div>';
+									form_html += '<div><label><span id=input_label_' + k + '@@ID class="question">'+entry_data[i].Data.items_a[k].input_5_a+'</span><input type='+entry_data[i].Data.items_a[k].five_options_a+' id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" '+entry_data[i].Data.req+' placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+'" /></label></div>';
 								}
 								form_html += '</div></fieldset></div>';
 							}
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Horizontal radio buttons':
 							id_name.push(entry_data[i].Data.db_name);
 							var width = ""
-							if (entry_data[i].Data.input_10 == '0') {box_num = "3"; width = "width_db_name";}
-							else if (entry_data[i].Data.input_10 == '1') {box_num = "4"; width = "width_input_4";}
-							else if (entry_data[i].Data.input_10 == '2') { box_num = "5"; width = "width_input_5"; }
-							else if (entry_data[i].Data.input_10 == '3') { box_num = "6"; width = "width_input_6"; }
-							else if (entry_data[i].Data.input_10 == '4') { box_num = "7"; width = "width_input_7"; }
-							var box_num = parseInt(box_num)
+							var box_num="";
+							if (entry_data[i].Data.five_options == '0') {box_num = "3"; width = "width_db_name";}
+							else if (entry_data[i].Data.five_options == '1') {box_num = "4"; width = "width_input_4";}
+							else if (entry_data[i].Data.five_options == '2') { box_num = "5"; width = "width_input_5"; }
+							else if (entry_data[i].Data.five_options == '3') { box_num = "6"; width = "width_input_6"; }
+							else if (entry_data[i].Data.five_options == '4') { box_num = "7"; width = "width_input_7"; }
+							box_num = parseInt(box_num)
 							if (box_num != undefined) {
 								form_html += '<div class="formgroup"><div class="questiongroup "><fieldset class=""><span class="question">' + entry_data[i].Data.main_label + '</span><div class="grid-container-' + box_num + '">';
 								for (var k = 0; k < box_num; k++) {
@@ -205,14 +222,22 @@
 								form_html += '</div></fieldset></div></div>';
 							}
 							//m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
+							if(entry_data[i].Data.hide_type=='control'){
+								var equal="="
+								if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
+								form_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >';
+								script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      } ";
+								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ if($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      }\n});\n"								
+							}
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Vertical radio buttons':
 							id_name.push(entry_data[i].Data.db_name);
 							var width = ""
-							if (entry_data[i].Data.input_10 == '') {width = "";}
-							else if (entry_data[i].Data.input_10 == '1') {width = "width_btn_130";}
-							else if (entry_data[i].Data.input_10 == '2') {width = "width_btn_250";}
-							else if (entry_data[i].Data.input_10 == '3') {width = "width_btn_full"; }
+							if (entry_data[i].Data.five_options == '') {width = "";}
+							else if (entry_data[i].Data.five_options == '1') {width = "width_btn_130";}
+							else if (entry_data[i].Data.five_options == '2') {width = "width_btn_250";}
+							else if (entry_data[i].Data.five_options == '3') {width = "width_btn_full"; }
 								form_html += '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>';
 								for (var k = 0; k < entry_data[i].Data.items_a.length; k++) {
 									form_html += '<input id="'+entry_data[i].Data.db_name+'_'+k+'@@ID" name="'+entry_data[i].Data.db_name+'" type="radio" value="'+entry_data[i].Data.items_a[k].input_4_a+'"';
@@ -227,19 +252,33 @@
 								}
 								form_html += '</fieldset></div></div>';
 							//m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
+							if(entry_data[i].Data.hide_type=='control'){
+								var equal="="
+								if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
+								form_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >';
+								script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      } ";
+								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ if($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      }\n});\n"								
+							}
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Vertical Checkboxes':
-							var width = ""
-							if (entry_data[i].Data.input_10 == '') {width = "";}
-							else if (entry_data[i].Data.input_10 == '1') {width = "width_btn_130";}
-							else if (entry_data[i].Data.input_10 == '2') {width = "width_btn_250";}
-							else if (entry_data[i].Data.input_10 == '3') {width = "width_btn_full"; }
+							var hide_db_name="";
+							if (entry_data[i].Data.five_options == '') {width = "";}
+							else if (entry_data[i].Data.five_options == '1') {width = "width_btn_130";}
+							else if (entry_data[i].Data.five_options == '2') {width = "width_btn_250";}
+							else if (entry_data[i].Data.five_options == '3') {width = "width_btn_full"; }
 
 							form_html += '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>';
 							for (var k = 0; k < entry_data[i].Data.items_a.length; k++) {
 								form_html += '<input id="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID" type="checkbox" value="'+entry_data[i].Data.items_a[k].input_4_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+'">';
 								form_html +='<label id="'+entry_data[i].Data.input_3+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID"><span class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>'+entry_data[i].Data.items_a[k].input_5_a+'</label><br>';
 								id_name.push(entry_data[i].Data.items_a[k].input_3_a);
+								if(entry_data[i].Data.hide_type=='control'){
+									if(entry_data[i].Data.items_a[k].input_4_a==entry_data[i].Data.start_hide_value){
+										hide_db_name=entry_data[i].Data.items_a[k].input_3_a;
+										console.log("k:"+hide_db_name)
+									}
+								}
 							}
 							if(entry_data[i].Data.specify_1!=""){
 								form_html +='<div id="' + entry_data[i].Data.specify_2 + '_option@@ID" class="formgroup hide"><label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br><input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
@@ -251,7 +290,15 @@
 								}
 							}
 							form_html += '</fieldset></div></div>';
+							if(entry_data[i].Data.hide_type=='control'){
+								var equal="="
+								if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
+								form_html +='<div id="' + hide_db_name + '_hide@@ID" >';
+								script_load+="if($('#F@@ID input[name=\"" + hide_db_name + "\"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+hide_db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+hide_db_name+"_hide@@ID').hide();\n      } ";
+								script_other+=" $('#F@@ID input[name=\"" + hide_db_name + "\"]').on('change',function(){ if($('#F@@ID input[name="+hide_db_name+"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+hide_db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+hide_db_name+"_hide@@ID').hide();\n      }\n});\n"								
+							}
 							//m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input_3_a,_Remove";
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Dropdown List':
 							id_name.push(entry_data[i].Data.db_name);
@@ -269,11 +316,20 @@
 							console.log(script_other)
 							//m.item_a_fields = "Dropdown option text|input_5_a,Option value|input_4_a,_Remove";
 							//console.log(JSON.stringify(entry_data[i]))
+							if(entry_data[i].Data.hide_type=='control'){
+								var equal="="
+								if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
+								form_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >';
+								script_load+="if($('#F@@ID select[name=\"" + entry_data[i].Data.db_name + "\"]').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      } ";
+								script_other+=" $('#F@@ID select[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ if($('#F@@ID select[name="+entry_data[i].Data.db_name+"]').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      }\n});\n"								
+							}
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Textarea':
 							var specified_width="";
 							if (entry_data[i].Data.input_9 == '1') specified_width = " fullwidth";
 							form_html += '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+entry_data[i].Data.main_label+'</p></span><label><span class="question">' + entry_data[i].Data.input_5 + '</span><textarea class="formcontrol '+ specified_width +'" name="'+entry_data[i].Data.db_name+'" placeholder="'+entry_data[i].Data.label_1+'" '+entry_data[i].Data.req+' ></textarea></label></fieldset></div></div>';
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Calculation':
 							//console.log(entry_data[i].Data)

@@ -296,6 +296,11 @@ padding:10px
     font-size: 16px;
   }
 
+  #D__ID .main-label {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
   #D__ID .right {
     text-align: right;
   }
