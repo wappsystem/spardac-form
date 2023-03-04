@@ -9,7 +9,7 @@
         //-------------------------------------
         //-------------------------------------
         var fields="Form_uid,main_label,db_name,instruction_text,label_1,label_2,value_1,value_2,value_3,two_options,five_options,specify_1,specify_2,specify_3,hide_type,start_hide_value,start_hide_equal";
-        m.fields="_Form,UID,Order|I1,"+fields+",Submit_date,Submitted_by,_Delete"
+        m.fields="_Form,_Duplicate,UID,Order|I1,"+fields+",Submit_date,Submitted_by,_Delete"
         //-------------------------------------
         m.load=function(){
             $('#nav_title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name+' - '+m.input.record.Data.Name);

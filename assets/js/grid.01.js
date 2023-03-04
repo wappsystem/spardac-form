@@ -105,6 +105,7 @@ m.render=function(){
         header_name=header_name.replace(/_/g,' ');
         var header_id=m.field_id[i];
         if(m.field_header[i]=='_Form')        txt+="<th "+print+" data-header="+header_id+"></th>";
+        else if(m.field_header[i]=='_Duplicate')        txt+="<th "+print+" data-header="+header_id+"></th>";
         else if(m.field_header[i]=='_Delete') txt+="<th "+print+" data-header="+header_id+" style='width:30px;'></th>";
         else                                  txt+="<th "+print+" data-header="+header_id+">"+header_name+"</th>";
     }
@@ -158,6 +159,21 @@ m.cell_process=function(){
                     return;
                 }
                 $vm.load_module(prefix+m.form_module,$vm.root_layout_content_slot,{record:m.records[I]});
+            })
+        }
+        //-------------------------
+        if(column_name=='_Duplicate'){
+            var data_id=$(this).attr('data-id');
+            $(this).css({'color':'#666','padding-left':'8px','padding-right':'8px'})
+            $(this).html("<u style='cursor:pointer'><i class='fa fa-plus-square-o'></i></u>");
+            $(this).find('u').on('click',function(){
+                m.form_I=row;
+                var prefix=""; if(m.prefix!=undefined) prefix=m.prefix;
+                if($vm.module_list[prefix+m.form_module]===undefined){
+                    alert('Can not find "'+m.form_module+'" in the module list');
+                    return;
+                }
+                $vm.load_module(prefix+m.form_module,$vm.root_layout_content_slot,{dup:'yes',record:m.records[I]});
             })
         }
         //-------------------------
