@@ -16,6 +16,7 @@ m.load=function(){
         if(m.input.dup=='yes'){
             m.input.record.UID=undefined;
             m.input.record._id=undefined;
+            m.input.record.Data.db_name="Duplicate";
         }
         $vm.deserialize(m.input.record,'#F__ID');
     }

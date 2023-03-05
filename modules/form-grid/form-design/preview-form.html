@@ -25,9 +25,13 @@
 			var entry_data=[];
 			var load = m.load;
 			var form_html = "";
-			var script_other="    //-------------------------------------\n ";
-			var script_load="    //-------------------------------------\n ";
-			var script_before_submit ="    //-------------------------------------\n ";
+			var script_other="";
+			var script_load="";
+			var calc_form_html="";
+			var script_before_submit ="";
+			var script_before_submit_end ="";
+			var var_before_submit_db_name ="";
+			var var_before_submit_decimal ="";			
 			var style_content="";
 			var id_name=[];
 			m.load = function () {
@@ -48,10 +52,11 @@
 			}
 			//-----------------------------
 			$('#form__ID').on('click',function(){
+				script_before_submit_end='data.'+var_before_submit_db_name+'=(total.toFixed('+var_before_submit_decimal+'));\nreturn before_submit(data,index);\n}'
 				html_content="<div id=D@@ID>\n<div class=\"container mt-95\">\n<div class=\"formbox\">\n<form id=\"F@@ID\">\n<span id=title@@ID></span>\n<div id=\"participant_div@@ID\">\n<div class=\"formgroup\">\n<fieldset class=\"dynbreaks\">\n<label><span class=\"question\">Participant</span>\n<input type=text name=\"Participant\" class=formcontrol id=Participant@@ID data-id=\"Participant\" />\n</label><br>\n<label><span class=\"question\">Participant ID</span>\n<input type=text name=\"Participant_uid\" class=formcontrol readonly />\n</label>\n</fieldset>\n</div>\n</div>\n"
 				html_content+=form_html;
 				html_content+="<div class=\"formgroup right\">\n  <button type=\"submit\" id=\"submit__ID\" class=\"submit_btn\">Submit</button>\n</div>\n</form>\n</div>\n</div>\n"	
-				html_content+="<script>\n  function F@@ID() {\n    //-------------------------------------\n    Vm##Include: '@@COMPONENT@@/f/form.01.js'\n    Vm##Include: '@@HOST@@/assets/js/shared-form.js'\n    //-------------------------------------\n    var load2 = m.load;\n    m.load = function () {\n      load2();\n      $('#title@@ID').text($vm.module_list[$vm.vm['@@ID'].name].task_name);\n"+script_load+"    }\n//-------------------------------------\n"+script_other+" \n//-------------------------------------\n"+script_before_submit+"  \n }\n  %%script>"
+				html_content+="<script>\n  function F@@ID() {\n    //-------------------------------------\n    /*Vm##Include: '@@COMPONENT@@/f/form.01.js'*/\n    /*Vm##Include: '@@HOST@@/assets/js/shared-form.js'*/\n    //-------------------------------------\n    var load2 = m.load;\n    m.load = function () {\n      load2();\n      $('#title@@ID').text($vm.module_list[$vm.vm['@@ID'].name].task_name);\n"+script_load+"    }\n//-------------------------------------\n"+script_other+" \n//-------------------------------------\n"+script_before_submit+script_before_submit_end+"  \n }\n  %%script>"
 				html_content+="<style>\n/*Vm##Include:@@HOST@@/assets/css/wapp-form.css*/\n"+style_content+"%%style>\n</div>";
 				html_content=html_content.replace(/@@/g,'__').replace(/##/g,'').replace(/%%/g,'</');
 				var htmlContent = [html_content];
@@ -67,9 +72,9 @@
 			//-----------------------------
 			$('#preview__ID').on('click',function(){
 				html_content="<div id=D@@ID>\n<div class=\"container mt-95\">\n<div class=\"formbox\">\n<form id=\"F@@ID\">\n<span id=title@@ID>"+m.input.record.Data.Name+"</span>\n"
-				html_content+=form_html;
+				html_content+=form_html+calc_form_html;
 				html_content+="\n</form>\n</div>\n</div>\n"	
-				html_content+="<script>\n  function F@@ID() { \n    //-------------------------------------\n    Vm##Include: '@@COMPONENT@@/f/form.01.js'\n    //-------------------------------------\n    var load2 = m.load;\n    m.load = function () {\n      load2();\n      $('#title@@ID').text($vm.module_list[$vm.vm['@@ID'].name].task_name);\n"+script_load+"    }\n//-------------------------------------\n"+script_other+"\n//-------------------------------------\n"+script_before_submit+"  \n  }\n  %%script>"
+				html_content+="<script>\n  function F@@ID() { \n    //-------------------------------------\n    Vm##Include: '@@COMPONENT@@/f/form.01.js'\n    //-------------------------------------\n    var load2 = m.load;\n    m.load = function () {\n      load2();\n      $('#title@@ID').text($vm.module_list[$vm.vm['@@ID'].name].task_name);\n"+script_load+"    }\n//-------------------------------------\n"+script_other+"\n//-------------------------------------\n"+script_before_submit+script_before_submit_end+"  \n  }\n  %%script>"
 				html_content+="<style>\n/*Vm##Include:@@HOST@@/assets/css/wapp-form.css*/\n"+style_content+"%%style>\n</div>";
 				html_content=html_content.replace(/@@/g,'__').replace(/##/g,'').replace(/%%/g,'</');
 				var H=$vm.hosting_path+"/modules";
@@ -90,30 +95,30 @@
 					var end="";
 					switch (entry_data[i].Data.layout) {
 						case 'Main Header':
-							form_html += "<h3 style='margin-left:30px'  >" + entry_data[i].Data.main_label + "</h3>";
-								if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
+							form_html += "<h3 style='margin-left:30px'  >" + entry_data[i].Data.main_label + "</h3>\n";
+								if(entry_data[i].Data.hide_type=='end') form_html += "</div>\n";
 							break;
 						case 'Instructions':
-							form_html += '<div class="formgroup" ><fieldset class=""><span class="question"><p>' + entry_data[i].Data.main_label + '</p></span><span>' + entry_data[i].Data.instruction_text + '</span></fieldset></div>';
+							form_html += '<div class="formgroup" >\n<fieldset class="">\n<span class="question"><p>' + entry_data[i].Data.main_label + '</p></span>\n<span>' + entry_data[i].Data.instruction_text + '</span>\n</fieldset>\n</div>\n';
 							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Dual radio buttons':
-							form_html += '<div class="formgroup" ><span class="question"></span><fieldset class="grid-container-1"><div class=""><label><span class="question">' + entry_data[i].Data.main_label + '</span></label><br><input id="' + entry_data[i].Data.db_name + '_1@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + entry_data[i].Data.value_1 + '" '+entry_data[i].Data.req+' ><label class="rd_btn" for="' + entry_data[i].Data.db_name + '_1@@ID">' + entry_data[i].Data.label_1 + '</label><input id="' + entry_data[i].Data.db_name + '_2@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + entry_data[i].Data.value_2 + '"><label class="rd_btn" for="' + entry_data[i].Data.db_name + '_2@@ID">' + entry_data[i].Data.label_2 + '</label>';
+							form_html += '<div class="formgroup" >\n<span class="question"></span>\n<fieldset class="grid-container-1">\n<div class="">\n<label><span class="question">' + entry_data[i].Data.main_label + '</span></label><br>\n<input id="' + entry_data[i].Data.db_name + '_1@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + entry_data[i].Data.value_1 + '" '+entry_data[i].Data.req+' >\n<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_1@@ID">' + entry_data[i].Data.label_1 + '</label>\n<input id="' + entry_data[i].Data.db_name + '_2@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + entry_data[i].Data.value_2 + '">\n<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_2@@ID">' + entry_data[i].Data.label_2 + '</label>\n';
 							if(entry_data[i].Data.specify_1!=""){
-								form_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide"><label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br><input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
+								form_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth">\n</div>\n';
 								script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      } "
-								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ if($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      }\n});\n"
+								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){\n if($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      }\n});\n"
 							}
 							id_name.push(entry_data[i].Data.db_name);
-							form_html += '</div></fieldset></div>';
+							form_html += '</div>\n</fieldset>\n</div>\n';
 							if(entry_data[i].Data.hide_type=='control'){
 								var equal="="
 								if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
-								form_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >';
+								form_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >\n';
 								script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      } ";
-								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ if($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      }\n});\n"								
+								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){\n if($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      }\n});\n"								
 							}
-							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>\n";
 							break;
 						case 'Single text input':
 							if (entry_data[i].Data.input_9 == '1') specified_width = " fullwidth";
@@ -128,34 +133,34 @@
                        		else if (entry_data[i].Data.five_options == '2') input_style = "date";
                         	else if (entry_data[i].Data.five_options == '3') input_style = "time";
 							id_name.push(entry_data[i].Data.db_name);
-							form_html += '<div class="formgroup" ><fieldset class=""><span class="question">' + entry_data[i].Data.main_label + '</span><div class="grid-container-1"><div><label><span class="question">' + entry_data[i].Data.label_2 + '</span><input id="abcd" type=' + entry_data[i].Data.input_style + ' name="' + entry_data[i].Data.db_name + '" class="formcontrol ' + entry_data[i].Data.specified_width + '" ' + entry_data[i].Data.min + ' ' + entry_data[i].Data.max + ' ' + entry_data[i].Data.step + ' placeholder="' + entry_data[i].Data.label_1 + '" '+entry_data[i].Data.req+' /></label></div></div></fieldset></div>';
+							form_html += '<div class="formgroup" >\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-1">\n<div>\n<label>\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n<input id="abcd" type=' + input_style + ' name="' + entry_data[i].Data.db_name + '" class="formcontrol ' + specified_width + '" ' + min + ' ' + max + ' ' + step + ' placeholder="' + entry_data[i].Data.label_1 + '" '+entry_data[i].Data.req+' />\n</label>\n</div>\n</div>\n</fieldset>\n</div>\n';
 							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Visual Analogue Scale':
 							id_name.push(entry_data[i].Data.db_name);
 							form_html += '<div class="formgroup" >\n<fieldset class="">\n<div class="textcenter">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n</div>\n<div class="grid-container-slider">\n<div class="textleft">\n<span class="question">' + entry_data[i].Data.label_1 + '</span>\n<input type="text" id="' + entry_data[i].Data.db_name + '_req@@ID" '+entry_data[i].Data.req+' style="opacity:0">\n</div>\n<div class="slidecontainer" id=' + entry_data[i].Data.db_name + '_con@@ID>\n<input type="range" min="0" max="' + entry_data[i].Data.range + '" step=' + entry_data[i].Data.vas_step + ' class="slider" name="' + entry_data[i].Data.db_name + '" id="' + entry_data[i].Data.db_name + '@@ID">\n</div>\n<div class="textright">\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n</div>\n</div>\n</fieldset>\n</div>';
-							script_load+="\n//-------------------------------------\nif (m.input.record != undefined) \n{$('<style>#" + entry_data[i].Data.db_name + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');$('#" + entry_data[i].Data.db_name + "_req@@ID').val(\"OK\")} \nelse { $('<style>.slidecontainer input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0px; height: 0px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');}"
-							script_other+="\n//-------------------------------------\n $('#" + entry_data[i].Data.db_name + "@@ID').on('click', function () {$('<style>#" + entry_data[i].Data.db_name + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');$('#" + entry_data[i].Data.db_name + "_req@@ID').val(\"OK\")})//-------------------------------------\n";
+							script_load+="\n//-------------------------------------\nif (m.input.record != undefined) {\n$('<style>#" + entry_data[i].Data.db_name + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');\n$('#" + entry_data[i].Data.db_name + "_req@@ID').val(\"OK\")} \nelse { \n$('<style>.slidecontainer input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0px; height: 0px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');}\n"
+							script_other+="\n//-------------------------------------\n $('#" + entry_data[i].Data.db_name + "@@ID').on('click', function () {\n$('<style>#" + entry_data[i].Data.db_name + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');\n$('#" + entry_data[i].Data.db_name + "_req@@ID').val(\"OK\")})\n//-------------------------------------\n";
 							//console.log(script_other)
-							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>\n";
 							break;
 						case 'Digital Scale':
 							id_name.push(entry_data[i].Data.db_name);
-							form_html += '<div class="formgroup"><div class="questiongroup "><fieldset class="dynbreaks"><div class="textcenter"><span class="question">' + entry_data[i].Data.main_label + '</span></div><div class="grid-container-3-special"><div class="textleft"><span class="question">' + entry_data[i].Data.label_1 + '</span></div><div class="textcenter">';
+							form_html += '<div class="formgroup">\n<div class="questiongroup ">\n<fieldset class="dynbreaks">\n<div class="textcenter">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n</div>\n<div class="grid-container-3-special">\n<div class="textleft"><span class="question">' + entry_data[i].Data.label_1 + '</span>\n</div>\n<div class="textcenter">\n';
 							start= parseInt(entry_data[i].Data.value_1);
 							step= parseInt(entry_data[i].Data.value_3);
 							end= parseInt(entry_data[i].Data.value_2);
 							if (start != undefined && end != undefined) {
 								for (var k = start; k < end + 1; k = k + step) {
 									//var kk=k.toString();
-									form_html += '<input id="' + entry_data[i].Data.db_name + '_' + k + '@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + k+'";'
-									if(k==start) form_html +='" '+entry_data[i].Data.req+' >';
-									else form_html +='" >';
-									form_html += '<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_' + k + '@@ID">' + k + '</label><br>'
+									form_html += '<input id="' + entry_data[i].Data.db_name + '_' + k + '@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + k+'"'
+									if(k==start) form_html +=''+entry_data[i].Data.req+' >\n';
+									else form_html +=' >\n';
+									form_html += '<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_' + k + '@@ID">' + k + '</label><br>\n'
 								}
 							}
-							form_html += '</div><div class="textright"><span class="question">' + entry_data[i].Data.label_2 + '</span></div></div></fieldset></div></div>';
-							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
+							form_html += '</div>\n<div class="textright">\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n</div>\n</div>\n</fieldset>\n</div>\n</div>';
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>\n";
 							break;
 						case 'Multiple horizontal number inputs':
 							var width = ""
@@ -169,14 +174,14 @@
 							else if (entry_data[i].Data.five_options == '4') { num_boxes = "6"; width = "width_input_6"; }
 							var box_num = parseInt(num_boxes)
 							if (box_num != undefined) {
-								form_html += '<div class="formgroup"><fieldset class=""><span class="question">' + entry_data[i].Data.main_label + '</span><div class="grid-container-input-' + num_boxes + '">';
+								form_html += '<div class="formgroup">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-input-' + num_boxes + '">\n';
 								for (var k = 0; k < box_num; k++) {
-									form_html += '<div><label><span id=input_label_' + k + '@@ID class="question"> '+entry_data[i].Data.items_a[k].input_5_a+'</span><input type=number id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" '+entry_data[i].Data.req+' placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" min="'+entry_data[i].Data.items_a[k].input_6_a+'" max="'+entry_data[i].Data.items_a[k].input_7_a+'" step="'+entry_data[i].Data.items_a[k].input_8_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+' "/></label></div>';
+									form_html += '<div>\n<label>\n<span id=input_label_' + k + '@@ID class="question"> '+entry_data[i].Data.items_a[k].input_5_a+'</span>\n<input type=number id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" '+entry_data[i].Data.req+' placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" min="'+entry_data[i].Data.items_a[k].input_6_a+'" max="'+entry_data[i].Data.items_a[k].input_7_a+'" step="'+entry_data[i].Data.items_a[k].input_8_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+' "/>\n</label>\n</div>\n';
 									id_name.push(entry_data[i].Data.items_a[k].input_3_a);
 								}
-								form_html += '</div></fieldset></div>';
+								form_html += '</div>\n</fieldset>\n</div>\n';
 							}
-							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>\n";
 							break;
 						case 'Multiple horizontal inputs':
 							var width = ""
@@ -188,13 +193,13 @@
 							else if (entry_data[i].Data.five_options == '4') { num_boxes = "6"; width = "width_input_6"; }
 							var box_num = parseInt(num_boxes)
 							if (box_num != undefined) {
-								form_html += '<div class="formgroup"><fieldset class=""><span class="question">' + entry_data[i].Data.main_label + '</span><div class="grid-container-input-' + num_boxes + '">';
+								form_html += '<div class="formgroup">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-input-' + num_boxes + '">\n';
 								for (var k = 0; k < box_num; k++) {
-									form_html += '<div><label><span id=input_label_' + k + '@@ID class="question">'+entry_data[i].Data.items_a[k].input_5_a+'</span><input type='+entry_data[i].Data.items_a[k].five_options_a+' id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" '+entry_data[i].Data.req+' placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+'" /></label></div>';
+									form_html += '<div>\n<label><span id=input_label_' + k + '@@ID class="question">'+entry_data[i].Data.items_a[k].input_5_a+'</span>\n<input type='+entry_data[i].Data.items_a[k].five_options_a+' id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" '+entry_data[i].Data.req+' placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+'" />\n</label>\n</div>\n';
 								}
-								form_html += '</div></fieldset></div>';
+								form_html += '</div>\n</fieldset>\n</div>\n';
 							}
-							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>\n";
 							break;
 						case 'Horizontal radio buttons':
 							id_name.push(entry_data[i].Data.db_name);
@@ -207,29 +212,29 @@
 							else if (entry_data[i].Data.five_options == '4') { box_num = "7"; width = "width_input_7"; }
 							box_num = parseInt(box_num)
 							if (box_num != undefined) {
-								form_html += '<div class="formgroup"><div class="questiongroup "><fieldset class=""><span class="question">' + entry_data[i].Data.main_label + '</span><div class="grid-container-' + box_num + '">';
+								form_html += '<div class="formgroup">\n<div class="questiongroup ">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-' + box_num + '">\n';
 								for (var k = 0; k < box_num; k++) {
-									form_html += '<div ><input id="'+entry_data[i].Data.db_name+'_'+k+'@@ID" name="'+entry_data[i].Data.db_name+'" type="radio" value="'+entry_data[i].Data.items_a[k].input_4_a+'"';
-									if(k==0) form_html +=' '+entry_data[i].Data.req+' >';
-									else form_html +=' >'
-									form_html +='<label id="'+entry_data[i].Data.db_name+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.db_name+'_'+k+'@@ID">'+entry_data[i].Data.items_a[k].input_5_a+'</label></div>';
+									form_html += '<div >\n<input id="'+entry_data[i].Data.db_name+'_'+k+'@@ID" name="'+entry_data[i].Data.db_name+'" type="radio" value="'+entry_data[i].Data.items_a[k].input_4_a+'"';
+									if(k==0) form_html +=' '+entry_data[i].Data.req+' >\n';
+									else form_html +=' >\n'
+									form_html +='<label id="'+entry_data[i].Data.db_name+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.db_name+'_'+k+'@@ID">'+entry_data[i].Data.items_a[k].input_5_a+'</label>\n</div>\n';
 								}
 								if(entry_data[i].Data.specify_1!=""){
-									form_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide"><label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br><input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
-									script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      } "
-									script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ if($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      }\n});\n"
+									form_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth">\n</div>\n';
+									script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      }\n "
+									script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){\nif($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      }\n});\n"
 								}
-								form_html += '</div></fieldset></div></div>';
+								form_html += '</div>\n</fieldset>\n</div>\n</div>\n';
 							}
 							//m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
 							if(entry_data[i].Data.hide_type=='control'){
 								var equal="="
 								if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
-								form_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >';
+								form_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >\n';
 								script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      } ";
-								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ if($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      }\n});\n"								
+								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){\nif($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      }\n});\n"								
 							}
-							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>\n";
 							break;
 						case 'Vertical radio buttons':
 							id_name.push(entry_data[i].Data.db_name);
@@ -238,26 +243,26 @@
 							else if (entry_data[i].Data.five_options == '1') {width = "width_btn_130";}
 							else if (entry_data[i].Data.five_options == '2') {width = "width_btn_250";}
 							else if (entry_data[i].Data.five_options == '3') {width = "width_btn_full"; }
-								form_html += '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>';
+								form_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n';
 								for (var k = 0; k < entry_data[i].Data.items_a.length; k++) {
 									form_html += '<input id="'+entry_data[i].Data.db_name+'_'+k+'@@ID" name="'+entry_data[i].Data.db_name+'" type="radio" value="'+entry_data[i].Data.items_a[k].input_4_a+'"';
-									if(k==0) form_html +=' '+entry_data[i].Data.req+' >';
-									else form_html +=' >'
-									form_html +='<label id="'+entry_data[i].Data.db_name+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.db_name+'_'+k+'@@ID">'+entry_data[i].Data.items_a[k].input_5_a+'</label><br>';
+									if(k==0) form_html +=' '+entry_data[i].Data.req+' >\n';
+									else form_html +=' >\n'
+									form_html +='<label id="'+entry_data[i].Data.db_name+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.db_name+'_'+k+'@@ID">'+entry_data[i].Data.items_a[k].input_5_a+'</label><br>\n';
 								}
 								if(entry_data[i].Data.specify_1!=""){
-									form_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide"><label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br><input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
-									script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      } "
-									script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ if($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      }\n});\n"
+									form_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth">\n</div>\n';
+									script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      }\n "
+									script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ \nif($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      }\n});\n"
 								}
-								form_html += '</fieldset></div></div>';
+								form_html += '</fieldset>\n</div>\n</div>\n';
 							//m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
 							if(entry_data[i].Data.hide_type=='control'){
 								var equal="="
 								if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
-								form_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >';
-								script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      } ";
-								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ if($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      }\n});\n"								
+								form_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >\n';
+								script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      }\n ";
+								script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ \nif($('#F@@ID input[name="+entry_data[i].Data.db_name+"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      }\n});\n"								
 							}
 							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
@@ -268,10 +273,10 @@
 							else if (entry_data[i].Data.five_options == '2') {width = "width_btn_250";}
 							else if (entry_data[i].Data.five_options == '3') {width = "width_btn_full"; }
 
-							form_html += '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>';
+							form_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n';
 							for (var k = 0; k < entry_data[i].Data.items_a.length; k++) {
-								form_html += '<input id="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID" type="checkbox" value="'+entry_data[i].Data.items_a[k].input_4_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+'">';
-								form_html +='<label id="'+entry_data[i].Data.input_3+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID"><span class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>'+entry_data[i].Data.items_a[k].input_5_a+'</label><br>';
+								form_html += '<input id="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID" type="checkbox" value="'+entry_data[i].Data.items_a[k].input_4_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+'">\n';
+								form_html +='<label id="'+entry_data[i].Data.input_3+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID"><span class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>'+entry_data[i].Data.items_a[k].input_5_a+'</label><br>\n';
 								id_name.push(entry_data[i].Data.items_a[k].input_3_a);
 								if(entry_data[i].Data.hide_type=='control'){
 									if(entry_data[i].Data.items_a[k].input_4_a==entry_data[i].Data.start_hide_value){
@@ -281,55 +286,55 @@
 								}
 							}
 							if(entry_data[i].Data.specify_1!=""){
-								form_html +='<div id="' + entry_data[i].Data.specify_2 + '_option@@ID" class="formgroup hide"><label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br><input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
+								form_html +='<div id="' + entry_data[i].Data.specify_2 + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth">\n</div>\n';
 								for (var k = 0; k < entry_data[i].Data.items_a.length; k++) {
 									if(entry_data[i].Data.specify_3==entry_data[i].Data.items_a[k].input_4_a){
-										script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.items_a[k].input_3_a + "\"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.specify_2+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.specify_2+"_option@@ID').hide();\n      } "
-										script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.items_a[k].input_3_a + "\"]').on('change',function(){ if($('#F@@ID input[name="+entry_data[i].Data.items_a[k].input_3_a+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.specify_2+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.specify_2+"_option@@ID').hide();\n      }\n});\n"
+										script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.items_a[k].input_3_a + "\"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.specify_2+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.specify_2+"_option@@ID').hide();\n      }\n "
+										script_other+=" $('#F@@ID input[name=\"" + entry_data[i].Data.items_a[k].input_3_a + "\"]').on('change',function(){ \nif($('#F@@ID input[name="+entry_data[i].Data.items_a[k].input_3_a+"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.specify_2+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.specify_2+"_option@@ID').hide();\n      }\n});\n"
 									}
 								}
 							}
-							form_html += '</fieldset></div></div>';
+							form_html += '</fieldset>\n</div>\n</div>\n';
 							if(entry_data[i].Data.hide_type=='control'){
 								var equal="="
 								if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
-								form_html +='<div id="' + hide_db_name + '_hide@@ID" >';
+								form_html +='<div id="' + hide_db_name + '_hide@@ID" >\n';
 								script_load+="if($('#F@@ID input[name=\"" + hide_db_name + "\"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+hide_db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+hide_db_name+"_hide@@ID').hide();\n      } ";
 								script_other+=" $('#F@@ID input[name=\"" + hide_db_name + "\"]').on('change',function(){ if($('#F@@ID input[name="+hide_db_name+"]:checked').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+hide_db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+hide_db_name+"_hide@@ID').hide();\n      }\n});\n"								
 							}
 							//m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input_3_a,_Remove";
-							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>\n";
 							break;
 						case 'Dropdown List':
 							id_name.push(entry_data[i].Data.db_name);
-							form_html += '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+entry_data[i].Data.main_label+'</p></span><select id="' + entry_data[i].Data.db_name + '@@ID" name="' + entry_data[i].Data.db_name + '" '+entry_data[i].Data.req+' class="formcontrol" >';
+							form_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<select id="' + entry_data[i].Data.db_name + '@@ID" name="' + entry_data[i].Data.db_name + '" '+entry_data[i].Data.req+' class="formcontrol" >\n';
 							for (var k= 0; k < entry_data[i].Data.items_a.length; k++) {
 								form_html += '<option value='+entry_data[i].Data.items_a[k].input_4_a+' >'+entry_data[i].Data.items_a[k].input_5_a+'</option>';
 							}
-							form_html += '</select>'
+							form_html += '</select>\n'
 							if(entry_data[i].Data.specify_1!=""){
-								form_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide"><label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br><input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth"></div>';
-								script_load+="if($('#F@@ID select[name=\"" + entry_data[i].Data.db_name + "\"]').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      } "
-								script_other+=" $('#F@@ID select[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ console.log('AAAA');if($('#F@@ID select[name="+entry_data[i].Data.db_name+"]').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      }\n});\n"
+								form_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth">\n</div>\n';
+								script_load+="if($('#F@@ID select[name=\"" + entry_data[i].Data.db_name + "\"]').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      } \n"
+								script_other+=" $('#F@@ID select[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ \nif($('#F@@ID select[name="+entry_data[i].Data.db_name+"]').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      }\n});\n"
 							}
-							form_html +='</fieldset></div></div>';
+							form_html +='</fieldset>\n</div>\n</div>\n';
 							console.log(script_other)
 							//m.item_a_fields = "Dropdown option text|input_5_a,Option value|input_4_a,_Remove";
 							//console.log(JSON.stringify(entry_data[i]))
 							if(entry_data[i].Data.hide_type=='control'){
 								var equal="="
 								if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
-								form_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >';
-								script_load+="if($('#F@@ID select[name=\"" + entry_data[i].Data.db_name + "\"]').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      } ";
+								form_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >\n';
+								script_load+="if($('#F@@ID select[name=\"" + entry_data[i].Data.db_name + "\"]').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      }\n ";
 								script_other+=" $('#F@@ID select[name=\"" + entry_data[i].Data.db_name + "\"]').on('change',function(){ if($('#F@@ID select[name="+entry_data[i].Data.db_name+"]').val()"+equal+"='"+entry_data[i].Data.start_hide_value+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_hide@@ID').hide();\n      }\n});\n"								
 							}
-							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>\n";
 							break;
 						case 'Textarea':
 							var specified_width="";
 							if (entry_data[i].Data.input_9 == '1') specified_width = " fullwidth";
-							form_html += '<div class="formgroup"><div class="questiongroup"><fieldset class=""><span class="question"><p>'+entry_data[i].Data.main_label+'</p></span><label><span class="question">' + entry_data[i].Data.input_5 + '</span><textarea class="formcontrol '+ specified_width +'" name="'+entry_data[i].Data.db_name+'" placeholder="'+entry_data[i].Data.label_1+'" '+entry_data[i].Data.req+' ></textarea></label></fieldset></div></div>';
-							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
+							form_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<label>\n<span class="question">' + entry_data[i].Data.input_5 + '</span>\n<textarea class="formcontrol '+ specified_width +'" name="'+entry_data[i].Data.db_name+'" placeholder="'+entry_data[i].Data.label_1+'" '+entry_data[i].Data.req+' ></textarea>\n</label>\n</fieldset>\n</div>\n</div>\n';
+							if(entry_data[i].Data.hide_type=='end') form_html += "</div>\n";
 							break;
 						case 'Calculation':
 							//console.log(entry_data[i].Data)
@@ -350,10 +355,12 @@
 							var input_length=id_name.length;
 							id_name=JSON.stringify(id_name);
 							//console.log(input_length)
-							form_html += '<div class="formgroup"><div class="questiongroup" style="background-color: coral;"><fieldset class=""><h3> This will not be shown in the form</h3><span id=formula_'+entry_data[i].Data.db_name+' class="question"><p>'+entry_data[i].Data.main_label+'</p></span><button type="submit" id="submit__ID" class="btn btn-primary btn-lg">Calc</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='+entry_data[i].Data.db_name+'_result class="question"><p></p></span></fieldset></div></div>';
+							calc_form_html += '<div class="formgroup">\n<div class="questiongroup" style="background-color: coral;"><fieldset class="">\n<h3> This will not be shown in the form</h3><span id=formula_'+entry_data[i].Data.db_name+' class="question"><p>'+entry_data[i].Data.main_label+'</p></span><button type="submit" id="submit__ID" class="btn btn-primary btn-lg">Calc</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='+entry_data[i].Data.db_name+'_result class="question"><p></p></span></fieldset></div></div>';
 							script_other+='//-------------------\nvar clean_string=function(input_string){\ninput_string = input_string.replace(/[^0-9%*\/()\-+.]/g, "");\nreturn(input_string);}';
-							script_before_submit+='var before_submit = m.before_submit;m.before_submit = function (data, index) {var input = "'+entry_data[i].Data.main_label+'";var calc_string = input.split("=");var input_right = calc_string[1];var output="";for (var m = 0; m < '+input_length+'; m++) {var single_input = '+id_name+'[m];if (input_right.indexOf(single_input) >= 0) {input_right = input_right.replace(single_input, "parseFloat(data." + single_input + ")");}} output = input_right;output=output.replaceAll("[","").replaceAll("]","");var total=eval(output);$("#'+entry_data[i].Data.db_name+'_result").text(total.toFixed('+entry_data[i].Data.label_1+'));return false;};'
-							
+							script_before_submit+='var before_submit = m.before_submit;\nm.before_submit = function (data, index) {\nvar input = "'+entry_data[i].Data.main_label+'";\nvar calc_string = input.split("=");\nvar input_right = calc_string[1];\nvar output="";\nfor (var m = 0; m < '+input_length+'; m++) {\nvar single_input = '+id_name+'[m];\nif (input_right.indexOf(single_input) >= 0) {\ninput_right = input_right.replace(single_input, "parseFloat(data." + single_input + ")");\n}\n} \noutput = input_right;output=output.replaceAll("[","").replaceAll("]","");\nvar total=eval(output);\n'
+							script_before_submit_end='$("#'+entry_data[i].Data.db_name+'_result").text(total.toFixed('+entry_data[i].Data.label_1+'));\nreturn false;};'
+							var_before_submit_db_name=entry_data[i].Data.db_name;
+							var_before_submit_decimal=entry_data[i].Data.label_1;
 							break;
 						/*default:
 							console.log("DEFAULT")
