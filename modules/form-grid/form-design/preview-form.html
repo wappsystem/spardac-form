@@ -83,6 +83,33 @@
 				$vm.show_module_wapp("preview",{})
 			})
 			//-----------------------------
+			$('#grid__ID').on('click',function(){
+				html_content="<section>\nVm##Include:@@HOST@@/assets/html/grid.01.html\n</section>\n"
+				html_content+="<script>\nfunction F@@ID(){\n//-------------------------------------\n/*Vm##Include:@@HOST@@/assets/js/grid.01.multiple.js*/\n/*Vm##Include:@@HOST@@/assets/js/shared-data.js*/\n//-------------------------------------\n$('#title@@ID').text($vm.module_list[$vm.vm['@@ID'].name].task_name);\n//-------------------------------------\n";
+				html_content+="var fields=\"";
+				var first_field=false;
+				for (var i=0;i<entry_data.length;i++){
+					if(entry_data[i].Data.db_name!=""){
+						if(first_field) html_content+=",";
+						html_content+=entry_data[i].Data.db_name
+						first_field=true;
+					}
+				}
+				html_content+="\";\n";
+				html_content+="m.fields=\"_Form,_Status,_Notes,_Participant_ID,Participant,\"+fields+\",Update_date,Updated_by,Submit_date,Submitted_by\"\n"
+				html_content+="}\n%%script>\n<style>\n/*Vm##Include:@@HOST@@/assets/css/grid.css*/\n</style>\n"
+				html_content=html_content.replace(/@@/g,'__').replace(/##/g,'').replace(/%%/g,'</');
+				var htmlContent = [html_content];
+				var bl = new Blob(htmlContent, {type: "text/html"});
+				var a = document.createElement("a");
+				a.href = URL.createObjectURL(bl);
+				a.download = m.input.record.Data.Name+"-data.html";
+				a.hidden = true;
+				document.body.appendChild(a);
+				a.innerHTML = "";
+				a.click();
+			})
+			//-----------------------------
 			create_form=function (entry_data){
 				form_html = "";
 				for (var i=0;i<entry_data.length;i++){
