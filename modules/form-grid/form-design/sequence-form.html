@@ -39,6 +39,7 @@
             var entry_data=[];
             var order=[];
             m.load=function(){
+                $('#submit__ID').show();
                 $('#F__ID input[name=Name]').val(m.input.record.Data.Name);
                 $('#F__ID input[name=Form_uid]').val(m.input.record.UID);
                 var form_uid=(m.input.record.UID).toString();
@@ -55,25 +56,21 @@
                     var orderI1;
                     for (var i=0;i<res.result.length;i++){
                         orderI1=res.result[i].I1
-                        if (orderI1==undefined){
-                            order.push((seq).toString())
-                        }
-                        else{
-                            order.push(orderI1.toString());
-                        }
+                        //console.log("orderI1: "+orderI1)
+                        order.push((seq).toString())
                         seq++;
                         if(res.result[i].Data.layout!='Calculation'){
                             var quest_html=create_quest(entry_data,i);
-                            txt+='<tr id=row'+i.toString()+'__ID ><td style="width:20px">&nbsp;<i class="fa fa-arrows-v"></i></td><td>'+quest_html+'</td></tr>';
+                            txt+='<tr id=row'+i.toString()+'__ID ><td style="display:none">'+order[i]+'</td><td style="width:20px">&nbsp;<i  style="cursor:default" class="fa fa-arrows-v"></i></td><td style="cursor:default">'+quest_html+'</td></tr>';
+                        }
+                        else {
+                            txt+='<tr style="display:none" id=row'+i.toString()+'__ID ><td>'+order[i]+'</td><td style="width:20px">&nbsp;<i  style="cursor:default" class="fa fa-arrows-v"></i></td><td style="cursor:default">'+quest_html+'</td></tr>';
                         }
                     }
                     txt+='</tbody></table>'
                     $('#items__ID').html(txt)
                 })
-                //console.log(JSON.stringify(entry_data));
-                //table = $('#table');
-                table=document.getElementById('table')
-                //console.log(table)
+                table = document.getElementById('table')
                 tbody = table.querySelector('tbody');
                 jQuery.ajaxSetup({async:true});
                 init();
@@ -98,7 +95,7 @@
                         case 'Dual radio buttons':
                             quest_html += '<div class="formgroup" >\n<span class="question"></span>\n<fieldset class="grid-container-1">\n<div class="">\n<label><span class="question">' + entry_data[i].Data.main_label + '</span></label><br>\n<input id="' + entry_data[i].Data.db_name + '_1@@ID" type="radio" value="" >\n<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_1@@ID">' + entry_data[i].Data.label_1 + '</label>\n<input id="' + entry_data[i].Data.db_name + '_2@@ID" type="radio" value="">\n<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_2@@ID">' + entry_data[i].Data.label_2 + '</label>\n';
                             if(entry_data[i].Data.specify_1!=""){
-                                quest_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth">\n</div>\n';
+                                quest_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input  type="text" class="formcontrol fullwidth">\n</div>\n';
                             }
                             quest_html += '</div>\n</fieldset>\n</div>\n';
                             break;
@@ -113,7 +110,7 @@
                             quest_html += '<div class="formgroup" >\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-1">\n<div>\n<label>\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n<input id="abcd" type=' + input_style + ' class="formcontrol ' + specified_width + '" placeholder="' + entry_data[i].Data.label_1 + '" />\n</label>\n</div>\n</div>\n</fieldset>\n</div>\n';
                             break;
                         case 'Visual Analogue Scale':
-                            quest_html += '<div class="formgroup" >\n<fieldset class="">\n<div class="textcenter">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n</div>\n<div class="grid-container-slider">\n<div class="textleft">\n<span class="question">' + entry_data[i].Data.label_1 + '</span>\n<input type="text" id="' + entry_data[i].Data.db_name + '_req@@ID" style="opacity:0">\n</div>\n<div class="slidecontainer" id=' + entry_data[i].Data.db_name + '_con@@ID>\n<input type="range" min="0" max="' + entry_data[i].Data.range + '" step=' + entry_data[i].Data.vas_step + ' class="slider" name="' + entry_data[i].Data.db_name + '" id="' + entry_data[i].Data.db_name + '@@ID">\n</div>\n<div class="textright">\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n</div>\n</div>\n</fieldset>\n</div>';
+                            quest_html += '<div class="formgroup" >\n<fieldset class="">\n<div class="textcenter">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n</div>\n<div class="grid-container-slider">\n<div class="textleft">\n<span class="question">' + entry_data[i].Data.label_1 + '</span>\n<input type="text" id="' + entry_data[i].Data.db_name + '_req@@ID" style="opacity:0">\n</div>\n<div class="slidecontainer" id=' + entry_data[i].Data.db_name + '_con@@ID>\n<input type="range" min="0" max="' + entry_data[i].Data.range + '" step=' + entry_data[i].Data.vas_step + ' class="slider" id="' + entry_data[i].Data.db_name + '@@ID">\n</div>\n<div class="textright">\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n</div>\n</div>\n</fieldset>\n</div>';
                             //console.log(script_other)
                             if(entry_data[i].Data.hide_type=='end') quest_html += "</div>\n";
                             break;
@@ -126,7 +123,7 @@
                                 for (var k = start; k < end + 1; k = k + step) {
                                     //var kk=k.toString();
                                     quest_html += '<input id="' + entry_data[i].Data.db_name + '_' + k + '@@ID" type="radio" value="' + k+'"'
-                                    if(k==start) quest_html +=''+entry_data[i].Data.req+' >\n';
+                                    if(k==start) quest_html +=' >\n';
                                     else quest_html +=' >\n';
                                     quest_html += '<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_' + k + '@@ID">' + k + '</label><br>\n'
                                 }
@@ -136,8 +133,7 @@
                         case 'Multiple horizontal number inputs':
                             var width = ""
                             var num_boxes=""
-                            if ($('#F__ID input[name=input_9]:checked').val() == '1') input_9 = " fullwidth";
-                            else input_9 = "";
+                            input_9 = "";
                             if (entry_data[i].Data.five_options == '0') num_boxes = "2";
                             else if (entry_data[i].Data.five_options == '1') num_boxes = "3"
                             else if (entry_data[i].Data.five_options == '2') { num_boxes = "4"; width = "width_input_4"; }
@@ -147,7 +143,7 @@
                             if (box_num != undefined) {
                                 quest_html += '<div class="formgroup">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-input-' + num_boxes + '">\n';
                                 for (var k = 0; k < box_num; k++) {
-                                    quest_html += '<div>\n<label>\n<span id=input_label_' + k + '@@ID class="question"> '+entry_data[i].Data.items_a[k].input_5_a+'</span>\n<input type=number id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" '+entry_data[i].Data.req+' placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" min="'+entry_data[i].Data.items_a[k].input_6_a+'" max="'+entry_data[i].Data.items_a[k].input_7_a+'" step="'+entry_data[i].Data.items_a[k].input_8_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+' "/>\n</label>\n</div>\n';
+                                    quest_html += '<div>\n<label>\n<span id=input_label_' + k + '@@ID class="question"> '+entry_data[i].Data.items_a[k].input_5_a+'</span>\n<input type=number id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" min="'+entry_data[i].Data.items_a[k].input_6_a+'" max="'+entry_data[i].Data.items_a[k].input_7_a+'" step="'+entry_data[i].Data.items_a[k].input_8_a+'" />\n</label>\n</div>\n';
                                 }
                                 quest_html += '</div>\n</fieldset>\n</div>\n';
                             }
@@ -164,7 +160,7 @@
                             if (box_num != undefined) {
                                 quest_html += '<div class="formgroup">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-input-' + num_boxes + '">\n';
                                 for (var k = 0; k < box_num; k++) {
-                                    quest_html += '<div>\n<label><span id=input_label_' + k + '@@ID class="question">'+entry_data[i].Data.items_a[k].input_5_a+'</span>\n<input type='+entry_data[i].Data.items_a[k].five_options_a+' id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" '+entry_data[i].Data.req+' placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+'" />\n</label>\n</div>\n';
+                                    quest_html += '<div>\n<label><span id=input_label_' + k + '@@ID class="question">'+entry_data[i].Data.items_a[k].input_5_a+'</span>\n<input type='+entry_data[i].Data.items_a[k].five_options_a+' id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'"  />\n</label>\n</div>\n';
                                 }
                                 quest_html += '</div>\n</fieldset>\n</div>\n';
                             }
@@ -181,13 +177,13 @@
                             if (box_num != undefined) {
                                 quest_html += '<div class="formgroup">\n<div class="questiongroup ">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-' + box_num + '">\n';
                                 for (var k = 0; k < box_num; k++) {
-                                    quest_html += '<div >\n<input id="'+entry_data[i].Data.db_name+'_'+k+'@@ID" name="'+entry_data[i].Data.db_name+'" type="radio" value="'+entry_data[i].Data.items_a[k].input_4_a+'"';
-                                    if(k==0) quest_html +=' '+entry_data[i].Data.req+' >\n';
+                                    quest_html += '<div >\n<input id="'+entry_data[i].Data.db_name+'_'+k+'@@ID" type="radio" value="'+entry_data[i].Data.items_a[k].input_4_a+'"';
+                                    if(k==0) quest_html +=' >\n';
                                     else quest_html +=' >\n'
                                     quest_html +='<label id="'+entry_data[i].Data.db_name+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.db_name+'_'+k+'@@ID">'+entry_data[i].Data.items_a[k].input_5_a+'</label>\n</div>\n';
                                 }
                                 if(entry_data[i].Data.specify_1!=""){
-                                    quest_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth">\n</div>\n';
+                                    quest_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input type="text" class="formcontrol fullwidth">\n</div>\n';
                                 }
                                 quest_html += '</div>\n</fieldset>\n</div>\n</div>\n';
                             }
@@ -207,13 +203,13 @@
                             else if (entry_data[i].Data.five_options == '3') {width = "width_btn_full"; }
                                 quest_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n';
                                 for (var k = 0; k < entry_data[i].Data.items_a.length; k++) {
-                                    quest_html += '<input id="'+entry_data[i].Data.db_name+'_'+k+'@@ID" name="'+entry_data[i].Data.db_name+'" type="radio" value="'+entry_data[i].Data.items_a[k].input_4_a+'"';
-                                    if(k==0) quest_html +=' '+entry_data[i].Data.req+' >\n';
+                                    quest_html += '<input id="'+entry_data[i].Data.db_name+'_'+k+'@@ID" type="radio" value="'+entry_data[i].Data.items_a[k].input_4_a+'"';
+                                    if(k==0) quest_html +=' >\n';
                                     else quest_html +=' >\n'
                                     quest_html +='<label id="'+entry_data[i].Data.db_name+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.db_name+'_'+k+'@@ID">'+entry_data[i].Data.items_a[k].input_5_a+'</label><br>\n';
                                 }
                                 if(entry_data[i].Data.specify_1!=""){
-                                    quest_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth">\n</div>\n';
+                                    quest_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input type="text" class="formcontrol fullwidth">\n</div>\n';
                                 }
                                 quest_html += '</fieldset>\n</div>\n</div>\n';
                             //m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
@@ -233,7 +229,7 @@
 
                             quest_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n';
                             for (var k = 0; k < entry_data[i].Data.items_a.length; k++) {
-                                quest_html += '<input id="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID" type="checkbox" value="'+entry_data[i].Data.items_a[k].input_4_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+'">\n';
+                                quest_html += '<input id="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID" type="checkbox" value="'+entry_data[i].Data.items_a[k].input_4_a+'" >\n';
                                 quest_html +='<label id="'+entry_data[i].Data.input_3+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID"><span class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>'+entry_data[i].Data.items_a[k].input_5_a+'</label><br>\n';
                                 if(entry_data[i].Data.hide_type=='control'){
                                     if(entry_data[i].Data.items_a[k].input_4_a==entry_data[i].Data.start_hide_value){
@@ -243,7 +239,7 @@
                                 }
                             }
                             if(entry_data[i].Data.specify_1!=""){
-                                quest_html +='<div id="' + entry_data[i].Data.specify_2 + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth">\n</div>\n';
+                                quest_html +='<div id="' + entry_data[i].Data.specify_2 + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input type="text" class="formcontrol fullwidth">\n</div>\n';
                             }
                             quest_html += '</fieldset>\n</div>\n</div>\n';
                             if(entry_data[i].Data.hide_type=='control'){
@@ -255,13 +251,13 @@
                             if(entry_data[i].Data.hide_type=='end') quest_html += "</div>\n";
                             break;
                         case 'Dropdown List':
-                            quest_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<select id="' + entry_data[i].Data.db_name + '@@ID" name="' + entry_data[i].Data.db_name + '" '+entry_data[i].Data.req+' class="formcontrol" >\n';
+                            quest_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<select id="' + entry_data[i].Data.db_name + '@@ID" class="formcontrol" >\n';
                             for (var k= 0; k < entry_data[i].Data.items_a.length; k++) {
                                 quest_html += '<option value='+entry_data[i].Data.items_a[k].input_4_a+' >'+entry_data[i].Data.items_a[k].input_5_a+'</option>';
                             }
                             quest_html += '</select>\n'
                             if(entry_data[i].Data.specify_1!=""){
-                                quest_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth">\n</div>\n';
+                                quest_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input type="text" class="formcontrol fullwidth">\n</div>\n';
                             }
                             quest_html +='</fieldset>\n</div>\n</div>\n';
                             //m.item_a_fields = "Dropdown option text|input_5_a,Option value|input_4_a,_Remove";
@@ -275,7 +271,7 @@
                         case 'Textarea':
                             var specified_width="";
                             if (entry_data[i].Data.input_9 == '1') specified_width = " fullwidth";
-                            quest_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<label>\n<span class="question">' + entry_data[i].Data.input_5 + '</span>\n<textarea class="formcontrol '+ specified_width +'" name="'+entry_data[i].Data.db_name+'" placeholder="'+entry_data[i].Data.label_1+'" '+entry_data[i].Data.req+' ></textarea>\n</label>\n</fieldset>\n</div>\n</div>\n';
+                            quest_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<label>\n<span class="question">' + entry_data[i].Data.input_5 + '</span>\n<textarea class="formcontrol '+ specified_width +'" placeholder="'+entry_data[i].Data.label_1+'" ></textarea>\n</label>\n</fieldset>\n</div>\n</div>\n';
                             break;
                         }
                         return quest_html;
@@ -286,45 +282,52 @@
             //--------------------------------------------------------
                 event.preventDefault();
                 $('#submit__ID').hide();
-                console.log(JSON.stringify(entry_data));
+                //console.log(JSON.stringify(entry_data));
                 var rows = getRows();
                 for(var i = 0; i < rows.length; i++) {
-                    let rowElem = rows[i];
-                    var data=entry_data[i].Data;
-                    var id=entry_data[i]._id;
-                    var index={};
-                    var update=false;
-                    var exitOrder=$(rowElem).closest('tr').find("td:eq(0)").text()
-                    if(entry_data[i].I1==undefined){
-                        index.I1=parseInt(exitOrder);
-                        update=true;
-                    }
-                    else{
-                        if(order[i]!=exitOrder) {
-                            index.I1=parseInt(exitOrder);
-                            update=true;
+                        let rowElem = rows[i];
+                        var update=false;
+                        var exitOrder=$(rowElem).closest('tr').find("td:eq(0)").text()
+                        var data=entry_data[exitOrder].Data;
+                        var id=entry_data[exitOrder]._id;
+                        var index={};
+                        console.log("exitOrder: "+exitOrder)
+                        if(index.I1==i) {
+                            update=false;
                         }
-                    }
-                    if(update){
-                        $vm.request({cmd:"update",id:id,table:m.Table,data:data,index:index},function(res){
-                            //-----------------------------
-                            if(res.status=="lk"){
-                                $vm.alert("This record is locked.");
-                                return;
+                        else {
+                            update=true;
+                            index.I1=i;
+                        }
+                        if(data.layout=='Calculation'){
+                            if(index.I1==rows.length){
+                                update=false;  
                             }
-                            //-----------------------------
-                            if(res.status=="np"){
-                                alert("No permission to update this record.");
-                                return;
+                            else{
+                                index.I1=rows.length;
+                                update=true;
                             }
-                        });
+                        } 
+                        if(update){
+                            $vm.request({cmd:"update",id:id,table:m.Table,data:data,index:index},function(res){
+                                //-----------------------------
+                                if(res.status=="lk"){
+                                    $vm.alert("This record is locked.");
+                                    return;
+                                }
+                                //-----------------------------
+                                if(res.status=="np"){
+                                    alert("No permission to update this record.");
+                                    return;
+                                }
+                            });
 
-                    }
-                    console.log(data);
-                    console.log(index);
-                    console.log(m.Table);
-                    console.log(order[i]);
-                    console.log($(rowElem).closest('tr').find("td:eq(0)").text());
+                        }
+                    //console.log(data);
+                    //console.log(index);
+                    //console.log(m.Table);
+                    //console.log(order[i]);
+                    //console.log($(rowElem).closest('tr').find("td:eq(0)").text());
                 }    
             }
             //---------------------
