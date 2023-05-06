@@ -36,6 +36,11 @@
 			var id_name=[];
 			m.load = function () {
 				load();
+				calc_form_html="";
+				script_other="";
+				script_load="";
+				script_before_submit ="";
+				script_before_submit_end ="";
                 var form_uid=(m.input.record.UID).toString();
                 //m.query={$and: [{'Data.Participant_uid':{$exists: true}}, {'Data.Participant_uid': {'$ne' : ''}}]}
                 m.query={"Data.Form_uid": {"$eq" : form_uid}};

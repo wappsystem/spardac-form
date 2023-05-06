@@ -933,7 +933,8 @@
                 var layout = $("#F__ID input[name=layout]:checked").val()
                 main_label = $('#F__ID input[name=main_label]').val();
                 instruction_text = $('#F__ID textarea[name=instruction_text]').val()
-                db_name = $('#F__ID input[name=db_name]').val();
+                db_name = ($('#F__ID input[name=db_name]').val())
+                $('#F__ID input[name=db_name]').val(db_name.replace(/ /g,"_"));
                 label_1 = $('#F__ID input[name=label_1]').val();
                 label_2 = $('#F__ID input[name=label_2]').val();
                 value_1 = $('#F__ID input[name=value_1]').val();
