@@ -135,7 +135,7 @@
 							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Dual radio buttons':
-							form_html += '<div class="formgroup" >\n<span class="question"></span>\n<fieldset class="grid-container-1">\n<div class="">\n<label><span class="question">' + entry_data[i].Data.main_label + '</span></label><br>\n<input id="' + entry_data[i].Data.db_name + '_1@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + entry_data[i].Data.value_1 + '" '+entry_data[i].Data.req+' >\n<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_1@@ID">' + entry_data[i].Data.label_1 + '</label>\n<input id="' + entry_data[i].Data.db_name + '_2@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + entry_data[i].Data.value_2 + '">\n<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_2@@ID">' + entry_data[i].Data.label_2 + '</label>\n';
+							form_html += '<div class="formgroup zoom" >\n<span class="question"></span>\n<fieldset class="grid-container-1">\n<div class="">\n<label><span class="question">' + entry_data[i].Data.main_label + '</span></label><br>\n<input id="' + entry_data[i].Data.db_name + '_1@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + entry_data[i].Data.value_1 + '" '+entry_data[i].Data.req+' >\n<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_1@@ID">' + entry_data[i].Data.label_1 + '</label>\n<input id="' + entry_data[i].Data.db_name + '_2@@ID" name="' + entry_data[i].Data.db_name + '" type="radio" value="' + entry_data[i].Data.value_2 + '">\n<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_2@@ID">' + entry_data[i].Data.label_2 + '</label>\n';
 							if(entry_data[i].Data.specify_1!=""){
 								form_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input  name="' + entry_data[i].Data.specify_2 + '" type="text" class="formcontrol fullwidth">\n</div>\n';
 								script_load+="if($('#F@@ID input[name=\"" + entry_data[i].Data.db_name + "\"]:checked').val()=='"+entry_data[i].Data.specify_3+"'){\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').show();\n      }\n      else {\n        $('#F@@ID #"+entry_data[i].Data.db_name+"_option@@ID').hide();\n      } "
@@ -165,12 +165,12 @@
                        		else if (entry_data[i].Data.five_options == '2') input_style = "date";
                         	else if (entry_data[i].Data.five_options == '3') input_style = "time";
 							id_name.push(entry_data[i].Data.db_name);
-							form_html += '<div class="formgroup" >\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-1">\n<div>\n<label>\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n<input id="abcd" type=' + input_style + ' name="' + entry_data[i].Data.db_name + '" class="formcontrol ' + specified_width + '" ' + min + ' ' + max + ' ' + step + ' placeholder="' + entry_data[i].Data.label_1 + '" '+entry_data[i].Data.req+' />\n</label>\n</div>\n</div>\n</fieldset>\n</div>\n';
+							form_html += '<div class="formgroup zoom" >\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-1">\n<div>\n<label>\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n<input id="abcd" type=' + input_style + ' name="' + entry_data[i].Data.db_name + '" class="formcontrol ' + specified_width + '" ' + min + ' ' + max + ' ' + step + ' placeholder="' + entry_data[i].Data.label_1 + '" '+entry_data[i].Data.req+' />\n</label>\n</div>\n</div>\n</fieldset>\n</div>\n';
 							if(entry_data[i].Data.hide_type=='end') form_html += "</div>";
 							break;
 						case 'Visual Analogue Scale':
 							id_name.push(entry_data[i].Data.db_name);
-							form_html += '<div class="formgroup" >\n<fieldset class="">\n<div class="textcenter">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n</div>\n<div class="grid-container-slider">\n<div class="textleft">\n<span class="question">' + entry_data[i].Data.label_1 + '</span>\n<input type="text" id="' + entry_data[i].Data.db_name + '_req@@ID" '+entry_data[i].Data.req+' style="opacity:0">\n</div>\n<div class="slidecontainer" id=' + entry_data[i].Data.db_name + '_con@@ID>\n<input type="range" min="0" max="' + entry_data[i].Data.range + '" step=' + entry_data[i].Data.vas_step + ' class="slider" name="' + entry_data[i].Data.db_name + '" id="' + entry_data[i].Data.db_name + '@@ID">\n</div>\n<div class="textright">\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n</div>\n</div>\n</fieldset>\n</div>';
+							form_html += '<div class="formgroup zoom" >\n<fieldset class="">\n<div class="textcenter">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n</div>\n<div class="grid-container-slider">\n<div class="textleft">\n<span class="question">' + entry_data[i].Data.label_1 + '</span>\n<input type="text" id="' + entry_data[i].Data.db_name + '_req@@ID" '+entry_data[i].Data.req+' style="opacity:0">\n</div>\n<div class="slidecontainer" id=' + entry_data[i].Data.db_name + '_con@@ID>\n<input type="range" min="0" max="' + entry_data[i].Data.range + '" step=' + entry_data[i].Data.vas_step + ' class="slider" name="' + entry_data[i].Data.db_name + '" id="' + entry_data[i].Data.db_name + '@@ID">\n</div>\n<div class="textright">\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n</div>\n</div>\n</fieldset>\n</div>';
 							script_load+="\n//-------------------------------------\nif (m.input.record != undefined) {\n$('<style>#" + entry_data[i].Data.db_name + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');\n$('#" + entry_data[i].Data.db_name + "_req@@ID').val(\"OK\")} \nelse { \n$('<style>.slidecontainer input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 0px; height: 0px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');}\n"
 							script_other+="\n//-------------------------------------\n $('#" + entry_data[i].Data.db_name + "@@ID').on('click', function () {\n$('<style>#" + entry_data[i].Data.db_name + "_con@@ID input[type=\"range\"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 5px; height: 25px; background: #167d7f; cursor: pointer; }</style>').appendTo('head');\n$('#" + entry_data[i].Data.db_name + "_req@@ID').val(\"OK\")})\n//-------------------------------------\n";
 							//console.log(script_other)
@@ -178,7 +178,7 @@
 							break;
 						case 'Digital Scale':
 							id_name.push(entry_data[i].Data.db_name);
-							form_html += '<div class="formgroup">\n<div class="questiongroup ">\n<fieldset class="dynbreaks">\n<div class="textcenter">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n</div>\n<div class="grid-container-3-special">\n<div class="textleft"><span class="question">' + entry_data[i].Data.label_1 + '</span>\n</div>\n<div class="textcenter">\n';
+							form_html += '<div class="formgroup zoom">\n<div class="questiongroup ">\n<fieldset class="dynbreaks">\n<div class="textcenter">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n</div>\n<div class="grid-container-3-special">\n<div class="textleft"><span class="question">' + entry_data[i].Data.label_1 + '</span>\n</div>\n<div class="textcenter">\n';
 							start= parseInt(entry_data[i].Data.value_1);
 							step= parseInt(entry_data[i].Data.value_3);
 							end= parseInt(entry_data[i].Data.value_2);
@@ -206,7 +206,7 @@
 							else if (entry_data[i].Data.five_options == '4') { num_boxes = "6"; width = "width_input_6"; }
 							var box_num = parseInt(num_boxes)
 							if (box_num != undefined) {
-								form_html += '<div class="formgroup">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-input-' + num_boxes + '">\n';
+								form_html += '<div class="formgroup zoom">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-input-' + num_boxes + '">\n';
 								for (var k = 0; k < box_num; k++) {
 									form_html += '<div>\n<label>\n<span id=input_label_' + k + '@@ID class="question"> '+entry_data[i].Data.items_a[k].input_5_a+'</span>\n<input type=number id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" '+entry_data[i].Data.req+' placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" min="'+entry_data[i].Data.items_a[k].input_6_a+'" max="'+entry_data[i].Data.items_a[k].input_7_a+'" step="'+entry_data[i].Data.items_a[k].input_8_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+' "/>\n</label>\n</div>\n';
 									id_name.push(entry_data[i].Data.items_a[k].input_3_a);
@@ -225,7 +225,7 @@
 							else if (entry_data[i].Data.five_options == '4') { num_boxes = "6"; width = "width_input_6"; }
 							var box_num = parseInt(num_boxes)
 							if (box_num != undefined) {
-								form_html += '<div class="formgroup">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-input-' + num_boxes + '">\n';
+								form_html += '<div class="formgroup zoom">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-input-' + num_boxes + '">\n';
 								for (var k = 0; k < box_num; k++) {
 									form_html += '<div>\n<label><span id=input_label_' + k + '@@ID class="question">'+entry_data[i].Data.items_a[k].input_5_a+'</span>\n<input type='+entry_data[i].Data.items_a[k].five_options_a+' id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" '+entry_data[i].Data.req+' placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+'" />\n</label>\n</div>\n';
 								}
@@ -244,7 +244,7 @@
 							else if (entry_data[i].Data.five_options == '4') { box_num = "7"; width = "width_input_7"; }
 							box_num = parseInt(box_num)
 							if (box_num != undefined) {
-								form_html += '<div class="formgroup">\n<div class="questiongroup ">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-' + box_num + '">\n';
+								form_html += '<div class="formgroup zoom">\n<div class="questiongroup ">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-' + box_num + '">\n';
 								for (var k = 0; k < box_num; k++) {
 									form_html += '<div >\n<input id="'+entry_data[i].Data.db_name+'_'+k+'@@ID" name="'+entry_data[i].Data.db_name+'" type="radio" value="'+entry_data[i].Data.items_a[k].input_4_a+'"';
 									if(k==0) form_html +=' '+entry_data[i].Data.req+' >\n';
@@ -275,7 +275,7 @@
 							else if (entry_data[i].Data.five_options == '1') {width = "width_btn_130";}
 							else if (entry_data[i].Data.five_options == '2') {width = "width_btn_250";}
 							else if (entry_data[i].Data.five_options == '3') {width = "width_btn_full"; }
-								form_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n';
+								form_html += '<div class="formgroup zoom">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n';
 								for (var k = 0; k < entry_data[i].Data.items_a.length; k++) {
 									form_html += '<input id="'+entry_data[i].Data.db_name+'_'+k+'@@ID" name="'+entry_data[i].Data.db_name+'" type="radio" value="'+entry_data[i].Data.items_a[k].input_4_a+'"';
 									if(k==0) form_html +=' '+entry_data[i].Data.req+' >\n';
@@ -305,7 +305,7 @@
 							else if (entry_data[i].Data.five_options == '2') {width = "width_btn_250";}
 							else if (entry_data[i].Data.five_options == '3') {width = "width_btn_full"; }
 
-							form_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n';
+							form_html += '<div class="formgroup zoom">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n';
 							for (var k = 0; k < entry_data[i].Data.items_a.length; k++) {
 								form_html += '<input id="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID" type="checkbox" value="'+entry_data[i].Data.items_a[k].input_4_a+'" name="'+entry_data[i].Data.items_a[k].input_3_a+'">\n';
 								form_html +='<label id="'+entry_data[i].Data.input_3+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID"><span class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>'+entry_data[i].Data.items_a[k].input_5_a+'</label><br>\n';
@@ -339,7 +339,7 @@
 							break;
 						case 'Dropdown List':
 							id_name.push(entry_data[i].Data.db_name);
-							form_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<select id="' + entry_data[i].Data.db_name + '@@ID" name="' + entry_data[i].Data.db_name + '" '+entry_data[i].Data.req+' class="formcontrol" >\n';
+							form_html += '<div class="formgroup zoom">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<select id="' + entry_data[i].Data.db_name + '@@ID" name="' + entry_data[i].Data.db_name + '" '+entry_data[i].Data.req+' class="formcontrol" >\n';
 							for (var k= 0; k < entry_data[i].Data.items_a.length; k++) {
 								form_html += '<option value='+entry_data[i].Data.items_a[k].input_4_a+' >'+entry_data[i].Data.items_a[k].input_5_a+'</option>';
 							}
@@ -365,7 +365,7 @@
 						case 'Textarea':
 							var specified_width="";
 							if (entry_data[i].Data.input_9 == '1') specified_width = " fullwidth";
-							form_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<label>\n<span class="question">' + entry_data[i].Data.input_5 + '</span>\n<textarea class="formcontrol '+ specified_width +'" name="'+entry_data[i].Data.db_name+'" placeholder="'+entry_data[i].Data.label_1+'" '+entry_data[i].Data.req+' ></textarea>\n</label>\n</fieldset>\n</div>\n</div>\n';
+							form_html += '<div class="formgroup zoom">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<label>\n<span class="question">' + entry_data[i].Data.input_5 + '</span>\n<textarea class="formcontrol '+ specified_width +'" name="'+entry_data[i].Data.db_name+'" placeholder="'+entry_data[i].Data.label_1+'" '+entry_data[i].Data.req+' ></textarea>\n</label>\n</fieldset>\n</div>\n</div>\n';
 							if(entry_data[i].Data.hide_type=='end') form_html += "</div>\n";
 							break;
 						case 'Calculation':
