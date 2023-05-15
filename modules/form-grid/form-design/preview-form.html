@@ -153,7 +153,7 @@
 							if(entry_data[i].Data.hide_type=='end') form_html += "</div>\n";
 							break;
 						case 'Single text input':
-							if (entry_data[i].Data.input_9 == '1') specified_width = " fullwidth";
+							if (entry_data[i].Data.two_options == '1') specified_width = " fullwidth";
 							if (entry_data[i].Data.five_options == '0') input_style = "text";
                         	else if (entry_data[i].Data.five_options == '1') {
 								input_style = "number";
@@ -197,8 +197,8 @@
 						case 'Multiple horizontal number inputs':
 							var width = ""
 							var num_boxes=""
-							if ($('#F__ID input[name=input_9]:checked').val() == '1') input_9 = " fullwidth";
-							else input_9 = "";
+							if ($('#F__ID input[name=two_options]:checked').val() == '1') two_options = " fullwidth";
+							else two_options = "";
 							if (entry_data[i].Data.five_options == '0') num_boxes = "2";
 							else if (entry_data[i].Data.five_options == '1') num_boxes = "3"
 							else if (entry_data[i].Data.five_options == '2') { num_boxes = "4"; width = "width_input_4"; }
@@ -364,8 +364,8 @@
 							break;
 						case 'Textarea':
 							var specified_width="";
-							if (entry_data[i].Data.input_9 == '1') specified_width = " fullwidth";
-							form_html += '<div class="formgroup zoom">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<label>\n<span class="question">' + entry_data[i].Data.input_5 + '</span>\n<textarea class="formcontrol '+ specified_width +'" name="'+entry_data[i].Data.db_name+'" placeholder="'+entry_data[i].Data.label_1+'" '+entry_data[i].Data.req+' ></textarea>\n</label>\n</fieldset>\n</div>\n</div>\n';
+							if (entry_data[i].Data.two_options == '1') specified_width = " fullwidth";
+							form_html += '<div class="formgroup zoom">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<label>\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n<textarea class="formcontrol '+ specified_width +'" name="'+entry_data[i].Data.db_name+'" placeholder="'+entry_data[i].Data.label_1+'" '+entry_data[i].Data.req+' ></textarea>\n</label>\n</fieldset>\n</div>\n</div>\n';
 							if(entry_data[i].Data.hide_type=='end') form_html += "</div>\n";
 							break;
 						case 'Calculation':
