@@ -57,7 +57,7 @@
 			}
 			//-----------------------------
 			$('#form__ID').on('click',function(){
-				script_before_submit_end='data.'+var_before_submit_db_name+'=(total.toFixed('+var_before_submit_decimal+'));\nreturn before_submit(data,index);\n}'
+				if(var_before_submit_db_name!="") script_before_submit_end='data.'+var_before_submit_db_name+'=(total.toFixed('+var_before_submit_decimal+'));\nreturn before_submit(data,index);\n}'
 				html_content="<div id=D@@ID>\n<div class=\"container mt-95\">\n<div class=\"formbox\">\n<form id=\"F@@ID\">\n<span id=title@@ID></span>\n<div id=\"participant_div@@ID\">\n<div class=\"formgroup\">\n<fieldset class=\"dynbreaks\">\n<label><span class=\"question\">Participant</span>\n<input type=text name=\"Participant\" class=formcontrol id=Participant@@ID data-id=\"Participant\" />\n</label><br>\n<label><span class=\"question\">Participant ID</span>\n<input type=text name=\"Participant_uid\" class=formcontrol readonly />\n</label>\n</fieldset>\n</div>\n</div>\n"
 				html_content+=form_html;
 				html_content+="<div class=\"formgroup right\">\n  <button type=\"submit\" id=\"submit__ID\" class=\"submit_btn\">Submit</button>\n</div>\n</form>\n</div>\n</div>\n"	
@@ -117,6 +117,8 @@
 			//-----------------------------
 			create_form=function (entry_data){
 				form_html = "";
+				script_load="";
+				script_other="";
 				for (var i=0;i<entry_data.length;i++){
 					var specified_width="";
 					var input_style="";
