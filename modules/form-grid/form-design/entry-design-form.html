@@ -48,7 +48,7 @@
                                 <div class="grid-container-3">
                                     <div id=db_name__ID>
                                         <label><span id="label_db_name__ID" class="question"></span></label><input id=db_name_id__ID type=text
-                                            name="db_name" class="formcontrol" />
+                                            name="db_name" class="formcontrol" required />
                                     </div>
                                     <div id=label_1__ID>
                                         <label><span id="label_label_1__ID" class="question"></span></label><input id=label_1_id__ID type=text
@@ -930,6 +930,8 @@
                 $('#instruction_text__ID').hide();
                 $('#db_name_5__ID').hide();
                 $('#db_name__ID').hide();
+                $('#db_name_id__ID').removeAttr('required');
+                //$('#db_name_id__ID').prop('required','true');
                 $('#label_1__ID').hide();
                 $('#label_2__ID').hide();
                 $('#value_1_8__ID').hide();
@@ -938,10 +940,13 @@
                 $('#value_3__ID').hide();
                 $('#two_options_10__ID').hide();
                 $('#two_options__ID').hide();
+                $('#two_options_1__ID').removeAttr('required');
                 $('#five_options__ID').hide();
+                $('#five_options_1__ID').removeAttr('required');
                 $('#input_11__ID').hide();
                 $('#req_g__ID').hide();
                 $('#req__ID').hide();
+                $('#req_1__ID').removeAttr('required');
                 $('#specify__ID').hide();
                 var txt_layout = "";
                 var input_layout = "";
@@ -1001,6 +1006,7 @@
                         $('#main_label__ID').show()
                         $('#db_name_5__ID').show()
                         $('#db_name__ID').show()
+                        $('#db_name_id__ID').prop('required','true');
                         $('#label_1__ID').show()
                         $('#label_2__ID').show()
                         $('#value_1_8__ID').show()
@@ -1008,6 +1014,7 @@
                         $('#value_2__ID').show()
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#req_1__ID').prop('required','true');
                         $('#specify__ID').show();
                         $('#label_main_label__ID').html('Label text')
                         $('#label_db_name__ID').html('Database name')
@@ -1048,13 +1055,17 @@
                         $('#main_label__ID').show()
                         $('#db_name_5__ID').show()
                         $('#db_name__ID').show()
+                        $('#db_name_id__ID').prop('required','true');
                         $('#label_1__ID').show()
                         $('#label_2__ID').show()
                         $('#two_options_10__ID').show()
                         $('#two_options__ID').show();
+                        $('#two_options_1__ID').prop('required','true');
                         $('#five_options__ID').show();
+                        $('#five_options_1__ID').prop('required','true');
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#req_1__ID').prop('required','true');
                         $('#two_options_1_label__ID').text('Narrow')
                         $('#two_options_2_label__ID').text('Wide')
                         $('#five_options_1_label__ID').text('Text')
@@ -1082,12 +1093,15 @@
                         $('#main_label__ID').show();
                         $('#db_name_5__ID').show();
                         $('#db_name__ID').show();
+                        $('#db_name_id__ID').prop('required','true');
                         $('#label_1__ID').show();
                         $('#label_2__ID').show();
                         $('#two_options_10__ID').show()
                         $('#two_options__ID').show();
+                        $('#two_options_1__ID').prop('required','true');
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#req_1__ID').prop('required','true');
                         $('#label_main_label__ID').html('Text at the top centre');
                         $('#label_db_name__ID').html('Database name');
                         $('#label_label_1__ID').html('Left side text');
@@ -1117,6 +1131,7 @@
                         $('#main_label__ID').show();
                         $('#db_name_5__ID').show();
                         $('#db_name__ID').show();
+                        $('#db_name_id__ID').prop('required','true');
                         $('#label_1__ID').show();
                         $('#label_2__ID').show();
                         $('#value_1_8__ID').show();
@@ -1125,6 +1140,7 @@
                         $('#value_3__ID').show();
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#req_1__ID').prop('required','true');
                         $('#label_main_label__ID').html('Text at the top centre');
                         $('#label_db_name__ID').html('Database name');
                         $('#label_label_1__ID').html('Left side text');
@@ -1159,9 +1175,11 @@
                         $('#main_label__ID').show()
                         $('#two_options_10__ID').show()
                         $('#five_options__ID').show()
+                        $('#five_options_1__ID').prop('required','true');
                         $('#input_11__ID').show()
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#req_1__ID').prop('required','true');
                         $('#input_11_text__ID').text("Add one line per input box");
                         $('#five_options_1_label__ID').text('2')
                         $('#five_options_2_label__ID').text('3')
@@ -1195,9 +1213,11 @@
                         $('#main_label__ID').show()
                         $('#two_options_10__ID').show()
                         $('#five_options__ID').show()
+                        $('#five_options_1__ID').prop('required','true');
                         $('#input_11__ID').show();
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#req_1__ID').prop('required','true');
                         $('#input_11_text__ID').text("Add one line per input box");
                         $('#five_options_1_label__ID').text('2')
                         $('#five_options_2_label__ID').text('3')
@@ -1236,12 +1256,15 @@
                         $('#main_label__ID').show();
                         $('#db_name_5__ID').show();
                         $('#db_name__ID').show();
+                        $('#db_name_id__ID').prop('required','true');
                         $('#two_options_10__ID').show();
                         $('#five_options__ID').show();
+                        $('#five_options_1__ID').prop('required','true');
                         $('#input_11__ID').show();
                         $('#req_g__ID').show();
                         $('#req__ID').show();
                         $('#specify__ID').show();
+                        $('#req_1__ID').prop('required','true');
                         $('#input_11_text__ID').text("Add one line per button");
                         $('#five_options_1_label__ID').text('3')
                         $('#five_options_2_label__ID').text('4')
@@ -1276,12 +1299,15 @@
                         $('#main_label__ID').show();
                         $('#db_name_5__ID').show();
                         $('#db_name__ID').show();
+                        $('#db_name_id__ID').prop('required','true');
                         $('#two_options_10__ID').show();
                         $('#five_options__ID').show();
+                        $('#five_options_1__ID').prop('required','true');
                         $('#input_11__ID').show();
                         $('#req_g__ID').show();
                         $('#req__ID').show();
                         $('#specify__ID').show();
+                        $('#req_1__ID').prop('required','true');
                         $('#input_11_text__ID').text("Add one line per button");
                         $('#five_options_1_label__ID').text('As button Text')
                         $('#five_options_2_label__ID').text('Short')
@@ -1314,6 +1340,7 @@
                         $('#main_label__ID').show();
                         $('#two_options_10__ID').show();
                         $('#five_options__ID').show();
+                        $('#five_options_1__ID').prop('required','true');
                         $('#input_11__ID').show();
                         $('#specify__ID').show();
                         $('#input_11_text__ID').text("Add one line per checkbox");
@@ -1342,10 +1369,12 @@
                         $('#main_label__ID').show();
                         $('#db_name_5__ID').show();
                         $('#db_name__ID').show();
+                        $('#db_name_id__ID').prop('required','true');
                         $('#two_options_10__ID').show();
                         $('#input_11__ID').show();
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#req_1__ID').prop('required','true');
                         $('#specify__ID').show();
                         $('#label_main_label__ID').html('Main label text')
                         $('#label_db_name__ID').html('Database name')
@@ -1363,6 +1392,7 @@
                         $('#main_label__ID').show();
                         $('#db_name_5__ID').show();
                         $('#db_name__ID').show();
+                        $('#db_name_id__ID').prop('required','true');
                         $('#label_1__ID').show();
                         $('#label_2__ID').show();range
                         $('#two_options_10__ID').show();
@@ -1370,8 +1400,10 @@
                         $('#two_options_2_label__ID').text('Wide')
                         $('#label_two_options__ID').html('Box length')
                         $('#two_options__ID').show();
+                        $('#two_options_1__ID').prop('required','true');
                         $('#req_g__ID').show();
                         $('#req__ID').show();
+                        $('#req_1__ID').prop('required','true');
                         $('#label_main_label__ID').html('Main label text')
                         $('#label_db_name__ID').html('Database name')
                         $('#label_label_1__ID').html('Text inside input box')
@@ -1385,6 +1417,7 @@
                         $('#main_label__ID').show();
                         $('#db_name_5__ID').show();
                         $('#db_name__ID').show();
+                        $('#db_name_id__ID').prop('required','true');
                         $('#label_1__ID').show();
                         $('#label_main_label__ID').html('Formula with new database name to the left of the equal sign. All variables to the right of the equal sign must exist as a database name in this form. Put a quare bracket around the database name. Allowed calculation characters:<br> + (add), - (subtract), * (multiply), / (divide), % (modulus), ( ) (parentheses)')
                         document.getElementById('main_label_id__ID').setAttribute("placeholder", "Example: ESS=[ESS1]+[ESS2]+[ESS3]+[ESS4]+[ESS5]+[ESS6]+[ESS7]+[ESS8]");
