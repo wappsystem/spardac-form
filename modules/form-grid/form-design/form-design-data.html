@@ -9,7 +9,7 @@
             //-------------------------------------
             $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name);            
             //-------------------------------------
-            var fields="_Form_ID,Name,_Design,_Order,_Preview_Download";
+            var fields="_Form_ID,form_type,Name,_Design,_Order,_Preview_Download";
             m.fields="_Form,"+fields+",Submit_date,Submitted_by,_Delete";
             //-------------------------------------
             m.cell_render=function(records,I,field,td,set_value,source){

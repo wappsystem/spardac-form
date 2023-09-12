@@ -215,18 +215,35 @@ padding:10px
   #D__ID input[type="radio"],
   #D__ID input[type="checkbox"] {
     opacity: 0;
-    position: relative;
-    left: 40px;
-
+    position: fixed;
   }
 
+  #D__ID .rd_btn_wide {
+    padding: 10px 10px;
+    background-color: #ddd;
+    border: thin solid #b1b1b1;
+    border-radius: 10px;
+    margin: 5px 10px;
+    display: inline-block;
+  }
   #D__ID .rd_btn {
-    padding: 0 5px;
+    padding: 10px 10px;
     background-color: #ddd;
     border: thin solid #b1b1b1;
     border-radius: 10px;
     margin: 5px 0;
     display: inline-block;
+  }
+  #D__ID .rd_btn_two_rows {
+    height:40px;
+  }
+
+  #D__ID .rd_btn_three_rows {
+    height:60px;
+  }
+
+  #D__ID .rd_btn_four_rows {
+    height:80px;
   }
 
   #D__ID .width_btn_250 {
@@ -235,6 +252,9 @@ padding:10px
 
   #D__ID .width_88 {
     width: 88%;
+  }
+  #D__ID .width_80 {
+    width: 80%;
   }
   #D__ID .width_65 {
     width: 65%;
