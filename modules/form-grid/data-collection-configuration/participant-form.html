@@ -1,0 +1,120 @@
+<div id=D__ID>
+    <!--third html start -->
+    <div class="container mt-95">
+        <!-- form container start -->
+        <div class="formbox">
+            <!-- form start -->
+            <form id="F__ID">
+                <span id=title__ID></span>
+                <!-- participant name and study id -->
+                <div id="form_div__ID">
+                    <div class="formgroup">
+                        <fieldset class="grid-container-2">
+                            <div>
+                                <label><span class="question">Form Name</span>
+                                    <input type=text name="Name" class=formcontrol readonly />
+                                </label>
+                            </div>
+                            <div>
+                                <label><span class="question">Form ID</span>
+                                    <input type=text name="Form_uid" class=formcontrol readonly />
+                                </label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="gap"></div>
+                <div id="pre_view__ID">
+                    <span class="formgroup main-label">Pre-view entry <span id="question__ID"></span></span>
+                    <div id="question_layout__ID" class="border-darkgreen">
+                        <section class=panel >
+                            <div class="">
+                                <span class='nav_head'>Participants</span>
+                                <ul>
+                                    <li title="Add new. Paricipant."><a class=nav_a href=?/form-design-data>Participants</a></li>
+                                    <!--<li title="Manage form-design - status."><a href=?/status-osa-clean-data>Questionnaire status</a></li>-->
+                                </ul>
+                                <!--                <span>Site List</span>
+                                <ul>
+                                    <li title="We can accomodate any type of randomisation."><a href=?/site-data>Site List</a></li>
+                                </ul>
+                            -->
+                                <div class=ul-show>
+                                    <span class="nav_head">Randomisation Table</span>
+                                    <ul>
+                                        <li><a class=nav_a href=?/randomisation-table>Randomisation List</a></li>
+                                        <p class="small font-italic text-muted mt-1"></p>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="nav_head">Withdrawal</span>
+                                    <ul>
+                                        <li><a class=nav_a href=?/pre-withdrawal-data>Pre Study withdrawal </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>            
+                    </div>
+                </div>
+                <div id="setup__ID">
+                    <div class="gap"></div>
+                    <span class="formgroup main-label">Setup section</span>
+                    <div id="question_input__ID">
+                        <fieldset class="border-green">
+                            <div class="formgroup zoom">
+                                <div class="grid-container-1">
+                                    <div id=form_type__ID>
+                                        <label><span id="label_form_type__ID" class="question">Type of forms</span></label>
+                                        <input id="form_type_1__ID" name="form_type" type="radio" value="Participant">
+                                        <label id="form_type_1_label__ID" class="rd_btn_wide" for="form_type_1__ID">Participant</label>
+                                        <input id="form_type_2__ID" name="form_type" type="radio" value="Randomisation">
+                                        <label id="form_type_2_label__ID" class="rd_btn_wide" for="form_type_2__ID">Randomisation</label>
+                                        <input id="form_type_3__ID" name="form_type" type="radio" value="Other">
+                                        <label id="form_type_3_label__ID" class="rd_btn_wide" for="form_type_3__ID">Other</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id=main_label__ID class="formgroup zoom">
+                                <div class="grid-container-1">
+                                    <div><label><span id="label_main_label__ID" class="question">Main Label</span></label><input id="main_label_id__ID"
+                                            type=text name="main_label" placeholder="" class="formcontrol fullwidth" /></div>
+                                </div>
+                            </div>
+                            <div id=label__ID class="formgroup zoom">
+                                <div class="grid-container-1">
+                                    <div><label><span id="label_label__ID" class="question">Label</span></label><input id="label_id__ID"
+                                            type=text name="label" placeholder="" class="formcontrol fullwidth" /></div>
+                                </div>
+                            </div>
+                            <div class="formgroup zoom right">
+                                <button type="submit" id="submit__ID" class="btn">Submit</button>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+			</form>
+		</div>
+	</div>
+	<script>
+		function F__ID() {
+			//-------------------------------------
+			VmInclude: '__HOST__/assets/js/form.01.js'
+			//-------------------------------------
+			var load = m.load;
+			m.load = function () {
+				load();
+				console.log(JSON.stringify(m.input.record.UID))
+			}
+			//-------------------------------------
+			m.before_submit = function (data, index) {
+			}
+			//-------------------------------------
+		}
+	</script>
+	<style>
+		#D__ID {
+		}
+
+		/*VmInclude:__HOST__/assets/css/wapp-form.css*/
+	</style>
+</div>

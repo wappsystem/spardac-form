@@ -9,7 +9,7 @@
             //-------------------------------------
             $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name);            
             //-------------------------------------
-            var fields="_Form_ID,form_type,Name,_Design,_Sequence,_Preview_Download";
+            var fields="_Form_ID,Study Name|Name,study_type,_Design,_Sequence,_Preview_Download";
             m.fields="_Form,"+fields+",Submit_date,Submitted_by,_Delete";
             //-------------------------------------
             m.cell_render=function(records,I,field,td,set_value,source){
@@ -20,19 +20,20 @@
                     case '_Design':
                         td.html("<u style='cursor:pointer'>Design</u>");
                         td.find('u').on('click',function(){
-    						$vm.load_module(m.design_panel,'',{record:records[I]});
+                            console.log(m);
+    						$vm.load_module(m.participant_entry_panel,'',{record:records[I]});
                         });
                         break;
                     case '_Preview_Download':
                         td.html("<u style='cursor:pointer'>Preview/Download</u>");
                         td.find('u').on('click',function(){
-    						$vm.load_module(m.preview,'',{record:records[I]});
+    						$vm.load_module(m.participant_preview,'',{record:records[I]});
                         });
                         break;
                     case '_Sequence':
                         td.html("<u style='cursor:pointer'>Sequencing</u>");
                         td.find('u').on('click',function(){
-    						$vm.load_module(m.sequence_panel,'',{record:records[I]});
+    						$vm.load_module(m.participant_sequence_panel,'',{record:records[I]});
                         });
                         break;
                     case '_Gridview':

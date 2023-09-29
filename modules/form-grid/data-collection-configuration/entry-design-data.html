@@ -1,0 +1,38 @@
+
+<section>
+    VmInclude:__HOST__/assets/html/grid.01.html
+</section>
+<script>
+    function F__ID(){
+        //-------------------------------------
+        VmInclude:__HOST__/assets/js/grid.01.js
+        //-------------------------------------
+        //-------------------------------------
+        var fields="Form_uid,layout,main_label,db_name,instruction_text,label_1,label_2,value_1,value_2,value_3,two_options,five_options,specify_1,specify_2,specify_3,hide_type,start_hide_value,start_hide_equal";
+        m.fields="_Form,_Duplicate,UID,Order|I1,"+fields+",Submit_date,Submitted_by,_Delete"
+        //-------------------------------------
+        m.load=function(){
+            $('#nav_title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name+' - '+m.input.record.Data.Name);
+            console.log(JSON.stringify(m.input))
+            var form_id=m.input.record.UID;
+            m.query={"Data.Form_uid": {"$eq" : form_id.toString()}}
+            m.sort={"I1": 1}
+                
+        }
+        var cell_render=m.cell_render;
+        m.cell_render=function(records,I,field,td){
+            switch(field){
+                case 'instruction_text':
+                    if(records[I].Data[field]!=undefined){
+                        if((records[I].Data[field]).length>0) td.html((records[I].Data[field]).substring(0,20)+"..");
+                    }
+                    break;
+            }
+        }
+        //-------------------------------------
+
+    }
+</script>
+<style>
+    /*VmInclude:__HOST__/assets/css/grid.css*/
+</style>

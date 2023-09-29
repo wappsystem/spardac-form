@@ -97,6 +97,20 @@ padding:10px
     display:none;
   }
 
+  #D__ID .panel{
+    font-family:'Roboto Slab';
+    font-size: 16px;
+    padding-left: 20px;
+    padding-top: 20px;
+  }
+  #D__ID .nav_head{
+    font-weight: bold;
+  }
+  #D__ID .nav_a{
+    text-decoration: none;
+    color: #000;
+  }
+
   #D__ID .formgroup {
     padding: 3px 15px;
     display: block;
@@ -208,6 +222,10 @@ padding:10px
     display: grid;
     grid-template-columns: 75% 25%;
   }
+  #D__ID .grid-container-2-25-75 {
+    display: grid;
+    grid-template-columns: 25% 75%;
+  }
   #D__ID .grid-container-1 {
     display: grid;
     grid-template-columns: auto;
@@ -233,6 +251,7 @@ padding:10px
     border-radius: 10px;
     margin: 5px 0;
     display: inline-block;
+    cursor: pointer;
   }
   #D__ID .rd_btn_two_rows {
     height:40px;
@@ -320,7 +339,7 @@ padding:10px
   }
 
   #D__ID .question {
-    /*font-weight: bold;*/
+    font-weight: bold;
     font-size: 16px;
   }
 

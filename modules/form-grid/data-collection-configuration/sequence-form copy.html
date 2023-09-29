@@ -1,0 +1,270 @@
+<div id=D__ID>
+    <!--third html start -->
+    <div class="container mt-95">
+        <!-- form container start -->
+        <div class="formbox">
+            <!-- form start -->
+            <form id="F__ID">
+                <span id=title__ID></span>
+                <!-- participant name and study id -->
+                <div id="form_div__ID">
+                    <div class="formgroup">
+                        <fieldset class="grid-container-2">
+                            <div>
+                                <label><span class="question">Form Name</span>
+                                    <input type=text name="Name" class=formcontrol style="display: inline;" readonly />
+                                </label>
+                                <label><span class="question">Form ID</span>
+                                    <input type=text name="Form_uid" class=formcontrol style="display: inline;" readonly />
+                                </label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="gap"></div>
+                <div class="formgroup right">
+					<button type="submit" id="submit__ID" class="btn">Save current order</button>
+				</div>
+                <div class="gap"></div>
+                <div id="items__ID"></div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function F__ID() {
+            //-------------------------------------
+            VmInclude: '__HOST__/assets/js/form.01.js'
+            var table;
+            var tbody;
+            var entry_data=[];
+            var order=[];
+            m.load=function(){
+                $('#F__ID input[name=Name]').val(m.input.record.Data.Name);
+                $('#F__ID input[name=Form_uid]').val(m.input.record.UID);
+                var form_uid=(m.input.record.UID).toString();
+                //m.query={$and: [{'Data.Participant_uid':{$exists: true}}, {'Data.Participant_uid': {'$ne' : ''}}]}
+                m.query={"Data.Form_uid": {"$eq" : form_uid}};
+                m.sort={'I1':1}
+                jQuery.ajaxSetup({async:false});
+                $vm.request({api:m.api,cmd:'find',table:m.Table,query:m.query,sort:m.sort},function(res){
+                    //console.log(res)
+                    entry_data=res.result
+                    var txt=''
+                    txt+='<table id="table" class="draggable-table"> <thead><th>Order</th><th>Input Heading</th><th>Input layout</thead><tbody>'
+                    var seq=0;
+                    var orderI1;
+                    for (var i=0;i<res.result.length;i++){
+                        orderI1=res.result[i].I1
+                        if (orderI1==undefined){
+                            order.push((seq).toString())
+                        }
+                        else{
+                            order.push(orderI1.toString());
+                        }
+                        seq++;
+                        if(res.result[i].Data.layout!='Calculation'){
+                            txt+='<tr id=row'+i.toString()+'__ID ><td>'+order[i]+'</td><td>'+res.result[i].Data.main_label+'</td><td>'+res.result[i].Data.layout+'</td></tr>';
+                        }
+                    }
+                    txt+='</tbody></table>'
+                    $('#items__ID').html(txt)
+                })
+                //console.log(JSON.stringify(entry_data));
+                //table = $('#table');
+                table=document.getElementById('table')
+                //console.log(table)
+                tbody = table.querySelector('tbody');
+                jQuery.ajaxSetup({async:true});
+                init();
+            }
+            //-------------------------------
+            m.submit=function(event){
+            //--------------------------------------------------------
+                event.preventDefault();
+                $('#submit__ID').hide();
+                console.log(JSON.stringify(entry_data));
+                var rows = getRows();
+                for(var i = 0; i < rows.length; i++) {
+                    let rowElem = rows[i];
+                    var data=entry_data[i].Data;
+                    var id=entry_data[i]._id;
+                    var index={};
+                    var update=false;
+                    var exitOrder=$(rowElem).closest('tr').find("td:eq(0)").text()
+                    if(entry_data[i].I1==undefined){
+                        index.I1=parseInt(exitOrder);
+                        update=true;
+                    }
+                    else{
+                        if(order[i]!=exitOrder) {
+                            index.I1=parseInt(exitOrder);
+                            update=true;
+                        }
+                    }
+                    if(update){
+                        $vm.request({cmd:"update",id:id,table:m.Table,data:data,index:index},function(res){
+                            //-----------------------------
+                            if(res.status=="lk"){
+                                $vm.alert("This record is locked.");
+                                return;
+                            }
+                            //-----------------------------
+                            if(res.status=="np"){
+                                alert("No permission to update this record.");
+                                return;
+                            }
+                        });
+
+                    }
+                    console.log(data);
+                    console.log(index);
+                    console.log(m.Table);
+                    console.log(order[i]);
+                    console.log($(rowElem).closest('tr').find("td:eq(0)").text());
+                }    
+            }
+            //---------------------
+            var noExtraRows=false;
+            var currRow = null,
+                dragElem = null,
+                mouseDownX = 0,
+                mouseDownY = 0,         
+                mouseX = 0,
+                mouseY = 0,      
+                mouseDrag = false;  
+                //--------------------
+                var init=function() {
+                    console.log("INIT");
+                    bindMouse();
+                }
+                //--------------------
+                var bindMouse=function(){
+                    document.addEventListener('mousedown', (event) => {
+                        if(event.button != 0) return true;
+                        
+                        let target = getTargetRow(event.target);
+                        //console.log(target)
+                        if(target) {
+                            if(noExtraRows) return true;
+                            currRow = target;
+                            addDraggableRow(target);
+                            currRow.classList.add('is-dragging');
+
+                            let coords = getMouseCoords(event);
+                            mouseDownX = coords.x;
+                            mouseDownY = coords.y;
+                            ///console.log(mouseDownX+' | '+mouseDownY);
+                            mouseDrag = true;   
+                        }
+                    });
+                    document.addEventListener('mousemove', (event) => {
+                        if(!mouseDrag) return;
+                        
+                        let coords = getMouseCoords(event);
+                        mouseX = coords.x - mouseDownX;
+                        mouseY = coords.y - mouseDownY;
+                        if(mouseX<0) mouseX=0;
+                        //if(mouseY<0) mouseY=0;
+
+                        
+                        moveRow(mouseX, mouseY);
+                        //console.log(mouseX+' - '+mouseY);
+                    });
+                        
+                    document.addEventListener('mouseup', (event) => {
+                        if(!mouseDrag) return;
+                        
+                        currRow.classList.remove('is-dragging');
+                        table.removeChild(dragElem);
+                        
+                        dragElem = null;
+                        mouseDrag = false;
+                        noExtraRows=false;
+                    });    
+                }
+                //--------------------
+                var swapRow=function(row, index) {
+                    console.log("row: "+JSON.stringify(row)+" - "+index)
+                    let currIndex = Array.from(tbody.children).indexOf(currRow),
+                    row1 = currIndex > index ? currRow : row,
+                    row2 = currIndex > index ? row : currRow;
+                    tbody.insertBefore(row1, row2);
+                }
+                //--------------------
+                var  moveRow=function(x, y) {
+                    dragElem.style.transform = "translate3d(" + x + "px, " + y + "px, 0)";                    
+                    let	dPos = dragElem.getBoundingClientRect(),
+                        currStartY = dPos.y, currEndY = currStartY + dPos.height,
+                        rows = getRows();
+                    for(var i = 0; i < rows.length; i++) {
+                        let rowElem = rows[i],
+                            rowSize = rowElem.getBoundingClientRect(),
+                            rowStartY = rowSize.y, rowEndY = rowStartY + rowSize.height;
+                        if(currRow !== rowElem && isIntersecting(currStartY, currEndY, rowStartY, rowEndY)) {
+                        if(Math.abs(currStartY - rowStartY) < rowSize.height / 2)
+                            swapRow(rowElem, i);
+                        }
+                    }    
+                }
+                //--------------------
+                var addDraggableRow=function(target) { 
+                    console.log("Add Row"); 
+                    noExtraRows=true;  
+                    dragElem = target.cloneNode(true);
+                    dragElem.classList.add('draggable-table__drag');
+                    dragElem.style.height = getStyle(target, 'height');
+                    dragElem.style.background = getStyle(target, 'backgroundColor');     
+                    for(var i = 0; i < target.children.length; i++) {
+                        let oldTD = target.children[i],
+                            newTD = dragElem.children[i];
+                        newTD.style.width = getStyle(oldTD, 'width');
+                        newTD.style.height = getStyle(oldTD, 'height');
+                        newTD.style.padding = getStyle(oldTD, 'padding');
+                        newTD.style.margin = getStyle(oldTD, 'margin');
+                    }      
+                    table.appendChild(dragElem);
+                    let tPos = target.getBoundingClientRect(),
+                        dPos = dragElem.getBoundingClientRect();
+                    dragElem.style.bottom = ((dPos.y - tPos.y) - tPos.height) + "px";
+                    dragElem.style.left = "-1px";    
+                    document.dispatchEvent(new MouseEvent('mousemove',
+                        { view: window, cancelable: true, bubbles: true }
+                    ));    
+                }  
+                //--------------------
+                var getRows=function() {
+                    return table.querySelectorAll('tbody tr');
+                }    
+                //--------------------                
+                var getTargetRow=function(target) {
+                    let elemName = target.tagName.toLowerCase();
+                    if(elemName == 'tr') return target;
+                    if(elemName == 'td') return target.closest('tr');     
+                }
+                //--------------------
+                var getMouseCoords=function(event) {
+                    return {
+                        x: event.clientX,
+                        y: event.clientY
+                    };    
+                }  
+                //--------------------
+                var getStyle=function(target, styleName) {
+                    let compStyle = getComputedStyle(target),
+                        style = compStyle[styleName];
+
+                    return style ? style : null;
+                }  
+                //--------------------
+                var isIntersecting=function(min0, max0, min1, max1) {
+                    return Math.max(min0, max0) >= Math.min(min1, max1) &&
+                            Math.min(min0, max0) <= Math.max(min1, max1);
+                }            
+            }
+    </script>
+    <style>
+        /*VmInclude:__HOST__/assets/css/wapp-form.css*/
+        /*VmInclude:__HOST__/assets/css/drag-table.css*/
+        
+    </style>
+</div>

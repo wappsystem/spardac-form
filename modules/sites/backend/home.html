@@ -1,15 +1,23 @@
 <div id=page__ID>
     <div class='panel__ID'>
-        <h1>Form Design<br></h1>
+        <h1>Clinical Trial Setup</h1>
+        <h3>Under Contruction</h3>
         <p></p>
-        <p>&nbsp;</p>
-        <button type="button" id=test__ID class="btn">Form Design Entry</button>
-        <p>&nbsp;</p>
+        <button type="button" id=pre_screening__ID class="btn" title="Independent Pre-Screening Form">Pre-Screening form</button>
+        <button type="button" id=participant__ID class="btn">Participant form</button>
+        <button type="button" id=randomisation__ID class="btn">Randomisation form</button>
+        <button type="button" id=data_entry__ID class="btn">Data entry - eCRF</button>
+        <button type="button" id=questionnaire__ID class="btn">Questionnaire - eCRF</button>
+        <button type="button" id=data_collection_layout__ID class="btn">Data collection layout</button>
+        </div>
     </div>
     <script>
 		function F__ID(){
-			$('#test__ID').on('click',function(e){
+			$('#data_entry__ID').on('click',function(e){
       		  $vm.load_module('form-design-data',$vm.root_layout_content_slot,{});
+    		})
+			$('#participant__ID').on('click',function(e){
+      		  $vm.load_module('participant-data',$vm.root_layout_content_slot,{});
     		})
 		}
     </script>
@@ -19,9 +27,41 @@
 			animation: vm_module_fadein 1.0s, D__ID 3s;
             text-align: center;
         }
-
         @media screen and (max-width: 768px) {
         }
+        #D__ID .btn{
+            display: block;
+            padding: 10px 10px;
+            margin: 5px;
+            border-radius: 4px;
+            background-color: #167d7f;
+            border: 0;
+            font-size: 15px;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 1px;
+            color: #fff;
+            line-height: 1.2;
+            cursor: pointer;
+            width:250px;
+            text-align: center;
+        }
+        #D__ID .btn.hover,
+        #D__ID .btn:hover {
+            background-color: #29a0b1;
+            color: #fff;
+        }
+        #D__ID .btn.active,
+        #D__ID .btn:active {
+            background-color: #10595a;
+            color: #fff;
+        }
+        #D__ID .btn.disabled,
+        #D__ID .btn:disabled {
+            background-color: rgba(173, 93, 129, 0.2);
+            color: #fff;
+            pointer-events: none;
+        }        
     </style>
 </div>
 

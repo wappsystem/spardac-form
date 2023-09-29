@@ -1,0 +1,478 @@
+<div id=D__ID>
+    <!--third html start -->
+    <div class="container mt-95">
+        <!-- form container start -->
+        <div class="formbox">
+            <!-- form start -->
+            <form id="F__ID">
+                <span id=title__ID></span>
+                <!-- participant name and study id -->
+                <div id="form_div__ID">
+                    <div class="formgroup">
+                        <fieldset class="grid-container-2">
+                            <div>
+                                <label><span class="question">Form Name</span>
+                                    <input type=text name="Name" class=formcontrol style="display: inline;" readonly />
+                                </label>
+                                <label><span class="question">Form ID</span>
+                                    <input type=text name="Form_uid" class=formcontrol style="display: inline;" readonly />
+                                </label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="gap"></div>
+                <div class="formgroup right">
+					<button type="submit" id="submit__ID" class="btn">Save current order</button>
+				</div>
+                <div class="gap"></div>
+                <div id="items__ID"></div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function F__ID() {
+            //-------------------------------------
+            VmInclude: '__HOST__/assets/js/form.01.js'
+            var table;
+            var tbody;
+            var entry_data=[];
+            var order=[];
+            m.load=function(){
+                $('#submit__ID').show();
+                $('#F__ID input[name=Name]').val(m.input.record.Data.Name);
+                $('#F__ID input[name=Form_uid]').val(m.input.record.UID);
+                var form_uid=(m.input.record.UID).toString();
+                //m.query={$and: [{'Data.Participant_uid':{$exists: true}}, {'Data.Participant_uid': {'$ne' : ''}}]}
+                m.query={"Data.Form_uid": {"$eq" : form_uid}};
+                m.sort={'I1':1}
+                jQuery.ajaxSetup({async:false});
+                $vm.request({api:m.api,cmd:'find',table:m.Table,query:m.query,sort:m.sort},function(res){
+                    //console.log(res)
+                    entry_data=res.result
+                    var txt=''
+                    txt+='<table id="table" class="draggable-table">'
+                    var seq=0;
+                    var orderI1;
+                    for (var i=0;i<res.result.length;i++){
+                        orderI1=res.result[i].I1
+                        //console.log("orderI1: "+orderI1)
+                        order.push((seq).toString())
+                        seq++;
+                        if(res.result[i].Data.layout!='Calculation'){
+                            var quest_html=create_quest(entry_data,i);
+                            txt+='<tr id=row'+i.toString()+'__ID ><td style="display:none">'+order[i]+'</td><td style="width:20px">&nbsp;<i  style="cursor:default" class="fa fa-arrows-v"></i></td><td style="cursor:default">'+quest_html+'</td></tr>';
+                        }
+                        else {
+                            txt+='<tr style="display:none" id=row'+i.toString()+'__ID ><td>'+order[i]+'</td><td style="width:20px">&nbsp;<i  style="cursor:default" class="fa fa-arrows-v"></i></td><td style="cursor:default">'+quest_html+'</td></tr>';
+                        }
+                    }
+                    txt+='</tbody></table>'
+                    $('#items__ID').html(txt)
+                })
+                table = document.getElementById('table')
+                tbody = table.querySelector('tbody');
+                jQuery.ajaxSetup({async:true});
+                init();
+            }
+            //-------------------------------
+            var create_quest= function(entry_data,i){ 
+                var quest_html=""
+                var specified_width="";
+                var input_style="";
+                var min = "";
+                var max = "";
+                var step = "";
+                var start="";
+                var end="";
+                switch (entry_data[i].Data.layout) {
+                        case 'Main Header':
+                            quest_html += "<h3 style='margin-left:30px'  >" + entry_data[i].Data.main_label + "</h3>\n";
+                            break;
+                        case 'Instructions':
+                            quest_html += '<div class="formgroup" >\n<fieldset class="">\n<span class="question"><p>' + entry_data[i].Data.main_label + '</p></span>\n<span>' + entry_data[i].Data.instruction_text + '</span>\n</fieldset>\n</div>\n';
+                            break;
+                        case 'Dual radio buttons':
+                            quest_html += '<div class="formgroup" >\n<span class="question"></span>\n<fieldset class="grid-container-1">\n<div class="">\n<label><span class="question">' + entry_data[i].Data.main_label + '</span></label><br>\n<input id="' + entry_data[i].Data.db_name + '_1@@ID" type="radio" value="" >\n<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_1@@ID">' + entry_data[i].Data.label_1 + '</label>\n<input id="' + entry_data[i].Data.db_name + '_2@@ID" type="radio" value="">\n<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_2@@ID">' + entry_data[i].Data.label_2 + '</label>\n';
+                            if(entry_data[i].Data.specify_1!=""){
+                                quest_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input  type="text" class="formcontrol fullwidth">\n</div>\n';
+                            }
+                            quest_html += '</div>\n</fieldset>\n</div>\n';
+                            break;
+                        case 'Single text input':
+                            if (entry_data[i].Data.input_9 == '1') specified_width = " fullwidth";
+                            if (entry_data[i].Data.five_options == '0') input_style = "text";
+                            else if (entry_data[i].Data.five_options == '1') {
+                                input_style = "number";
+                            }
+                            else if (entry_data[i].Data.five_options == '2') input_style = "date";
+                            else if (entry_data[i].Data.five_options == '3') input_style = "time";
+                            quest_html += '<div class="formgroup" >\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-1">\n<div>\n<label>\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n<input id="abcd" type=' + input_style + ' class="formcontrol ' + specified_width + '" placeholder="' + entry_data[i].Data.label_1 + '" />\n</label>\n</div>\n</div>\n</fieldset>\n</div>\n';
+                            break;
+                        case 'Visual Analogue Scale':
+                            quest_html += '<div class="formgroup" >\n<fieldset class="">\n<div class="textcenter">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n</div>\n<div class="grid-container-slider">\n<div class="textleft">\n<span class="question">' + entry_data[i].Data.label_1 + '</span>\n<input type="text" id="' + entry_data[i].Data.db_name + '_req@@ID" style="opacity:0">\n</div>\n<div class="slidecontainer" id=' + entry_data[i].Data.db_name + '_con@@ID>\n<input type="range" min="0" max="' + entry_data[i].Data.range + '" step=' + entry_data[i].Data.vas_step + ' class="slider" id="' + entry_data[i].Data.db_name + '@@ID">\n</div>\n<div class="textright">\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n</div>\n</div>\n</fieldset>\n</div>';
+                            //console.log(script_other)
+                            if(entry_data[i].Data.hide_type=='end') quest_html += "</div>\n";
+                            break;
+                        case 'Digital Scale':
+                            quest_html += '<div class="formgroup">\n<div class="questiongroup ">\n<fieldset class="dynbreaks">\n<div class="textcenter">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n</div>\n<div class="grid-container-3-special">\n<div class="textleft"><span class="question">' + entry_data[i].Data.label_1 + '</span>\n</div>\n<div class="textcenter">\n';
+                            start= parseInt(entry_data[i].Data.value_1);
+                            step= parseInt(entry_data[i].Data.value_3);
+                            end= parseInt(entry_data[i].Data.value_2);
+                            if (start != undefined && end != undefined) {
+                                for (var k = start; k < end + 1; k = k + step) {
+                                    //var kk=k.toString();
+                                    quest_html += '<input id="' + entry_data[i].Data.db_name + '_' + k + '@@ID" type="radio" value="' + k+'"'
+                                    if(k==start) quest_html +=' >\n';
+                                    else quest_html +=' >\n';
+                                    quest_html += '<label class="rd_btn" for="' + entry_data[i].Data.db_name + '_' + k + '@@ID">' + k + '</label><br>\n'
+                                }
+                            }
+                            quest_html += '</div>\n<div class="textright">\n<span class="question">' + entry_data[i].Data.label_2 + '</span>\n</div>\n</div>\n</fieldset>\n</div>\n</div>';
+                            break;
+                        case 'Multiple horizontal number inputs':
+                            var width = ""
+                            var num_boxes=""
+                            input_9 = "";
+                            if (entry_data[i].Data.five_options == '0') num_boxes = "2";
+                            else if (entry_data[i].Data.five_options == '1') num_boxes = "3"
+                            else if (entry_data[i].Data.five_options == '2') { num_boxes = "4"; width = "width_input_4"; }
+                            else if (entry_data[i].Data.five_options == '3') { num_boxes = "5"; width = "width_input_5"; }
+                            else if (entry_data[i].Data.five_options == '4') { num_boxes = "6"; width = "width_input_6"; }
+                            var box_num = parseInt(num_boxes)
+                            if (box_num != undefined) {
+                                quest_html += '<div class="formgroup">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-input-' + num_boxes + '">\n';
+                                for (var k = 0; k < box_num; k++) {
+                                    quest_html += '<div>\n<label>\n<span id=input_label_' + k + '@@ID class="question"> '+entry_data[i].Data.items_a[k].input_5_a+'</span>\n<input type=number id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'" min="'+entry_data[i].Data.items_a[k].input_6_a+'" max="'+entry_data[i].Data.items_a[k].input_7_a+'" step="'+entry_data[i].Data.items_a[k].input_8_a+'" />\n</label>\n</div>\n';
+                                }
+                                quest_html += '</div>\n</fieldset>\n</div>\n';
+                            }
+                            break;
+                        case 'Multiple horizontal inputs':
+                            var width = ""
+                            var num_boxes=""
+                            if (entry_data[i].Data.five_options == '0') num_boxes = "2";
+                            else if (entry_data[i].Data.five_options == '1') num_boxes = "3"
+                            else if (entry_data[i].Data.five_options == '2') { num_boxes = "4"; width = "width_input_4"; }
+                            else if (entry_data[i].Data.five_options == '3') { num_boxes = "5"; width = "width_input_5"; }
+                            else if (entry_data[i].Data.five_options == '4') { num_boxes = "6"; width = "width_input_6"; }
+                            var box_num = parseInt(num_boxes)
+                            if (box_num != undefined) {
+                                quest_html += '<div class="formgroup">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-input-' + num_boxes + '">\n';
+                                for (var k = 0; k < box_num; k++) {
+                                    quest_html += '<div>\n<label><span id=input_label_' + k + '@@ID class="question">'+entry_data[i].Data.items_a[k].input_5_a+'</span>\n<input type='+entry_data[i].Data.items_a[k].five_options_a+' id="input_id_' + (k) + '@@ID" class="formcontrol ' + width + '" placeholder="'+entry_data[i].Data.items_a[k].input_4_a+'"  />\n</label>\n</div>\n';
+                                }
+                                quest_html += '</div>\n</fieldset>\n</div>\n';
+                            }
+                            break;
+                        case 'Horizontal radio buttons':
+                            var width = ""
+                            var box_num="";
+                            if (entry_data[i].Data.five_options == '0') {box_num = "3"; width = "width_db_name";}
+                            else if (entry_data[i].Data.five_options == '1') {box_num = "4"; width = "width_input_4";}
+                            else if (entry_data[i].Data.five_options == '2') { box_num = "5"; width = "width_input_5"; }
+                            else if (entry_data[i].Data.five_options == '3') { box_num = "6"; width = "width_input_6"; }
+                            else if (entry_data[i].Data.five_options == '4') { box_num = "7"; width = "width_input_7"; }
+                            box_num = parseInt(box_num)
+                            if (box_num != undefined) {
+                                quest_html += '<div class="formgroup">\n<div class="questiongroup ">\n<fieldset class="">\n<span class="question">' + entry_data[i].Data.main_label + '</span>\n<div class="grid-container-' + box_num + '">\n';
+                                for (var k = 0; k < box_num; k++) {
+                                    quest_html += '<div >\n<input id="'+entry_data[i].Data.db_name+'_'+k+'@@ID" type="radio" value="'+entry_data[i].Data.items_a[k].input_4_a+'"';
+                                    if(k==0) quest_html +=' >\n';
+                                    else quest_html +=' >\n'
+                                    quest_html +='<label id="'+entry_data[i].Data.db_name+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.db_name+'_'+k+'@@ID">'+entry_data[i].Data.items_a[k].input_5_a+'</label>\n</div>\n';
+                                }
+                                if(entry_data[i].Data.specify_1!=""){
+                                    quest_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input type="text" class="formcontrol fullwidth">\n</div>\n';
+                                }
+                                quest_html += '</div>\n</fieldset>\n</div>\n</div>\n';
+                            }
+                            //m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
+                            if(entry_data[i].Data.hide_type=='control'){
+                                var equal="="
+                                if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
+                                quest_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >\n';
+                            }
+                            if(entry_data[i].Data.hide_type=='end') quest_html += "</div>\n";
+                            break;
+                        case 'Vertical radio buttons':
+                            var width = ""
+                            if (entry_data[i].Data.five_options == '') {width = "";}
+                            else if (entry_data[i].Data.five_options == '1') {width = "width_btn_130";}
+                            else if (entry_data[i].Data.five_options == '2') {width = "width_btn_250";}
+                            else if (entry_data[i].Data.five_options == '3') {width = "width_btn_full"; }
+                                quest_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n';
+                                for (var k = 0; k < entry_data[i].Data.items_a.length; k++) {
+                                    quest_html += '<input id="'+entry_data[i].Data.db_name+'_'+k+'@@ID" type="radio" value="'+entry_data[i].Data.items_a[k].input_4_a+'"';
+                                    if(k==0) quest_html +=' >\n';
+                                    else quest_html +=' >\n'
+                                    quest_html +='<label id="'+entry_data[i].Data.db_name+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.db_name+'_'+k+'@@ID">'+entry_data[i].Data.items_a[k].input_5_a+'</label><br>\n';
+                                }
+                                if(entry_data[i].Data.specify_1!=""){
+                                    quest_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input type="text" class="formcontrol fullwidth">\n</div>\n';
+                                }
+                                quest_html += '</fieldset>\n</div>\n</div>\n';
+                            //m.item_a_fields = "Button text|input_5_a,Button value|input_4_a,_Remove";
+                            if(entry_data[i].Data.hide_type=='control'){
+                                var equal="="
+                                if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
+                                quest_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >\n';
+                            }
+                            if(entry_data[i].Data.hide_type=='end') quest_html += "</div>";
+                            break;
+                        case 'Vertical Checkboxes':
+                            var hide_db_name="";
+                            if (entry_data[i].Data.five_options == '') {width = "";}
+                            else if (entry_data[i].Data.five_options == '1') {width = "width_btn_130";}
+                            else if (entry_data[i].Data.five_options == '2') {width = "width_btn_250";}
+                            else if (entry_data[i].Data.five_options == '3') {width = "width_btn_full"; }
+
+                            quest_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n';
+                            for (var k = 0; k < entry_data[i].Data.items_a.length; k++) {
+                                quest_html += '<input id="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID" type="checkbox" value="'+entry_data[i].Data.items_a[k].input_4_a+'" >\n';
+                                quest_html +='<label id="'+entry_data[i].Data.input_3+'_button_text_'+k+'@@ID" class="rd_btn '+width+'" for="'+entry_data[i].Data.items_a[k].input_3_a+'_' + k + '@@ID"><span class="ticked">&check;&nbsp;&nbsp;&nbsp;</span>'+entry_data[i].Data.items_a[k].input_5_a+'</label><br>\n';
+                                if(entry_data[i].Data.hide_type=='control'){
+                                    if(entry_data[i].Data.items_a[k].input_4_a==entry_data[i].Data.start_hide_value){
+                                        hide_db_name=entry_data[i].Data.items_a[k].input_3_a;
+                                        console.log("k:"+hide_db_name)
+                                    }
+                                }
+                            }
+                            if(entry_data[i].Data.specify_1!=""){
+                                quest_html +='<div id="' + entry_data[i].Data.specify_2 + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input type="text" class="formcontrol fullwidth">\n</div>\n';
+                            }
+                            quest_html += '</fieldset>\n</div>\n</div>\n';
+                            if(entry_data[i].Data.hide_type=='control'){
+                                var equal="="
+                                if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
+                                quest_html +='<div id="' + hide_db_name + '_hide@@ID" >\n';
+                            }
+                            //m.item_a_fields = "Checkbox text|input_5_a,Checkbox value|input_4_a,Database Name|input_3_a,_Remove";
+                            if(entry_data[i].Data.hide_type=='end') quest_html += "</div>\n";
+                            break;
+                        case 'Dropdown List':
+                            quest_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<select id="' + entry_data[i].Data.db_name + '@@ID" class="formcontrol" >\n';
+                            for (var k= 0; k < entry_data[i].Data.items_a.length; k++) {
+                                quest_html += '<option value='+entry_data[i].Data.items_a[k].input_4_a+' >'+entry_data[i].Data.items_a[k].input_5_a+'</option>';
+                            }
+                            quest_html += '</select>\n'
+                            if(entry_data[i].Data.specify_1!=""){
+                                quest_html +='<div id="' + entry_data[i].Data.db_name + '_option@@ID" class="formgroup hide">\n<label><span class="question">' + entry_data[i].Data.specify_1 + '</span></label><br>\n<input type="text" class="formcontrol fullwidth">\n</div>\n';
+                            }
+                            quest_html +='</fieldset>\n</div>\n</div>\n';
+                            //m.item_a_fields = "Dropdown option text|input_5_a,Option value|input_4_a,_Remove";
+                            //console.log(JSON.stringify(entry_data[i]))
+                            if(entry_data[i].Data.hide_type=='control'){
+                                var equal="="
+                                if(entry_data[i].Data.start_hide_equal!='equal') equal="!"
+                                quest_html +='<div id="' + entry_data[i].Data.db_name + '_hide@@ID" >\n';
+                            }
+                            break;
+                        case 'Textarea':
+                            var specified_width="";
+                            if (entry_data[i].Data.input_9 == '1') specified_width = " fullwidth";
+                            quest_html += '<div class="formgroup">\n<div class="questiongroup">\n<fieldset class="">\n<span class="question"><p>'+entry_data[i].Data.main_label+'</p></span>\n<label>\n<span class="question">' + entry_data[i].Data.input_5 + '</span>\n<textarea class="formcontrol '+ specified_width +'" placeholder="'+entry_data[i].Data.label_1+'" ></textarea>\n</label>\n</fieldset>\n</div>\n</div>\n';
+                            break;
+                        }
+                        return quest_html;
+            }
+
+            //-------------------------------
+            m.submit=function(event){
+            //--------------------------------------------------------
+                event.preventDefault();
+                $('#submit__ID').hide();
+                //console.log(JSON.stringify(entry_data));
+                var rows = getRows();
+                for(var i = 0; i < rows.length; i++) {
+                        let rowElem = rows[i];
+                        var update=false;
+                        var exitOrder=$(rowElem).closest('tr').find("td:eq(0)").text()
+                        var data=entry_data[exitOrder].Data;
+                        var id=entry_data[exitOrder]._id;
+                        var index={};
+                        console.log("exitOrder: "+exitOrder)
+                        if(index.I1==i) {
+                            update=false;
+                        }
+                        else {
+                            update=true;
+                            index.I1=i;
+                        }
+                        if(data.layout=='Calculation'){
+                            if(index.I1==rows.length){
+                                update=false;  
+                            }
+                            else{
+                                index.I1=rows.length;
+                                update=true;
+                            }
+                        } 
+                        if(update){
+                            $vm.request({cmd:"update",id:id,table:m.Table,data:data,index:index},function(res){
+                                //-----------------------------
+                                if(res.status=="lk"){
+                                    $vm.alert("This record is locked.");
+                                    return;
+                                }
+                                //-----------------------------
+                                if(res.status=="np"){
+                                    alert("No permission to update this record.");
+                                    return;
+                                }
+                            });
+
+                        }
+                    //console.log(data);
+                    //console.log(index);
+                    //console.log(m.Table);
+                    //console.log(order[i]);
+                    //console.log($(rowElem).closest('tr').find("td:eq(0)").text());
+                }    
+            }
+            //---------------------
+            var noExtraRows=false;
+            var currRow = null,
+                dragElem = null,
+                mouseDownX = 0,
+                mouseDownY = 0,         
+                mouseX = 0,
+                mouseY = 0,      
+                mouseDrag = false;  
+                //--------------------
+                var init=function() {
+                    console.log("INIT");
+                    bindMouse();
+                }
+                //--------------------
+                var bindMouse=function(){
+                    document.addEventListener('mousedown', (event) => {
+                        console.log("target: "+event.target)
+                        if(event.button != 0) return true;
+                        
+                        let target = getTargetRow(event.target);
+                        console.log(target)
+                        if(target) {
+                            if(noExtraRows) return true;
+                            currRow = target;
+                            addDraggableRow(target);
+                            currRow.classList.add('is-dragging');
+
+                            let coords = getMouseCoords(event);
+                            mouseDownX = coords.x;
+                            mouseDownY = coords.y;
+                            ///console.log(mouseDownX+' | '+mouseDownY);
+                            mouseDrag = true;   
+                        }
+                    });
+                    document.addEventListener('mousemove', (event) => {
+                        if(!mouseDrag) return;
+                        
+                        let coords = getMouseCoords(event);
+                        mouseX = coords.x - mouseDownX;
+                        mouseY = coords.y - mouseDownY;
+                        if(mouseX<0) mouseX=0;
+                        //if(mouseY<0) mouseY=0;
+
+                        
+                        moveRow(mouseX, mouseY);
+                        //console.log(mouseX+' - '+mouseY);
+                    });
+                        
+                    document.addEventListener('mouseup', (event) => {
+                        if(!mouseDrag) return;
+                        
+                        currRow.classList.remove('is-dragging');
+                        table.removeChild(dragElem);
+                        
+                        dragElem = null;
+                        mouseDrag = false;
+                        noExtraRows=false;
+                    });    
+                }
+                //--------------------
+                var swapRow=function(row, index) {
+                    console.log("row: "+JSON.stringify(row)+" - "+index)
+                    let currIndex = Array.from(tbody.children).indexOf(currRow),
+                    row1 = currIndex > index ? currRow : row,
+                    row2 = currIndex > index ? row : currRow;
+                    tbody.insertBefore(row1, row2);
+                }
+                //--------------------
+                var  moveRow=function(x, y) {
+                    dragElem.style.transform = "translate3d(" + x + "px, " + y + "px, 0)";                    
+                    let	dPos = dragElem.getBoundingClientRect(),
+                        currStartY = dPos.y, currEndY = currStartY + dPos.height,
+                        rows = getRows();
+                    for(var i = 0; i < rows.length; i++) {
+                        let rowElem = rows[i],
+                            rowSize = rowElem.getBoundingClientRect(),
+                            rowStartY = rowSize.y, rowEndY = rowStartY + rowSize.height;
+                        if(currRow !== rowElem && isIntersecting(currStartY, currEndY, rowStartY, rowEndY)) {
+                        if(Math.abs(currStartY - rowStartY) < rowSize.height / 2)
+                            swapRow(rowElem, i);
+                        }
+                    }    
+                }
+                //--------------------
+                var addDraggableRow=function(target) { 
+                    console.log("Add Row"); 
+                    noExtraRows=true;  
+                    dragElem = target.cloneNode(true);
+                    dragElem.classList.add('draggable-table__drag');
+                    dragElem.style.height = getStyle(target, 'height');
+                    dragElem.style.background = getStyle(target, 'backgroundColor');     
+                    for(var i = 0; i < target.children.length; i++) {
+                        let oldTD = target.children[i],
+                            newTD = dragElem.children[i];
+                        newTD.style.width = getStyle(oldTD, 'width');
+                        newTD.style.height = getStyle(oldTD, 'height');
+                        newTD.style.padding = getStyle(oldTD, 'padding');
+                        newTD.style.margin = getStyle(oldTD, 'margin');
+                    }      
+                    table.appendChild(dragElem);
+                    let tPos = target.getBoundingClientRect(),
+                        dPos = dragElem.getBoundingClientRect();
+                    dragElem.style.bottom = ((dPos.y - tPos.y) - tPos.height) + "px";
+                    dragElem.style.left = "-1px";    
+                    document.dispatchEvent(new MouseEvent('mousemove',
+                        { view: window, cancelable: true, bubbles: true }
+                    ));    
+                }  
+                //--------------------
+                var getRows=function() {
+                    return table.querySelectorAll('tbody tr');
+                }    
+                //--------------------                
+                var getTargetRow=function(target) {
+                    let elemName = target.tagName.toLowerCase();
+                    if(elemName == 'tr') return target;
+                    if(elemName == 'td') return target.closest('tr');     
+                }
+                //--------------------
+                var getMouseCoords=function(event) {
+                    return {
+                        x: event.clientX,
+                        y: event.clientY
+                    };    
+                }  
+                //--------------------
+                var getStyle=function(target, styleName) {
+                    let compStyle = getComputedStyle(target),
+                        style = compStyle[styleName];
+
+                    return style ? style : null;
+                }  
+                //--------------------
+                var isIntersecting=function(min0, max0, min1, max1) {
+                    return Math.max(min0, max0) >= Math.min(min1, max1) &&
+                            Math.min(min0, max0) <= Math.max(min1, max1);
+                }            
+            }
+    </script>
+    <style>
+        /*VmInclude:__HOST__/assets/css/wapp-form.css*/
+        /*VmInclude:__HOST__/assets/css/drag-table.css*/
+        
+    </style>
+</div>

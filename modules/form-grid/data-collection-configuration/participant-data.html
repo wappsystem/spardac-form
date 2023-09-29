@@ -1,0 +1,29 @@
+<div id=D__ID>
+    <div>
+            <!--VmInclude:__HOST__/assets/html/grid.01.html-->
+        </div>
+    <script>
+        function F__ID(){
+            //-------------------------------------
+            VmInclude:'__HOST__/assets/js/grid.01.js'
+            //-------------------------------------
+            $('#title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name);            
+            //-------------------------------------
+            var fields="Name,_Preview";
+            m.fields="_Form,"+fields+",Submit_date,Submitted_by,_Delete"
+            //-------------------------------------
+            m.load=function(){
+                $('#nav_title__ID').text($vm.module_list[$vm.vm['__ID'].name].task_name+' - '+m.input.record.Data.Name);
+                console.log(JSON.stringify(m.input))
+                var form_id=m.input.record.UID;
+                m.query={"Data.Form_uid": {"$eq" : form_id.toString()}}
+                m.sort={"I1": 1}                   
+            }
+            //-------------------------------------
+        }
+    </script>
+    <style>
+        /*VmInclude:__HOST__/assets/css/grid.css*/
+        /*VmInclude:__HOST__/assets/css/wapp-form.css*/
+    </style>
+</div>
